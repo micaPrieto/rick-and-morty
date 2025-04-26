@@ -3,6 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { ApiResponse } from '../interfaces/api-item';
 import { Character } from '../interfaces/character.interface';
 import { CharacterMapper } from '../mapper/character.mapper';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,40 +14,67 @@ export class CharactersService {
 
   private baseUrl = 'https://rickandmortyapi.com/api';
 
-
   $characters = signal<Character[]>([]);
-  $charactersLoading = signal(true);
   $totalPages = signal(0);
 
-  getCharacters(page: number = 1)
+  isSearching = signal(false);
+  currentQuery = signal('');
+
+  $actualPage = signal(1);
+
+
+  getCharacters(page: number = 1): void
   {
+      this.isSearching.set(false);
      this.http.get<ApiResponse>(`${ this.baseUrl}/character`,   {
       params: {page}
       }).subscribe( (resp) =>{
         const characters = CharacterMapper.mapApiItemToCharacterArray(resp.results);
 
         this.$characters.set(characters);
-        this.$charactersLoading.set(false);
         this.$totalPages.set(resp.info.pages);
 
-        console.log({characters});
-        console.log(resp);
       })
   }
 
 
 
+  searchCharacters(query: string, page: number = 1): Observable<Character[]> {
+    this.isSearching.set(true);
+    this.currentQuery.set(query);
 
-
-
-/*
- //FORMA TRADICIONAL (La que aprendi en la facu)
-  getCharacters2(page: number = 1): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/character?page=${page}`);
+    return this.http.get<ApiResponse>(`${this.baseUrl}/character`, {
+      params: { name: query, page }
+    }).pipe(
+      map((resp) => {
+        this.$totalPages.set(resp.info.pages);
+        return CharacterMapper.mapApiItemToCharacterArray(resp.results);
+      })
+    );
   }
 
-  getCharacterById2(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/character/${id}`);
-  }
-    */
+  /*
+  searchCharacters(query:string, page: number = 1): Observable<Character[]>
+    {
+      this.isSearching.set(true);
+      this.currentQuery.set(query);
+
+      return this.http.get<ApiResponse>(`${ this.baseUrl}/character`,
+        {
+        params: {
+          name: query,
+          page: page,
+          }
+        })
+        .pipe(
+          map((resp) => {
+            // Guardamos la cantidad de páginas
+            this.$totalPages.set(resp.info.pages);
+            return resp.results;
+          }),
+          map((resp) => CharacterMapper.mapApiItemToCharacterArray(resp)),
+        )
+    }
+*/
+
 }

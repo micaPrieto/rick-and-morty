@@ -4,9 +4,13 @@
   <div class="row mb-4">
     <div class="col-12 col-md-6 mx-auto">
       <div class="input-group">
-        <input type="text" class="form-control bg-dark text-white" placeholder="Search...">
-        <!-- <input type="text" class="form-control bg-dark text-white" placeholder="Search..." [(ngModel)]="searchTerm"> -->
-        <button class="btn btn-primary" type="button" (click)="onSearch()">Search</button>
+       <input
+          type="text"
+          class="form-control bg-dark text-white"
+          placeholder="Buscar personaje..."
+          #txtSearch
+          >
+        <button class="btn btn-primary" type="button" (click)="onSearch(txtSearch.value)">Buscar</button>
       </div>
     </div>
   </div>
@@ -24,6 +28,9 @@
   </div>
 
   <!----------- Paginador ------------->
-  <app-pagination></app-pagination>
+  @if (showPagination) {
+    <app-pagination></app-pagination>
+  }
+
 
 </div>

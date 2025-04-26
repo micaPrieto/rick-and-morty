@@ -16,23 +16,25 @@ export class CharactersService {
 
   $characters = signal<Character[]>([]);
   $charactersLoading = signal(true);
-
+  $totalPages = signal(0);
 
   getCharacters(page: number = 1)
   {
      this.http.get<ApiResponse>(`${ this.baseUrl}/character`,   {
-      params: {
-        page: 1
-        }
+      params: {page}
       }).subscribe( (resp) =>{
         const characters = CharacterMapper.mapApiItemToCharacterArray(resp.results);
 
         this.$characters.set(characters);
         this.$charactersLoading.set(false);
+        this.$totalPages.set(resp.info.pages);
 
         console.log({characters});
+        console.log(resp);
       })
   }
+
+
 
 
 

@@ -1,8 +1,6 @@
-
-
 <div class="container-fluid py-4">
 
-  <!-- Search bar -->
+  <!------------ Buscador ---------------->
   <div class="row mb-4">
     <div class="col-12 col-md-6 mx-auto">
       <div class="input-group">
@@ -14,34 +12,67 @@
   </div>
 
 
-  <!-- Grid de Cards -->
+  <!------------ Lista de Cards ------------>
   <div class="row g-4">
 
     @for (character of $characters(); track $index) {
-      <div class="col-6 col-sm-4 col-md-3 col-lg-2" >
-           <app-card [character]="character"></app-card>
-        </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+      <app-card [character]="character"></app-card>
+    </div>
     }
 
   </div>
 
-  <!-- Paginador -->
+
+  <!----------- Paginador ------------->
   <nav class="mt-4 d-flex justify-content-center">
-    <ul class="pagination pagination-sm">
-      <li class="page-item" [class.disabled]="page === 1">
-        <button class="page-link bg-dark text-white border-secondary" (click)="prevPage()">Previous</button>
+    <ul class="pagination pagination-sm mb-0">
+
+      <!-- Boton anterior -->
+      <li class="page-item" [class.disabled]="$page() === 1">
+        <button
+          class="page-link bg-dark text-white border-secondary"
+          (click)="prevPage()"
+          > Anterior</button>
       </li>
 
-      <li class="page-item" *ngFor="let p of [].constructor(totalPages); let i = index">
-        <button class="page-link bg-dark text-white border-secondary" [class.active]="page === (i+1)"
-                (click)="goToPage(i+1)">
-          {{ i+1 }}
-        </button>
+
+      <!-- Botones numericos -->
+      @for (page of pagesToShow(); track $index)
+      {
+        <li class="page-item" [class.pag-activa]="page === $page()">
+          <button
+            class="page-link bg-dark text-white border-secondary"
+            (click)="goToPage(page)">
+            {{ page }}
+          </button>
+        </li>
+      }
+
+      <!-- Ultima pag -->
+      @if (pagesToShow()[pagesToShow().length - 1] < $totalPages()) {
+        <li class="page-item disabled">
+          <span class="page-link bg-dark text-white border-secondary">…</span>
+        </li>
+
+        <li class="page-item" [class.active]="$page() === $totalPages()">
+          <button
+            class="page-link bg-dark text-white border-secondary"
+
+            (click)="goToPage($totalPages())">
+            {{ $totalPages() }}
+          </button>
+        </li>
+      }
+
+      <!-- Boton siguiente -->
+      <li class="page-item" [class.disabled]="$page() === $totalPages()">
+        <button
+          class="page-link bg-dark text-white border-secondary"
+          (click)="nextPage()"
+          >Siguiente</button>
       </li>
 
-      <li class="page-item" [class.disabled]="page === totalPages">
-        <button class="page-link bg-dark text-white border-secondary" (click)="nextPage()">Next</button>
-      </li>
     </ul>
   </nav>
 

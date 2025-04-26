@@ -12,31 +12,44 @@ export class PaginationComponent {
   charactersService = inject(CharactersService)
 
   $totalPages = this.charactersService.$totalPages;
-  $page = signal(1);
+  $actualPage = this.charactersService.$actualPage;
 
 
-  getCharacters(page: number) {
-    this.$page.set(page);
-    this.charactersService.getCharacters(page);
+  getCharactersLocal(page: number) {
+    this.charactersService.$actualPage.set(page);
+    //this.charactersService.getCharacters(page);
+    if (this.charactersService.isSearching()) //Si estoy en modo busqueda
+    {
+      const query = this.charactersService.currentQuery(); //guardo el nombre buscado
+
+      this.charactersService.searchCharacters(query, page)
+        .subscribe((characters) => {
+          this.charactersService.$characters.set(characters);
+          console.log('PERSONAJES SIGUIENTE PAGINA:', this.charactersService.$characters());
+        });
+    } else {
+      this.charactersService.getCharacters(page);
+    }
+
   }
 
   prevPage() {
-    if (this.$page() > 1) {
-      this.getCharacters(this.$page() - 1);
+    if (this.$actualPage() > 1) {
+      this.getCharactersLocal(this.$actualPage() - 1);
     }
   }
 
   nextPage() {
     console.log(1);
-    if (this.$page() < this.$totalPages()) {
-      this.getCharacters(this.$page() + 1);
+    if (this.$actualPage() < this.$totalPages()) {
+      this.getCharactersLocal(this.$actualPage() + 1);
       console.log(2);
     }
   }
 
-  goToPage(p: number) {
-    this.$page.set(p);
-    this.getCharacters(p);
+  goToPage(page: number) {
+    this.charactersService.$actualPage.set(page);
+    this.getCharactersLocal(page);
   }
 
 
@@ -47,8 +60,8 @@ export class PaginationComponent {
     const visiblePages = 5; // Total de botones visibles
     const half = Math.floor(visiblePages / 2);
 
-    let start = this.$page() - half;
-    let end = this.$page() + half;
+    let start = this.$actualPage() - half;
+    let end = this.$actualPage() + half;
 
     // Ajuste si estoy al principio
     if (start < 1) {

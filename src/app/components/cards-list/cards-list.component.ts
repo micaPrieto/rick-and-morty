@@ -2,12 +2,10 @@ import { Component, computed, inject, input, OnInit, signal } from '@angular/cor
 import { CardComponent } from "../card/card.component";
 import { CommonModule } from '@angular/common';
 import { CharactersService } from '../../services/characters-service';
-import { PaginationComponent } from "../pagination/pagination.component";
-import { Character } from '../../interfaces/character.interface';
 
 @Component({
   selector: 'app-cards-list',
-  imports: [CardComponent, CommonModule, PaginationComponent],
+  imports: [CardComponent, CommonModule],
   templateUrl: './cards-list.component.html'
 })
 export class CardsListComponent implements OnInit {
@@ -15,7 +13,6 @@ export class CardsListComponent implements OnInit {
   charactersService = inject(CharactersService)
 
   $characters =this.charactersService.$characters;
-  showPagination : boolean = true;
 
   charactersFiltered: any;
   searchTerm: any;

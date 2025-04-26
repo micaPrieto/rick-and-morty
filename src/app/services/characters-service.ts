@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { ApiResponse } from '../interfaces/api-item';
+import { ApiItem, ApiResponse } from '../interfaces/api-item';
 import { Character } from '../interfaces/character.interface';
 import { CharacterMapper } from '../mapper/character.mapper';
 import { map, Observable } from 'rxjs';
@@ -10,12 +10,14 @@ import { map, Observable } from 'rxjs';
 })
 export class CharactersService {
 
+
   constructor(private http: HttpClient) {}
 
   private baseUrl = 'https://rickandmortyapi.com/api';
 
   $characters = signal<Character[]>([]);
   $totalPages = signal(0);
+  $characterSelected= signal<Character | null>(null);
 
   isSearching = signal(false);
   currentQuery = signal('');
@@ -23,21 +25,29 @@ export class CharactersService {
   $actualPage = signal(1);
 
 
+
+
   getCharacters(page: number = 1): void
   {
       this.isSearching.set(false);
-     this.http.get<ApiResponse>(`${ this.baseUrl}/character`,   {
+     this.http.get<ApiResponse>(`${ this.baseUrl}/character`,{
       params: {page}
       }).subscribe( (resp) =>{
         const characters = CharacterMapper.mapApiItemToCharacterArray(resp.results);
 
         this.$characters.set(characters);
         this.$totalPages.set(resp.info.pages);
-
       })
   }
 
-
+  getCharacterById(id: number): void {
+    this.isSearching.set(false);
+    this.http.get<Character>(`${this.baseUrl}/character/${id}`)
+      .subscribe((resp) => {
+        this.$characterSelected.set(resp);
+        console.log(1,resp);
+      });
+  }
 
   searchCharacters(query: string, page: number = 1): Observable<Character[]> {
     this.isSearching.set(true);

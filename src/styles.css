@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #1c1c1c; /* Fondo general oscuro */
+  color: #fff; /* Texto claro */
+}
+
+.card {
+ /*  Más chicas
+  max-width: 180px;
+  width: 100%;
+  margin: 0 auto;
+  */
+  transition: transform 0.2s ease-in-out;
+}
+
+.card-img-top {
+  height: 180px;
+  object-fit: cover;
+}
+
+
+.page-link.active {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}

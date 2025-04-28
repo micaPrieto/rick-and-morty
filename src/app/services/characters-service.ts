@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { ApiItem, ApiResponse } from '../interfaces/api-item';
+import { ApiItem, RESTCharacters } from '../interfaces/rest-characters.interface';
 import { Character } from '../interfaces/character.interface';
 import { CharacterMapper } from '../mapper/character.mapper';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,7 @@ export class CharactersService {
   getCharacters(page: number = 1): void
   {
       this.isSearching.set(false);
-     this.http.get<ApiResponse>(`${ this.baseUrl}/character`,{
+     this.http.get<RESTCharacters>(`${ this.baseUrl}/character`,{
       params: {page}
       }).subscribe( (resp) =>{
         const characters = CharacterMapper.mapApiItemToCharacterArray(resp.results);
@@ -50,41 +50,31 @@ export class CharactersService {
   }
 
   searchCharacters(query: string, page: number = 1): Observable<Character[]> {
-    this.isSearching.set(true);
-    this.currentQuery.set(query);
-
-    return this.http.get<ApiResponse>(`${this.baseUrl}/character`, {
-      params: { name: query, page }
-    }).pipe(
-      map((resp) => {
-        this.$totalPages.set(resp.info.pages);
-        return CharacterMapper.mapApiItemToCharacterArray(resp.results);
-      })
-    );
-  }
-
-  /*
-  searchCharacters(query:string, page: number = 1): Observable<Character[]>
-    {
       this.isSearching.set(true);
+      query = query.toLowerCase();
       this.currentQuery.set(query);
 
-      return this.http.get<ApiResponse>(`${ this.baseUrl}/character`,
-        {
-        params: {
-          name: query,
-          page: page,
-          }
-        })
-        .pipe(
-          map((resp) => {
-            // Guardamos la cantidad de páginas
+      return this.http.get<RESTCharacters>(`${this.baseUrl}/character`, {
+        params: { name: query, page }
+      })
+      .pipe(
+
+          map((resp) =>{
             this.$totalPages.set(resp.info.pages);
-            return resp.results;
+            return CharacterMapper.mapApiItemToCharacterArray(resp.results);
           }),
-          map((resp) => CharacterMapper.mapApiItemToCharacterArray(resp)),
-        )
-    }
-*/
+
+          catchError((error) => {
+            console.log('Error fetching', error);
+            return throwError(() => new Error(`No se logró obtener personajes con el nombre " ${query} "`));
+
+            //return of([]);// Version del chat para que no se rompa el flujo de ejecución
+          })
+
+      )
+  }
+
 
 }
+
+

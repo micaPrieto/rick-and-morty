@@ -12,13 +12,4 @@ export class CardComponent {
 
   @Input() character!: Character;
 
-  router = inject(Router);
-
-  irADetalles(id:number)
-  {
-    this.router.navigate([`characters/${id}`]);
-    console.log('entre');
-  }
-
-
 }

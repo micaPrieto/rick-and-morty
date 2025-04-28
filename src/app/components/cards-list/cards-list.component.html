@@ -1,31 +1,44 @@
 
 
-  <!------------ Buscador ---------------->
-  <div class="row mb-4">
-    <div class="col-12 col-md-6 mx-auto">
-      <div class="input-group">
-       <input
-          type="text"
-          class="form-control bg-dark text-white"
-          placeholder="Buscar personaje..."
-          (keyup.enter) = "onSearch(txtSearch.value)"
-          #txtSearch
-          >
-        <button class="btn btn-primary" type="button" (click)="onSearch(txtSearch.value)">Buscar</button>
+
+   @if ($isError()) {
+      <h3>{{ $isError()}}</h3>
+   }
+
+   @else {
+
+    <!------------ Buscador ---------------->
+    <div class="row mb-4">
+      <div class="col-12 col-md-6 mx-auto">
+        <div class="input-group">
+        <input
+            type="text"
+            class="form-control bg-dark text-white"
+            placeholder="Buscar personaje..."
+            (keyup.enter) = "onSearch(txtSearch.value)"
+            #txtSearch
+            >
+          <button class="btn btn-primary" type="button" (click)="onSearch(txtSearch.value)">Buscar</button>
+        </div>
       </div>
     </div>
-  </div>
+
+      <!------------ Lista de Cards ------------>
+      <div class="row g-4 mx-auto">
+          @for (character of $characters(); track $index) {
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+
+              <app-card [character]="character"></app-card>
+
+            </div>
+          }
+      </div>
+
+       <!------------ Paginador ------------>
+      <app-pagination></app-pagination>
+
+   }
 
 
-  <!------------ Lista de Cards ------------>
-  <div class="row g-4 mx-auto">
-
-    @for (character of $characters(); track $index) {
-    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-      <app-card [character]="character"></app-card>
-    </div>
-    }
-
-  </div>
 
 

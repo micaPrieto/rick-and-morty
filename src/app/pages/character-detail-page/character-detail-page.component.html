@@ -26,11 +26,13 @@
     <!-- Left column: Character Info -->
     <div class="col-md-4">
       <div class="card bg-dark text-white border-secondary">
-        <img
+
+          <img
           [src]="characterSelected()?.image"
-          class="card-img-top"
-          alt="Rick Sanchez"
-        >
+          class="img-fluid w-75 mx-auto mt-2 rounded"
+          alt="characterSelected()?.name"
+          >
+
         <div class="card-body">
           <h5 class="card-title border-bottom pb-2">Información del personaje</h5>
           <p class="mb-1"><strong>Nombre:</strong> {{characterSelected()?.name}}</p>

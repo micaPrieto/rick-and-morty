@@ -1,4 +1,4 @@
-export interface ApiResponse {
+export interface RESTCharacters {
   info:    Info;
   results: ApiItem[];
 }

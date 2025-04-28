@@ -1,31 +1,44 @@
 
 
-  <!------------ Buscador ---------------->
-  <div class="row mb-4">
-    <div class="col-12 col-md-6 mx-auto">
-      <div class="input-group">
-       <input
-          type="text"
-          class="form-control bg-dark text-white"
-          placeholder="Buscar personaje..."
-          (keyup.enter) = "onSearch(txtSearch.value)"
-          #txtSearch
-          >
-        <button class="btn btn-primary" type="button" (click)="onSearch(txtSearch.value)">Buscar</button>
-      </div>
+ <!------------ Buscador ---------------->
+ <div class="row mb-4">
+  <div class="col-12 col-md-6 mx-auto">
+    <div class="input-group">
+    <input
+        type="text"
+        class="form-control bg-dark text-white"
+        placeholder="Buscar personaje..."
+        (keyup.enter) = "onSearch(txtSearch.value)"
+        #txtSearch
+        >
+      <button class="btn btn-primary" type="button" (click)="onSearch(txtSearch.value)">Buscar</button>
     </div>
   </div>
+</div>
 
 
-  <!------------ Lista de Cards ------------>
-  <div class="row g-4 mx-auto">
+   @if (charactersService.$isError()) {
+      <h3>{{ charactersService.$isError()}}</h3>
+   }
 
-    @for (character of $characters(); track $index) {
-    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-      <app-card [character]="character"></app-card>
-    </div>
-    }
+   @else {
 
-  </div>
+        <!------------ Lista de Cards ------------>
+        <div class="row g-4 mx-auto">
+            @for (character of $characters(); track $index) {
+              <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+
+                <app-card [character]="character"></app-card>
+
+              </div>
+            }
+        </div>
+
+        <!------------ Paginador ------------>
+        <app-pagination></app-pagination>
+
+   }
+
+
 
 

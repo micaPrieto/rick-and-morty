@@ -11,8 +11,8 @@ import { CharactersService } from '../../services/characters-service';
 })
 export default class CharacterDetailPageComponent implements OnInit{
 
-  private charactersService = inject(CharactersService);
-  private activatedRoute = inject(ActivatedRoute);
+   charactersService = inject(CharactersService);
+   activatedRoute = inject(ActivatedRoute);
 
   characterSelected = this.charactersService.$characterSelected;
 
@@ -25,23 +25,4 @@ export default class CharacterDetailPageComponent implements OnInit{
     });
   }
 
-
-
-/*
-  private charactersService = inject(CharactersService);
-  private activatedRoute = inject(ActivatedRoute);
-
-  characterSelected = this.charactersService.$characterSelected;
-
-  ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
-      const id = params['id'];
-      if (id) {
-        this.charactersService.getCharacterById(+id); // El "+" fuerza a number
-        console.log('funcion ts',this.characterSelected);
-      }
-    });
-  }
-
-*/
 }

@@ -11,13 +11,14 @@ export class PaginationComponent {
 
   charactersService = inject(CharactersService)
 
-  $totalPages = this.charactersService.$totalPages;
-  $actualPage = this.charactersService.$actualPage;
+  $LocaltotalPages = this.charactersService.$totalPages;
+  $localActualPage = this.charactersService.$actualPage;
 
 
-  getCharactersLocal(page: number) {
+  getCharactersWithPage(page: number) {
+
     this.charactersService.$actualPage.set(page);
-    //this.charactersService.getCharacters(page);
+
     if (this.charactersService.isSearching()) //Si estoy en modo busqueda
     {
       const query = this.charactersService.currentQuery(); //guardo el nombre buscado
@@ -25,7 +26,6 @@ export class PaginationComponent {
       this.charactersService.searchCharacters(query, page)
         .subscribe((characters) => {
           this.charactersService.$characters.set(characters);
-          console.log('PERSONAJES SIGUIENTE PAGINA:', this.charactersService.$characters());
         });
     } else {
       this.charactersService.getCharacters(page);
@@ -33,35 +33,34 @@ export class PaginationComponent {
 
   }
 
-  prevPage() {
-    if (this.$actualPage() > 1) {
-      this.getCharactersLocal(this.$actualPage() - 1);
+  GoToprevPage() {
+    if (this.$localActualPage() > 1) {
+      this.getCharactersWithPage(this.$localActualPage() - 1);
     }
   }
 
-  nextPage() {
+  goToNextPage() {
     console.log(1);
-    if (this.$actualPage() < this.$totalPages()) {
-      this.getCharactersLocal(this.$actualPage() + 1);
+    if (this.$localActualPage() < this.$LocaltotalPages()) {
+      this.getCharactersWithPage(this.$localActualPage() + 1);
       console.log(2);
     }
   }
 
   goToPage(page: number) {
     this.charactersService.$actualPage.set(page);
-    this.getCharactersLocal(page);
+    this.getCharactersWithPage(page);
   }
-
 
 
   // Devuelve un array de páginas para mostrar alrededor de la página actual
   pagesToShow () {
-    const totalPages = this.$totalPages();
+    const totalPages = this.$LocaltotalPages();
     const visiblePages = 5; // Total de botones visibles
     const half = Math.floor(visiblePages / 2);
 
-    let start = this.$actualPage() - half;
-    let end = this.$actualPage() + half;
+    let start = this.$localActualPage() - half;
+    let end = this.$localActualPage() + half;
 
     // Ajuste si estoy al principio
     if (start < 1) {

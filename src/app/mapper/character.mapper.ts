@@ -1,26 +1,26 @@
 
 import { Character } from "../interfaces/character.interface";
-import { ApiResponse, ApiItem } from "../interfaces/api-item";
+import { ApiItem } from "../interfaces/rest-characters.interface";
 
 export class CharacterMapper{
 
-  static mapApiItemToCharacter(item: ApiItem): Character{
+  static mapApiItemToCharacter(apiItem: ApiItem): Character{
 
     return{
-       id:  item.id,
-       name: item.name ,
-       status: item.status,
-       species:  item.species,
-       gender:  item.gender,
-       origin:   item.origin,
-       location: item.location,
-       image:    item.image,
-       episodes: item.episode
+       id:  apiItem.id,
+       name: apiItem.name ,
+       status: apiItem.status,
+       species:  apiItem.species,
+       gender:  apiItem.gender,
+       origin:   apiItem.origin,
+       location: apiItem.location,
+       image:    apiItem.image,
+       episodes: apiItem.episode
     }
   }
 
-  static mapApiItemToCharacterArray(items: ApiItem[]): Character[]{
-    return items.map(this.mapApiItemToCharacter);
+  static mapApiItemToCharacterArray(apiItems: ApiItem[]): Character[]{
+    return apiItems.map(this.mapApiItemToCharacter);
   }
 }
 

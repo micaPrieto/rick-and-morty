@@ -1,15 +1,15 @@
 <div class="card bg-dark text-light border-0 shadow-sm h-100">
-  <img [src]="character.image" [alt]="character.name" class="card-img-top rounded-top">
+
+  <img
+    [src]="character.image"
+    [alt]="character.name"
+    class="card-img-top rounded-top"
+    >
+
   <div class="card-body text-center p-2">
     <h6 class="card-title m-0">{{character.name}}</h6>
     <a [routerLink]="['/characters', character.id]">Ver perfil</a>
   </div>
+
 </div>
 
-
-<!-- <div class="card bg-dark text-light border-0 shadow-sm h-100">
-  <img [src]="character.image" [alt]="character.name" class="card-img-top rounded-top">
-  <div class="card-body text-center p-2">
-    <h6 class="card-title m-0">{{ character.name }}</h6>
-  </div>
-</div> -->

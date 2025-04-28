@@ -2,10 +2,11 @@ import { Component, computed, inject, input, OnInit, signal } from '@angular/cor
 import { CardComponent } from "../card/card.component";
 import { CommonModule } from '@angular/common';
 import { CharactersService } from '../../services/characters-service';
+import { PaginationComponent } from "../pagination/pagination.component";
 
 @Component({
   selector: 'app-cards-list',
-  imports: [CardComponent, CommonModule],
+  imports: [CardComponent, CommonModule, PaginationComponent],
   templateUrl: './cards-list.component.html'
 })
 export class CardsListComponent implements OnInit {
@@ -25,8 +26,18 @@ export class CardsListComponent implements OnInit {
   onSearch(query:string){
     this.charactersService.$actualPage.set(1);
     this.charactersService.searchCharacters(query)
-    .subscribe(resp => {
-      this.$characters.set(resp);
+    .subscribe({
+      next: (characters) =>{
+        this.charactersService.$isError.set(null);
+        this.$characters.set(characters);
+      },
+      error:(err)=> {
+        console.log("Err:",err);
+        this.$characters.set([]);
+        this.charactersService.$isError.set(err);
+      },
     })
   }
+
 }
+

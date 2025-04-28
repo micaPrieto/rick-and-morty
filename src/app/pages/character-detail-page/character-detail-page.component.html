@@ -1,7 +1,7 @@
 
 <div class="container my-4">
-  <!-- Breadcrumb -->
 
+  <!-- Breadcrumb -->
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb bg-dark p-2 rounded">
       <li class="breadcrumb-item">
@@ -21,55 +21,65 @@
   </nav>
 
 
-  <!-- Main content -->
-  <div class="row mt-4">
-    <!-- Left column: Character Info -->
-    <div class="col-md-4">
-      <div class="card bg-dark text-white border-secondary">
+   @if (charactersService.$isError())
+   {
+      <h3>{{charactersService.$isError()}}</h3>
+   }
 
-          <img
-          [src]="characterSelected()?.image"
-          class="img-fluid w-75 mx-auto mt-2 rounded"
-          alt="characterSelected()?.name"
-          >
+   @else
+   {
+      <!-- Main content -->
+    <div class="row mt-4">
+      <!-- Información del peronaje. Comlumna derecha -->
+          <div class="col-md-4">
+            <div class="card bg-dark text-white border-secondary">
 
-        <div class="card-body">
-          <h5 class="card-title border-bottom pb-2">Información del personaje</h5>
-          <p class="mb-1"><strong>Nombre:</strong> {{characterSelected()?.name}}</p>
-          <p class="mb-1"><strong>Status:</strong> {{characterSelected()?.status}}</p>
-          <p class="mb-1"><strong>Especie:</strong> {{characterSelected()?.species}}</p>
-          <p class="mb-1"><strong>Género:</strong> {{characterSelected()?.gender}}</p>
-          <p class="mb-1">
+                <img
+                [src]="characterSelected()?.image"
+                class="img-fluid w-75 mx-auto mt-2 rounded"
+                alt="characterSelected()?.name"
+                >
 
-            <strong>Origen:</strong>
-            <a href="#" class="text-primary text-decoration-none">{{characterSelected()?.origin?.name}}</a>
-          </p>
-          <p class="mb-0">
-            <strong>Ubicacion:</strong>
-            <a href="#" class="text-primary text-decoration-none">{{characterSelected()?.location?.name}}</a>
-          </p>
+              <div class="card-body">
+                <h5 class="card-title border-bottom pb-2">Información del personaje</h5>
+                <p class="mb-1"><strong>Nombre:</strong> {{characterSelected()?.name}}</p>
+                <p class="mb-1"><strong>Status:</strong> {{characterSelected()?.status}}</p>
+                <p class="mb-1"><strong>Especie:</strong> {{characterSelected()?.species}}</p>
+                <p class="mb-1"><strong>Género:</strong> {{characterSelected()?.gender}}</p>
+                <p class="mb-1">
+
+                  <strong>Origen:</strong>
+                  <a href="#" class="text-primary text-decoration-none">{{characterSelected()?.origin?.name}}</a>
+                </p>
+                <p class="mb-0">
+                  <strong>Ubicacion:</strong>
+                  <a href="#" class="text-primary text-decoration-none">{{characterSelected()?.location?.name}}</a>
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Lista de episodios -->
+          <div class="col-md-8">
+            <div class="card bg-dark text-white border-secondary">
+              <div class="card-body">
+                <h5 class="card-title border-bottom pb-2">Lista de episodios en los que aparece</h5>
+                <ul class="list-unstyled">
+
+                  <li><a href="#" class="text-primary text-decoration-none">Episode 1 - Pilot</a></li>
+                  <li><a href="#" class="text-primary text-decoration-none">Episode 2 - Lawnmower Dog</a></li>
+                  <li><a href="#" class="text-primary text-decoration-none">Episode 3 - Anatomy Park</a></li>
+                  <!-- Agregar el resto de episodios igual -->
+                  <li><a href="#" class="text-primary text-decoration-none">(more)</a></li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
-      </div>
-    </div>
+   }
 
-    <!-- Right column: Episodes List -->
-    <div class="col-md-8">
-      <div class="card bg-dark text-white border-secondary">
-        <div class="card-body">
-          <h5 class="card-title border-bottom pb-2">Lista de episodios en los que aparece</h5>
-          <ul class="list-unstyled">
-
-            <li><a href="#" class="text-primary text-decoration-none">Episode 1 - Pilot</a></li>
-            <li><a href="#" class="text-primary text-decoration-none">Episode 2 - Lawnmower Dog</a></li>
-            <li><a href="#" class="text-primary text-decoration-none">Episode 3 - Anatomy Park</a></li>
-            <!-- Agregar el resto de episodios igual -->
-            <li><a href="#" class="text-primary text-decoration-none">(more)</a></li>
-
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </div>

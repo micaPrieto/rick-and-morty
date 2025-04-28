@@ -24,30 +24,45 @@ export class CharactersService {
 
   $actualPage = signal(1);
 
+  $isError = signal<string| null >(null); //Duplicada (en card-list), hasta resolver la duda de si el subscribe va en el componente o en el service.
 
 
-
-  getCharacters(page: number = 1): void
-  {
+  getCharacters(page: number = 1): void{
       this.isSearching.set(false);
      this.http.get<RESTCharacters>(`${ this.baseUrl}/character`,{
       params: {page}
-      }).subscribe( (resp) =>{
-        const characters = CharacterMapper.mapApiItemToCharacterArray(resp.results);
+      })
+      .subscribe({
+        next: (resp) =>{
+          const characters = CharacterMapper.mapApiItemToCharacterArray(resp.results);
 
-        this.$characters.set(characters);
-        this.$totalPages.set(resp.info.pages);
+          this.$characters.set(characters);
+          this.$totalPages.set(resp.info.pages);
+        },
+        error:(err)=> {
+          console.log("Err:",err);
+          this.$characters.set([]);
+          this.$isError.set("No se han encontrado persoanjes.");
+        },
       })
   }
 
   getCharacterById(id: number): void {
     this.isSearching.set(false);
     this.http.get<Character>(`${this.baseUrl}/character/${id}`)
-      .subscribe((resp) => {
+    .subscribe({
+      next: (resp) =>{
         this.$characterSelected.set(resp);
         console.log(1,resp);
-      });
+      },
+      error:(err)=> {
+        console.log("Err:",err);
+        this.$isError.set("No se ha encontrado el persoanje.");
+      },
+    })
   }
+
+
 
   searchCharacters(query: string, page: number = 1): Observable<Character[]> {
       this.isSearching.set(true);
@@ -67,13 +82,26 @@ export class CharactersService {
           catchError((error) => {
             console.log('Error fetching', error);
             return throwError(() => new Error(`No se logró obtener personajes con el nombre " ${query} "`));
-
-            //return of([]);// Version del chat para que no se rompa el flujo de ejecución
           })
 
       )
   }
 
+
+  /* Sin manejo de errores. Version Fernando
+  getCharacters(page: number = 1): void
+  {
+      this.isSearching.set(false);
+     this.http.get<RESTCharacters>(`${ this.baseUrl}/character`,{
+      params: {page}
+      }).subscribe( (resp) =>{
+        const characters = CharacterMapper.mapApiItemToCharacterArray(resp.results);
+
+        this.$characters.set(characters);
+        this.$totalPages.set(resp.info.pages);
+      })
+  }
+      */
 
 }
 

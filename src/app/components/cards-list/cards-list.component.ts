@@ -17,7 +17,6 @@ export class CardsListComponent implements OnInit {
 
   charactersFiltered: any;
   searchTerm: any;
-  $isError = signal<string|null>(null);
 
 
   ngOnInit(): void {
@@ -29,31 +28,16 @@ export class CardsListComponent implements OnInit {
     this.charactersService.searchCharacters(query)
     .subscribe({
       next: (characters) =>{
+        this.charactersService.$isError.set(null);
         this.$characters.set(characters);
       },
       error:(err)=> {
         console.log("Err:",err);
         this.$characters.set([]);
-        this.$isError.set(err);
+        this.charactersService.$isError.set(err);
       },
     })
   }
-
- /*
- //Version del chat para que no se rompa el flujo de ejecución. En el service, en vez del throw, retorno un array vacio.
-  onSearchIA(query: string) {
-    this.charactersService.$actualPage.set(1);
-    this.charactersService.searchCharacters(query)
-      .subscribe((characters) => {
-        if (characters.length === 0) {
-          this.$isError.set('No se encontraron personajes.');
-        } else {
-          this.$isError.set(null);
-        }
-        this.$characters.set(characters);
-      });
-  }
-*/
 
 }
 

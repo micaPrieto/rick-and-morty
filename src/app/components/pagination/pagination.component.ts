@@ -1,11 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CharactersService } from '../../services/characters-service';
 
 @Component({
   selector: 'app-pagination',
   imports: [],
-  templateUrl: './pagination.component.html',
-  styleUrl: './pagination.component.css'
+  templateUrl: './pagination.component.html'
 })
 export class PaginationComponent {
 

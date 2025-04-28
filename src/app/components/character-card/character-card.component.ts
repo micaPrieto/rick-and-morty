@@ -3,12 +3,11 @@ import { Character } from '../../interfaces/character.interface';
 import { Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-card',
+  selector: 'app-character-card',
   imports: [RouterLink,RouterModule],
-  templateUrl: './card.component.html',
-  styleUrl: './card.component.css'
+  templateUrl: './character-card.component.html'
 })
-export class CardComponent {
+export class CharacterCardComponent {
 
   @Input() character!: Character;
 

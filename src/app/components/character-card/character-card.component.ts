@@ -1,6 +1,6 @@
-import { Component, inject, Input } from '@angular/core';
-import { Character } from '../../interfaces/character.interface';
-import { Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
+import { Component,Input } from '@angular/core';
+import { Character } from '../../interfaces/characters/character.interface';
+import { RouterLink,RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-character-card',

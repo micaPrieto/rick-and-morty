@@ -7,7 +7,7 @@ export interface Character {
   origin: Location;
   location: Location;
   image: string;
-  episodes: string[];
+  episode: string[];
 }
 
 export interface Location {

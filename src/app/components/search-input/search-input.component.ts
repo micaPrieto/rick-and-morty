@@ -1,6 +1,6 @@
 import { Component, inject, output } from '@angular/core';
 import { CharactersService } from '../../services/characters-service';
-import { Character } from '../../interfaces/character.interface';
+import { Character } from '../../interfaces/characters/character.interface';
 
 @Component({
   selector: 'app-search-input',

@@ -1,0 +1,11 @@
+.alive {
+  color: green;
+}
+
+.dead {
+  color: red;
+}
+
+.unknown {
+  color: yellow;
+}

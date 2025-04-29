@@ -1,6 +1,6 @@
 
-import { Character } from "../interfaces/character.interface";
-import { ApiItem } from "../interfaces/rest-characters.interface";
+import { Character } from "../interfaces/characters/character.interface";
+import { ApiItem } from "../interfaces/characters/rest-characters.interface";
 
 export class CharacterMapper{
 
@@ -15,7 +15,7 @@ export class CharacterMapper{
        origin:   apiItem.origin,
        location: apiItem.location,
        image:    apiItem.image,
-       episodes: apiItem.episode
+       episode: apiItem.episode
     }
   }
 

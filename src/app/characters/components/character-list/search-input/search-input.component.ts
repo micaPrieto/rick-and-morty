@@ -18,13 +18,12 @@ export class SearchInputComponent {
     this.charactersService.searchCharacters(query)
     .subscribe({
       next: (characters) =>{
-        this.charactersService.$isError.set(null);
         this.$characters.emit(characters);
-        //this.$characters.set(characters);
+          // Desplazar automáticamente al inicio de la página
+          window.scrollTo({ top: 0, behavior: 'smooth' });
       },
       error:(err)=> {
         console.log("Err:",err);
-        //this.$characters.set([]);
         this.$characters.emit([]);
         this.charactersService.$isError.set(err);
       },

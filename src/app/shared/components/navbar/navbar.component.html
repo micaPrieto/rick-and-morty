@@ -4,7 +4,7 @@
     <a
       class="navbar-brand navbar-logo"
       routerLink="/"
-       routerLinkActive="active"
+      routerLinkActive="active"
        >Rick & Morty
     </a>
 
@@ -28,8 +28,9 @@
         <li class="nav-item">
           <a
             class="nav-link"
-            routerLink="/characters"
-             routerLinkActive="active"
+            (click)="goToCharacters()"
+            [class.active]="isCharactersRoute"
+            role="button"
              >Personajes
           </a>
         </li>

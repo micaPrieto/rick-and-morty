@@ -25,6 +25,8 @@ export class PaginationComponent {
       this.charactersService.searchCharacters(query, page)
         .subscribe((characters) => {
           this.charactersService.$characters.set(characters);
+            // Desplazar automáticamente al inicio de la página
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     } else {
       this.charactersService.getCharacters(page);

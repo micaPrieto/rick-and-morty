@@ -41,6 +41,9 @@ export class CharactersService {
 
           this.$characters.set(characters);
           this.$totalPages.set(resp.info.pages);
+
+          // Desplazar automáticamente al inicio de la página
+           window.scrollTo({ top: 0, behavior: 'smooth' });
         },
         error:(err)=> {
           console.log("Error getCharaters: ",err);
@@ -80,7 +83,6 @@ export class CharactersService {
       next: (character) =>{
         this.$characterSelected.set(character);
         this.episodesService.getCharacterEpisodes(character)
-
         console.log(character);
       },
       error:(err)=> {

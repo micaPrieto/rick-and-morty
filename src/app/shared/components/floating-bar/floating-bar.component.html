@@ -1,0 +1,25 @@
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-dark p-2 rounded">
+    <li class="breadcrumb-item">
+      <a
+      class="text-primary text-decoration-none"
+      routerLink="/"
+      routerLinkActive="active"
+      >Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a
+        class="text-primary text-decoration-none"
+        routerLink="/characters"
+        routerLinkActive="active"
+        >/ Characters
+      </a>
+    </li>
+    <li
+      class="breadcrumb-item active text-white"
+      routerLinkActive="active"
+      aria-current="page"
+      >/ {{actualCharacter()?.name}}</li>
+  </ol>
+</nav>

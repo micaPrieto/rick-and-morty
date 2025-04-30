@@ -12,12 +12,12 @@
   <h5 class="card-title border-bottom pb-2">Información del personaje</h5>
   <p class="mb-1"><strong>Nombre:</strong> {{characterSelected()?.name}}</p>
   <p class="mb-1"><strong>Especie:</strong> {{characterSelected()?.species}}</p>
-  <p class="mb-1"><strong>Género:</strong> {{characterSelected()?.gender}}</p>
+  <p class="mb-1"><strong>Género:</strong> {{characterSelected()?.gender | translaterCharacterInfo}}
 
   <p class="mb-1">
     <strong>Status: </strong>
     <span *ngIf="characterSelected() as character" [ngClass]="character.status.toLowerCase()">
-      {{ character.status }}
+      {{ character.status | translaterCharacterInfo }}
     </span>
   </p>
 

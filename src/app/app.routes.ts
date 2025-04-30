@@ -1,16 +1,28 @@
 import { Routes } from '@angular/router';
+import { NotFoundComponent } from './shared/pages/not-found/not-found.component';
+import { HomePageComponent } from './shared/pages/home-page/home-page.component';
+import CharacterDetailPageComponent from './characters/pages/character-detail-page/character-detail-page.component';
+import CharactersListPageComponent from './characters/pages/characters-list-page/characters-list-page.component';
 
 export const routes: Routes = [
   {
     path: 'characters',
-    loadComponent:() => import('./pages/characters-page/characters-page.component'),
+    component: CharactersListPageComponent,
   },
   {
     path: 'characters/:id',
-    loadComponent:() => import('./pages/character-detail-page/character-detail-page.component')
+    component: CharacterDetailPageComponent,
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
+  },
+  {
+    path: '',
+    component : HomePageComponent,
   },
   {
     path: '**',
-    redirectTo: 'characters'
+    redirectTo: 'not-found'
   }
 ];

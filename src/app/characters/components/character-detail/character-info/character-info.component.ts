@@ -2,12 +2,15 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CharactersService } from '../../../services/characters-service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { translaterCharacterInfo } from '../../../pipes/translater-character-info.pipe';
 
 @Component({
   selector: 'app-character-info',
-  imports: [CommonModule],
-  templateUrl: './character-info.component.html'
+  imports: [CommonModule, translaterCharacterInfo],
+  templateUrl: './character-info.component.html',
+  styleUrl: './character-info.component.css'
 })
+
 export class CharacterInfoComponent  implements OnInit{
 
   charactersService = inject(CharactersService);
@@ -19,7 +22,6 @@ export class CharacterInfoComponent  implements OnInit{
   ngOnInit(): void {
     this.getCharacterById();
   }
-
 
   getCharacterById()
   {

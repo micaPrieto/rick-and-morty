@@ -1,0 +1,27 @@
+
+<div class="container my-4">
+
+  <app-floating-bar></app-floating-bar>
+
+   @if (charactersService.$isError())
+   {
+      <h3>{{charactersService.$isError()}}</h3>
+   }
+   @else
+   {
+    <div class="row mt-4">
+
+         <!-- Información del peronaje. Comlumna derecha -->
+          <div class="col-md-4">
+              <app-character-info></app-character-info>
+          </div>
+
+          <!-- Lista de episodios. Recuadro izquierdo-->
+          <div class="col-md-8">
+            <app-character-episodes-list></app-character-episodes-list>
+          </div>
+
+    </div>
+   }
+
+</div>

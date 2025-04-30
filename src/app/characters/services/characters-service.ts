@@ -14,23 +14,24 @@ const API_URL = 'https://rickandmortyapi.com/api';
 })
 export class CharactersService {
 
-  constructor(private http: HttpClient) {}
-
+  //constructor(private http: HttpClient) {}
+  private http =inject(HttpClient);
   private episodesService = inject(EpisodesService);
 
   $characters = signal<Character[]>([]);
   $characterSelected= signal<Character | null>(null);
 
-  $totalPages = signal(0);
-  $actualPage = signal(1);
+  $totalPages = signal<number>(0);
+  $actualPage = signal<number>(1);
 
-  $isSearching = signal(false); //Por el Paginador
-  $currentQuery = signal('');
+  $isSearching = signal<boolean>(false); //Por el Paginador
+  $currentQuery = signal<string>('');
 
   $isError = signal<string| null >(null);
 
   getCharacters(page: number = 1): void{
     this.$isSearching.set(false);
+    this.$isError.set(null);
 
      this.http.get<RESTCharacters>(`${API_URL}/character`,{
       params: {page}
@@ -42,7 +43,6 @@ export class CharactersService {
           this.$characters.set(characters);
           this.$totalPages.set(resp.info.pages);
 
-          // Desplazar automáticamente al inicio de la página
            window.scrollTo({ top: 0, behavior: 'smooth' });
         },
         error:(err)=> {
@@ -55,6 +55,7 @@ export class CharactersService {
 
   searchCharacters(query: string, page: number = 1): Observable<Character[]> {
       this.$isSearching.set(true);
+      this.$isError.set(null);
 
       query = query.toLowerCase();
       this.$currentQuery.set(query);
@@ -92,6 +93,24 @@ export class CharactersService {
     })
   }
 
+  /* // SIN EL SUBSCRIBE
+  getCharacterById(id: number): void {
+    this.isSearching.set(false);
+    this.http.get<Character>(`${this.baseUrl}/character/${id}`)
+    .pipe(
+      map((resp) =>{
+        this.$characterSelected.set(resp);
+        return CharacterMapper.mapApiItemToCharacterArray(resp.results);
+      }),
+
+      catchError((error) => {
+        console.log('Error fetching', error);
+        return throwError(() => new Error(`No se logró obtener personajes con el nombre " ${query} "`));
+      })
+  )
+  }
+*/
+
   //* SEARCH: Retornando un array vacío en aso de error
  /* searchCharacters2(query: string, page: number = 1): Observable<Character[]> {
     this.$isSearching.set(true);
@@ -112,24 +131,6 @@ export class CharactersService {
         return of([]); // devolvemos un array vacío, así el flujo sigue
       })
     );
-  }
-*/
-
-  /* // SIN EL SUBSCRIBE
-  getCharacterById(id: number): void {
-    this.isSearching.set(false);
-    this.http.get<Character>(`${this.baseUrl}/character/${id}`)
-    .pipe(
-      map((resp) =>{
-        this.$characterSelected.set(resp);
-        return CharacterMapper.mapApiItemToCharacterArray(resp.results);
-      }),
-
-      catchError((error) => {
-        console.log('Error fetching', error);
-        return throwError(() => new Error(`No se logró obtener personajes con el nombre " ${query} "`));
-      })
-  )
   }
 */
 

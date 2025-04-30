@@ -1,5 +1,5 @@
-import { Episode } from "../interfaces/episodes/episode.interface";
-import { ApiEpisode, RESTEpisode } from "../interfaces/episodes/rest-episode.interface";
+import { Episode } from "../interfaces/episode.interface";
+import { ApiEpisode } from "../interfaces/rest-episode.interface";
 
 export class EpisodeMapper{
 

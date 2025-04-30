@@ -18,6 +18,7 @@ export interface Location {
 
 
 //------------- Enums ----------------
+//! SEPARAR en diferentes componentes
 export enum Gender {
   Female = "Female",
   Male = "Male",

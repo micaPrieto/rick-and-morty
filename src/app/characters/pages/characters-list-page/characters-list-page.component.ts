@@ -19,11 +19,7 @@ import { PaginationComponent } from '../../components/character-list/pagination/
 export default class CharactersListPageComponent implements OnInit {
 
   charactersService = inject(CharactersService)
-
   $characters =this.charactersService.$characters;
-
-  charactersFiltered: any;
-  searchTerm: any;
 
 
   ngOnInit(): void {

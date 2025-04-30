@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CharactersService } from '../../../services/characters-service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -18,7 +18,6 @@ export class CharacterInfoComponent  implements OnInit{
 
   characterSelected = this.charactersService.$characterSelected;
 
-
   ngOnInit(): void {
     this.getCharacterById();
   }
@@ -33,5 +32,7 @@ export class CharacterInfoComponent  implements OnInit{
       }
     });
   }
+
+
 
 }

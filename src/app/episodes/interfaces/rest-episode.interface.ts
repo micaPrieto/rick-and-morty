@@ -1,6 +1,6 @@
 export interface RESTEpisode {
   info:    Info;
-  results: ApiEpisode[];
+  results: Episode[];
 }
 
 export interface Info {
@@ -10,7 +10,7 @@ export interface Info {
   prev:  string| null;
 }
 
-export interface ApiEpisode {
+export interface Episode {
   id:         number;
   name:       string;
   air_date:   string;
@@ -19,3 +19,16 @@ export interface ApiEpisode {
   url:        string;
   created:    Date;
 }
+
+//! Esta respuesta de la api, tambien hay que separarla en distintos archivos?
+
+/*export interface Episode {
+  id: number;
+  name: string;
+  air_date: string;
+  episode: string;
+  characters: string[];
+  url: string;
+  created:    Date;
+}
+ */

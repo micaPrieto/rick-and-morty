@@ -2,6 +2,7 @@ import { Character } from "../interfaces/character.interface";
 import { ApiItem } from "../interfaces/rest-characters.interface";
 
 
+
 export class CharacterMapper{
 
   static mapApiItemToCharacter(apiItem: ApiItem): Character{
@@ -12,7 +13,7 @@ export class CharacterMapper{
        status: apiItem.status,
        species:  apiItem.species,
        gender:  apiItem.gender,
-       origin:   apiItem.origin,
+       origin:   apiItem.location,
        location: apiItem.location,
        image:    apiItem.image,
        episode: apiItem.episode

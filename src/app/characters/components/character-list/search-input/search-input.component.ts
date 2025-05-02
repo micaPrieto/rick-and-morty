@@ -14,18 +14,7 @@ export class SearchInputComponent {
     this.charactersService.$actualPage.set(1);
 
     this.charactersService.searchCharacters(query)
-    .subscribe({
-      next: (characters) =>{
 
-        this.charactersService.$characters.set(characters);
-         window.scrollTo({ top: 0, behavior: 'smooth' });
-      },
-      error:(err)=> {
-        //console.log("Err:",err);
-        this.charactersService.$characters.set([]);
-        this.charactersService.$isError.set(err);
-      },
-    })
   }
 
 }

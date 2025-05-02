@@ -20,14 +20,10 @@ export class PaginationComponent {
 
     if (this.charactersService.$isSearching()) //Si estoy en modo busqueda
     {
-      const query = this.charactersService.$currentQuery(); //guardo el nombre buscado
+      const query = this.charactersService.$currentQuery();
 
-      this.charactersService.searchCharacters(query, page)
-        .subscribe((characters) => {
-          this.charactersService.$characters.set(characters); //! MANDAR AL SERVICE
-          // Desplazar automáticamente al inicio de la página
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+      this.charactersService.searchCharacters(query, page);
+
     } else {
       this.charactersService.getCharacters(page);
     }

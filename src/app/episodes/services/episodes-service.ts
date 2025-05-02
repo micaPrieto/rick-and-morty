@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Character } from '../../characters/interfaces/character.interface';
-import { Episode } from '../interfaces/episode.interface';
 import { forkJoin, Observable } from 'rxjs';
+import { Episode } from '../interfaces/rest-episode.interface';
 
+const API_URL = 'https://rickandmortyapi.com/api'
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,6 @@ import { forkJoin, Observable } from 'rxjs';
 export class EpisodesService {
 
   constructor(private http: HttpClient) {}
-  //
-
-  private baseUrl = 'https://rickandmortyapi.com/api';
 
   $episodes= signal<Episode[] | null>(null);
 
@@ -24,7 +22,6 @@ export class EpisodesService {
   }
 
   getCharacterEpisodes(character: Character) {
-
     if (character.episode?.length) {
       this.getEpisodes(character.episode)
         .subscribe({
@@ -33,7 +30,7 @@ export class EpisodesService {
             console.log(episodes);
           },
           error: (err) => {
-            console.log("Error:", err);
+            console.log("Error al acceder a los episodios");
           }
         });
     }

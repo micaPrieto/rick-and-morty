@@ -1,6 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CharactersService } from '../../../characters/services/characters-service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Character } from '../../../characters/interfaces/character.interface';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -8,9 +10,26 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './floating-bar.component.html'
 })
-export class FloatingBarComponent {
+export class FloatingBarComponent  implements OnInit{
 
-  charactersService = inject(CharactersService);
-  actualCharacter = this.charactersService.$characterSelected;
+  actualCharacter : Character | null = null;
+
+  private subscription!: Subscription;
+
+  constructor(
+    private charactersService: CharactersService
+  ) {}
+
+  ngOnInit(): void {
+
+    this.subscription = this.charactersService.characterSelected.subscribe((character) => {
+      this.actualCharacter  = character;
+    });
+
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
 }

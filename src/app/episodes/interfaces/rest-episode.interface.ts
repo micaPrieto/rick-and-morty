@@ -20,8 +20,7 @@ export interface Episode {
   created:    Date;
 }
 
-//! Esta respuesta de la api, tambien hay que separarla en distintos archivos?
-
+//? Esta respuesta de la api, tambien hay que separarla en distintos archivos?
 /*export interface Episode {
   id: number;
   name: string;

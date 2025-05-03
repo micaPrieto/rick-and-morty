@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { RESTCharacters } from '../interfaces/rest-characters.interface';
 import { Character } from '../interfaces/character.interface';
-import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, throwError } from 'rxjs';
 import { EpisodesService } from '../../episodes/services/episodes-service';
 import { CharacterMapper } from '../mapper/character.mapper';
 
@@ -19,21 +19,22 @@ export class CharactersService {
     private episodesService: EpisodesService
   ) {}
 
-  $characters = signal<Character[]>([]);
-  $characterSelected= signal<Character | null>(null);
+  characters = new BehaviorSubject<Character[]>([]);
+  characterSelected = new BehaviorSubject<Character | null>(null);
 
-  $totalPages = signal<number>(0);
-  $actualPage = signal<number>(1);
+  totalPages = new BehaviorSubject<number>(0);
+  actualPage = new BehaviorSubject<number>(1);
 
-  $isSearching = signal<boolean>(false); //Por el Paginador
-  $currentQuery = signal<string>('');
+  isSearching = new BehaviorSubject<boolean>(false);
+  currentQuery = new BehaviorSubject<string>('');
 
-  $isError = signal<string| null >(null);
+  isError = new BehaviorSubject<string | null>(null);
 
   getCharacters(page: number = 1): void
   {
-    this.$isSearching.set(false);
-    this.$isError.set(null);
+    this.isSearching.next(false);
+    this.isError.next(null);
+    this.characterSelected.next(null);
 
      this.http.get<RESTCharacters>(`${API_URL}/character`,{
       params: {page}
@@ -42,60 +43,62 @@ export class CharactersService {
         next: (resp) =>{
           const characters = CharacterMapper.mapApiItemToCharacterArray(resp.results);
 
-          this.$characters.set(characters);
-          this.$totalPages.set(resp.info.pages);
+          this.characters.next(characters);
+          this.totalPages.next(resp.info.pages);
 
            window.scrollTo({ top: 0, behavior: 'smooth' });
         },
         error:(err)=> {
           console.log("Error getCharaters: ",err);
-          this.$characters.set([]);
-          this.$isError.set("No se han encontrado persoanjes.");
+          this.characters.next([]);
+          this.isError.next("Ha ocurrido un error al cargar los datos");
         },
       })
   }
 
   searchCharacters(query: string, page: number = 1): void
   {
-      this.$isSearching.set(true);
-      this.$isError.set(null);
+      this.isSearching.next(true);
+      this.isError.next(null);
 
       query = query.toLowerCase();
-      this.$currentQuery.set(query);
+      this.currentQuery.next(query);
 
        this.http.get<RESTCharacters>(`${API_URL}/character`, {
         params: { name: query, page }
       })
       .subscribe({
         next: (resp) =>{
-          this.$totalPages.set(resp.info.pages);
+          this.totalPages.next(resp.info.pages);
           const characters = CharacterMapper.mapApiItemToCharacterArray(resp.results);
-          this.$characters.set(characters);
+          this.characters.next(characters);
 
-           window.scrollTo({ top: 0, behavior: 'smooth' });
+          console.log('Personajes encontrados: ',resp);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         },
         error:(err)=> {
           console.log("Err:",err);
-          this.$characters.set([]);
-          this.$isError.set(`No se logró obtener personajes con el nombre: "${query}"`);
+          this.characters.next([]);
+          this.isError.next(`No se logró obtener personajes con el nombre: "${query}"`);
         },
       })
   }
 
   getCharacterById(id: number): void {
-    this.$isSearching.set(false);
+     this.isError.next(null);
+     this.isSearching.next(false);
+
     this.http.get<Character>(`${API_URL}/character/${id}`)
     .subscribe({
       next: (character) =>{
-        this.$characterSelected.set(character);
+        this.characterSelected.next(character);
         this.episodesService.getCharacterEpisodes(character)
 
-        console.log(character);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        console.log('Personaje encontrado: ',character);
       },
       error:(err)=> {
         console.log("Error getCharacterById: ",err);
-        this.$isError.set("No se ha encontrado el persoanje.");
+        this.isError.next("No se ha encontrado el persoanje.");
       },
     })
   }

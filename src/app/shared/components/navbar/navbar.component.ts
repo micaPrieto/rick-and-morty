@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
-import { filter } from 'rxjs';
+import { Component } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CharactersService } from '../../../characters/services/characters-service';
 
 @Component({
@@ -11,14 +10,12 @@ import { CharactersService } from '../../../characters/services/characters-servi
 export class NavbarComponent {
   isCharactersRoute = false;
 
-  router = inject(Router);
-  charactersService = inject(CharactersService);
+  constructor(
+    private router :Router
+    ){}
 
 
   goToCharacters() {
-    // Limpiar si hay un error antes de navegar
-    this.charactersService.$isError.set(null);
-
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate(['/characters']);
     });

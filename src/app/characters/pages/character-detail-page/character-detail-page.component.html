@@ -3,9 +3,9 @@
 
   <app-floating-bar></app-floating-bar>
 
-   @if (charactersService.$isError())
+   @if (isError)
    {
-      <h3>{{charactersService.$isError()}}</h3>
+      <h3>{{isError}}</h3>
    }
    @else
    {

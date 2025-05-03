@@ -9,15 +9,15 @@
 
      <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 60vh;">
 
-       @if (charactersService.$isError())
+        @if (isError)
        {
-           <h3>{{ charactersService.$isError()}}</h3>
+           <h3>{{ isError }}</h3>
        }
        @else
        {
           <!------------ Lista de Cards ------------>
           <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 mx-auto">
-              @for (character of $characters(); track $index) {
+              @for (character of characters; track $index) {
                 <div class="col">
                   <app-character-card [character]="character"></app-character-card>
 

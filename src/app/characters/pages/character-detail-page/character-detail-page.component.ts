@@ -12,5 +12,15 @@ import { CharacterInfoComponent } from "../../components/character-detail/charac
 })
 export default class CharacterDetailPageComponent{
 
-  charactersService = inject(CharactersService);
+  isError : any;
+
+  constructor(
+    private charactersService: CharactersService
+  ) {}
+
+  ngOnInit(): void {
+    this.charactersService.isError.subscribe(err => {
+      this.isError = err;
+    });
+  }
 }

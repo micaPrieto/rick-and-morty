@@ -4,6 +4,7 @@ import {CharacterCardComponent } from "../../components/character-list/character
 import { SearchInputComponent } from "../../components/character-list/search-input/search-input.component";
 import { FloatingBarComponent } from "../../../shared/components/floating-bar/floating-bar.component";
 import { PaginationComponent } from '../../components/character-list/pagination/pagination.component';
+import { Character } from '../../interfaces/character.interface';
 
 
 @Component({
@@ -18,12 +19,23 @@ import { PaginationComponent } from '../../components/character-list/pagination/
 })
 export default class CharactersListPageComponent implements OnInit {
 
-  charactersService = inject(CharactersService)
-  $characters =this.charactersService.$characters;
+  characters : Character[] = [];
+  isError : any;
 
+
+  constructor(
+    private charactersService: CharactersService
+  ) {}
 
   ngOnInit(): void {
-    this.charactersService.$characterSelected.set(null);
+
+    this.charactersService.characters.subscribe((data) => {
+      this.characters = data;
+    });
+
+    this.charactersService.isError.subscribe(err => {
+      this.isError = err;
+    });
 
     this.charactersService.getCharacters(1);
   }

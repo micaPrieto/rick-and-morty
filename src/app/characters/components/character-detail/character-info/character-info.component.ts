@@ -3,6 +3,7 @@ import { CharactersService } from '../../../services/characters-service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { translaterCharacterInfo } from '../../../pipes/translater-character-info.pipe';
+import { Character } from '../../../interfaces/character.interface';
 
 @Component({
   selector: 'app-character-info',
@@ -13,26 +14,30 @@ import { translaterCharacterInfo } from '../../../pipes/translater-character-inf
 
 export class CharacterInfoComponent  implements OnInit{
 
-  charactersService = inject(CharactersService);
-  activatedRoute = inject(ActivatedRoute);
+  characterSelected : Character | null = null;
 
-  characterSelected = this.charactersService.$characterSelected;
+  constructor(
+    private charactersService: CharactersService,
+    private activatedRoute : ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.getCharacterById();
+
+    this.charactersService.characterSelected.subscribe((character) => {
+      this.characterSelected  = character;
+    });
+
   }
 
-  getCharacterById()
-  {
+  getCharacterById() {
     this.activatedRoute.params.subscribe((params) => {
       const id = params['id'];
       if (id) {
         this.charactersService.getCharacterById(+id)
-        //console.log("Episodios del personaje actual:", this.$episodes);
       }
     });
   }
-
 
 
 }

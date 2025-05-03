@@ -3,32 +3,32 @@
 <div class="card bg-dark text-white border-secondary">
 
   <img
-  [src]="characterSelected()?.image"
+  [src]="characterSelected?.image"
   class="img-fluid w-75 mx-auto mt-2 rounded"
   alt="characterSelected()?.name"
   >
 
 <div class="card-body">
   <h5 class="card-title border-bottom pb-2">Información del personaje</h5>
-  <p class="mb-1"><strong>Nombre:</strong> {{characterSelected()?.name}}</p>
-  <p class="mb-1"><strong>Especie:</strong> {{characterSelected()?.species}}</p>
-  <p class="mb-1"><strong>Género:</strong> {{characterSelected()?.gender | translaterCharacterInfo}}
+  <p class="mb-1"><strong>Nombre:</strong> {{characterSelected?.name}}</p>
+  <p class="mb-1"><strong>Especie:</strong> {{characterSelected?.species}}</p>
+  <p class="mb-1"><strong>Género:</strong> {{characterSelected?.gender | translaterCharacterInfo}}
 
   <p class="mb-1">
     <strong>Status: </strong>
-    <span *ngIf="characterSelected() as character" [ngClass]="character.status.toLowerCase()">
+    <span *ngIf="characterSelected as character" [ngClass]="character.status.toLowerCase()">
       {{ character.status | translaterCharacterInfo }}
     </span>
   </p>
 
   <p class="mb-1">
     <strong>Origen: </strong>
-    <a class="text-primary text-decoration-none">{{characterSelected()?.origin?.name}}</a>
+    <a class="text-primary text-decoration-none">{{characterSelected?.origin?.name}}</a>
   </p>
 
   <p class="mb-0">
     <strong>Ubicacion: </strong>
-    <a  class="text-primary text-decoration-none">{{characterSelected()?.location?.name}}</a>
+    <a  class="text-primary text-decoration-none">{{characterSelected?.location?.name}}</a>
   </p>
 
 </div>

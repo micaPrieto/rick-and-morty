@@ -8,13 +8,15 @@ import { CharactersService } from '../../../services/characters-service';
 })
 export class SearchInputComponent {
 
-  charactersService = inject(CharactersService)
+  constructor(
+    private charactersService: CharactersService
+  ) {}
 
   onSearch(query:string){
-    this.charactersService.$actualPage.set(1);
+    this.charactersService.actualPage.next(1);
 
     this.charactersService.searchCharacters(query)
-
   }
+
 
 }

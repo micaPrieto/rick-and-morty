@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CharactersService } from '../../../services/characters-service';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   imports: [],
   templateUrl: './pagination.component.html'
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnDestroy {
 
   // $localtotalPages = this.charactersService.$totalPages;
   // $localActualPage = this.charactersService.$actualPage;

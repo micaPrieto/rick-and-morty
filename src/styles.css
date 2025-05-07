@@ -1,19 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+
 body {
   background-color: #1c1c1c; /* Fondo general oscuro */
   color: #fff; /* Texto claro */
 }
 
-.card {
- /*  Más chicas
-  max-width: 180px;
-  width: 100%;
-  margin: 0 auto;
-  */
-  transition: transform 0.2s ease-in-out;
-}
 
-.card-img-top {
+ .card-img-top {
   height: 180px;
   object-fit: cover;
 }
@@ -24,14 +16,15 @@ body {
   border-color: #0d6efd;
 }
 
-
 .page-item.pag-activa .page-link {
   font-weight: bold;
-  box-shadow: 0 0 8px rgba(230, 53, 53, 0.867);
+  box-shadow: 0 0 8px rgba(62, 53, 230, 0.87);
   transform: scale(1.05);
 }
 
 /* Saca el borde por defecto en botones de bootstrap*/
+
 .page-link:focus {
   box-shadow: none !important;
 }
+

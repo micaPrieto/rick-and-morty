@@ -1,9 +1,10 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { CharactersService } from '../../../services/characters-service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { translaterCharacterInfo } from '../../../pipes/translater-character-info.pipe';
 import { Character } from '../../../interfaces/character.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-character-info',
@@ -12,9 +13,10 @@ import { Character } from '../../../interfaces/character.interface';
   styleUrl: './character-info.component.css'
 })
 
-export class CharacterInfoComponent  implements OnInit{
+export class CharacterInfoComponent  implements OnInit, OnDestroy{
 
   characterSelected : Character | null = null;
+  sub =new Subscription();
 
   constructor(
     private charactersService: CharactersService,
@@ -24,13 +26,13 @@ export class CharacterInfoComponent  implements OnInit{
   ngOnInit(): void {
     this.getCharacterById();
 
-    this.charactersService.characterSelected.subscribe((character) => {
+    this.sub.add(
+      this.charactersService.characterSelected.subscribe((character) => {
       this.characterSelected  = character;
-    });
-
+    }))
   }
 
-  getCharacterById() {
+  getCharacterById(): void {
     this.activatedRoute.params.subscribe((params) => {
       const id = params['id'];
       if (id) {
@@ -39,5 +41,8 @@ export class CharacterInfoComponent  implements OnInit{
     });
   }
 
+  ngOnDestroy(): void  {
+    this.sub.unsubscribe();
+  }
 
 }

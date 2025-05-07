@@ -20,7 +20,7 @@ export class EpisodesService {
     return forkJoin(episodes);
   }
 
-  getCharacterEpisodes(character: Character) {
+  getCharacterEpisodes(character: Character) : void{
     if (character.episode?.length) {
       this.getEpisodes(character.episode)
         .subscribe({

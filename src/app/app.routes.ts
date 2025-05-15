@@ -3,6 +3,7 @@ import { NotFoundComponent } from './shared/pages/not-found/not-found.component'
 import { HomePageComponent } from './shared/pages/home-page/home-page.component';
 import CharacterDetailPageComponent from './characters/pages/character-detail-page/character-detail-page.component';
 import CharactersListPageComponent from './characters/pages/characters-list-page/characters-list-page.component';
+import { LoginPageComponent } from './auth/pages/login-page/login-page.component';
 
 export const routes: Routes = [
   {
@@ -18,8 +19,8 @@ export const routes: Routes = [
     component: NotFoundComponent,
   },
   {
-    path: '',
-    component : HomePageComponent,
+    path: 'login',
+    component : LoginPageComponent,
   },
   {
     path: '**',

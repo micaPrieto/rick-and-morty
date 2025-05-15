@@ -1,0 +1,47 @@
+body {
+            background-color: #333;
+            color: white;
+        }
+        .navbar {
+            background-color: #222;
+            border-bottom: 1px solid #444;
+        }
+        .login-container {
+            background-color: rgba(0,0,0,0.6);
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 400px;
+        }
+        .login-logo {
+            max-width: 350px;
+            margin-bottom: 20px;
+        }
+        .form-control {
+            background-color: #333;
+            border: 1px solid #444;
+            color: #ccc;
+        }
+        .form-label {
+            color: #09c;
+        }
+        .btn-primary {
+            background-color: #09c;
+            border: none;
+        }
+        .forgot-password, .sign-up {
+            color: #09c;
+            text-decoration: none;
+        }
+        .forgot-password:hover, .sign-up:hover {
+            color: #0af;
+            text-decoration: underline;
+        }
+        .footer {
+            background-color: #222;
+            color: #999;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+        }

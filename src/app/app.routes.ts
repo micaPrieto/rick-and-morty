@@ -4,6 +4,7 @@ import { HomePageComponent } from './shared/pages/home-page/home-page.component'
 import CharacterDetailPageComponent from './characters/pages/character-detail-page/character-detail-page.component';
 import CharactersListPageComponent from './characters/pages/characters-list-page/characters-list-page.component';
 import { LoginPageComponent } from './auth/pages/login-page/login-page.component';
+import { RegisterPageComponent } from './auth/pages/register-page/register-page.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component : LoginPageComponent,
+  },
+   {
+    path: 'register',
+    component : RegisterPageComponent,
   },
   {
     path: '**',

@@ -1,24 +1,20 @@
-body {
-            background-color: #333;
-            color: white;
-        }
-        .navbar {
-            background-color: #222;
-            border-bottom: 1px solid #444;
-        }
+
+
         .login-container {
             background-color: rgba(0,0,0,0.6);
             border-radius: 8px;
-            padding: 20px;
-            max-width: 400px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
         }
         .login-logo {
-            max-width: 350px;
+            max-width: 700px;
+            width: 100%;
             margin-bottom: 20px;
         }
         .form-control {
             background-color: #333;
-            border: 1px solid #444;
+            border: 1px solid  rgba(199, 196, 196, 0.91);
             color: #ccc;
         }
         .form-label {
@@ -35,13 +31,4 @@ body {
         .forgot-password:hover, .sign-up:hover {
             color: #0af;
             text-decoration: underline;
-        }
-        .footer {
-            background-color: #222;
-            color: #999;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            font-size: 14px;
         }

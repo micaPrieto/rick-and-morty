@@ -12,11 +12,10 @@ export class SearchInputComponent {
     private charactersService: CharactersService
   ) {}
 
-  onSearch(query:string){
+  onSearch(query:string): void{
     this.charactersService.actualPage.next(1);
 
     this.charactersService.searchCharacters(query)
   }
-
 
 }

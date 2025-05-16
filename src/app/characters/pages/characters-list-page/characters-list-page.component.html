@@ -16,7 +16,7 @@
        @else
        {
           <!------------ Lista de Cards ------------>
-          <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 mx-auto">
+          <div class=" row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 mx-auto">
               @for (character of characters; track $index) {
                 <div class="col">
                   <app-character-card [character]="character"></app-character-card>
@@ -29,6 +29,5 @@
           <app-pagination></app-pagination>
 
        }
-   </div>
 
-</div>
+    </div>

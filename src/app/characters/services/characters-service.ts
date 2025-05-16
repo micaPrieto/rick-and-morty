@@ -19,6 +19,8 @@ export class CharactersService {
     private episodesService: EpisodesService
   ) {}
 
+  //En RxJS, un BehaviorSubject<T>: Es un tipo especial de Observable<T> que mantiene el último valor emitido.
+  // Podés suscribirte a él como a cualquier Observable
   characters = new BehaviorSubject<Character[]>([]);
   characterSelected = new BehaviorSubject<Character | null>(null);
 

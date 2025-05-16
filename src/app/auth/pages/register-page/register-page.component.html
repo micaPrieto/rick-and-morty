@@ -1,0 +1,155 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2 class="register-title">Registrase</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+
+        <!-- Nombre -->
+        <div class="form-group">
+          <label for="name" class="form-label">Nombre completo</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name"
+            placeholder="Juanito Pérez"
+          />
+        </div>
+
+         <!-- Email -->
+        <div class="form-group">
+          <label for="mail" class="form-label">Email</label>
+          <input
+            type="text"
+            id="mail"
+            class="form-control"
+            formControlName="mail"
+            placeholder="example@example.com"
+          />
+        </div>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            class="form-control"
+          />
+        </div>
+
+        <!-- Repetir contraseña -->
+        <div class="form-group">
+          <label for="confirmPassword" class="form-label"
+            >Repetir contraseña</label
+          >
+          <input
+            type="password"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <!-- Dirección -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="address" class="form-label">Dirección</label>
+          <input
+            type="text"
+            id="address"
+            class="form-control"
+            formControlName="street"
+            placeholder="Luro 2800"
+          />
+        </div>
+
+        <!-- Ciudad -->
+        <div class="form-group">
+          <label for="city" class="form-label">Ciudad</label>
+          <input
+            type="text"
+            id="city"
+            class="form-control"
+            formControlName="city"
+            placeholder="Mar del Plata"
+          />
+        </div>
+      </div>
+
+      <!-- Provincia -->
+      <div class="form-row city-state-zip">
+        <div class="form-group city">
+          <label for="location" class="form-label">Provincia</label>
+          <input
+            type="text"
+            id="location"
+            class="form-control"
+            formControlName="location"
+            placeholder="Buenos Aires"
+          />
+        </div>
+
+        <!-- País -->
+        <div class="form-group state">
+          <label for="state" class="form-label">País</label>
+          <input
+            type="text"
+            id="state"
+            class="form-control"
+            formControlName="country"
+            placeholder="Argentina"
+          />
+        </div>
+
+        <!-- Código Postal -->
+        <div class="form-group zip">
+          <label for="cp" class="form-label">Código Postal</label>
+          <input
+            type="text"
+            id="cp"
+            class="form-control"
+            formControlName="cp"
+            placeholder="7600"
+          />
+        </div>
+      </div>
+
+      <!-- <div class="form-row">
+        <div class="form-group">
+          <label for="birthay" class="form-label">Cumpleaños</label>
+          <input
+            type="text"
+            id="birthay"
+            class="form-control"
+            placeholder="20/11/1997"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="telephone" class="form-label">Telefono</label>
+          <input
+            type="text"
+            id="telephone"
+            class="form-control"
+            placeholder="Neighborhood or area"
+          />
+        </div>
+      </div> -->
+
+      <div class="button-container">
+        <button type="submit" class="btn-sing-up">Registrarse</button>
+        <!-- <button type="submit" class="btn-sing-up" [disabled]="registerForm.invalid">Sing Up</button> -->
+      </div>
+
+      <div class="sign-in-link">
+        Ya estas registrado? <a href="/login">Iniciar sesión</a>
+      </div>
+    </form>
+  </div>
+</div>

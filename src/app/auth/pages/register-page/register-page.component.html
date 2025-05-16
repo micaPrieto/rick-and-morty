@@ -15,7 +15,14 @@
             formControlName="name"
             placeholder="Juanito Pérez"
           />
+
+          @if(formUtils.isInvaliedField(registerForm, 'name')){
+             <span class="form-text text-danger">
+                {{formUtils.getFieldError(registerForm,'name')}}
+              </span>
+          }
         </div>
+
 
          <!-- Email -->
         <div class="form-group">
@@ -27,6 +34,11 @@
             formControlName="mail"
             placeholder="example@example.com"
           />
+            @if(formUtils.isInvaliedField(registerForm, 'mail')){
+             <span class="form-text text-danger">
+                {{formUtils.getFieldError(registerForm,'mail')}}
+              </span>
+          }
         </div>
       </div>
 
@@ -40,6 +52,11 @@
             formControlName="password"
             class="form-control"
           />
+            @if(formUtils.isInvaliedField(registerForm, 'password')){
+             <span class="form-text text-danger">
+                {{formUtils.getFieldError(registerForm,'password')}}
+              </span>
+          }
         </div>
 
         <!-- Repetir contraseña -->
@@ -53,20 +70,30 @@
             formControlName="confirmPassword"
             class="form-control"
           />
+            @if(formUtils.isInvaliedField(registerForm, 'confirmPassword')){
+             <span class="form-text text-danger">
+                {{formUtils.getFieldError(registerForm,'confirmPassword')}}
+              </span>
+          }
         </div>
       </div>
 
       <!-- Dirección -->
       <div class="form-row">
         <div class="form-group">
-          <label for="address" class="form-label">Dirección</label>
+          <label for="street" class="form-label">Dirección</label>
           <input
             type="text"
-            id="address"
+            id="street"
             class="form-control"
             formControlName="street"
             placeholder="Luro 2800"
           />
+            @if(formUtils.isInvaliedField(registerForm, 'street')){
+             <span class="form-text text-danger">
+                {{formUtils.getFieldError(registerForm,'street')}}
+              </span>
+          }
         </div>
 
         <!-- Ciudad -->
@@ -80,6 +107,11 @@
             placeholder="Mar del Plata"
           />
         </div>
+          @if(formUtils.isInvaliedField(registerForm, 'city')){
+             <span class="form-text text-danger">
+                {{formUtils.getFieldError(registerForm,'city')}}
+              </span>
+          }
       </div>
 
       <!-- Provincia -->
@@ -93,6 +125,11 @@
             formControlName="location"
             placeholder="Buenos Aires"
           />
+            @if(formUtils.isInvaliedField(registerForm, 'location')){
+             <span class="form-text text-danger">
+                {{formUtils.getFieldError(registerForm,'location')}}
+              </span>
+          }
         </div>
 
         <!-- País -->
@@ -105,6 +142,11 @@
             formControlName="country"
             placeholder="Argentina"
           />
+            @if(formUtils.isInvaliedField(registerForm, 'state')){
+             <span class="form-text text-danger">
+                {{formUtils.getFieldError(registerForm,'state')}}
+              </span>
+          }
         </div>
 
         <!-- Código Postal -->
@@ -117,6 +159,11 @@
             formControlName="cp"
             placeholder="7600"
           />
+            @if(formUtils.isInvaliedField(registerForm, 'cp')){
+             <span class="form-text text-danger">
+                {{formUtils.getFieldError(registerForm,'cp')}}
+              </span>
+          }
         </div>
       </div>
 

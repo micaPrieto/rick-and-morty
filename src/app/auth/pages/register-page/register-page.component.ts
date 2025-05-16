@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { User } from '../../interfaces/user.interface';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormUtils } from '../../utils/form.utils';
 
 @Component({
   selector: 'app-register-page',
@@ -17,6 +18,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 export class RegisterPageComponent implements OnInit {
 
   registerForm!: FormGroup;
+  formUtils = FormUtils;
 
 
    constructor(
@@ -38,17 +40,17 @@ export class RegisterPageComponent implements OnInit {
       ],
       password: [
         '',
-        [Validators.required, Validators.min(8), Validators.max(30)],
+        [Validators.required, Validators.minLength(8), Validators.maxLength(30)],
       ],
       confirmPassword: [
         '',
-        [Validators.required, Validators.min(8), Validators.max(30)],
+        [Validators.required, Validators.minLength(8), Validators.maxLength(30)],
       ],
-      street: ['', [Validators.required, Validators.max(50)]],
-      city: ['', [Validators.required, Validators.max(50)]],
-      location: ['', [Validators.required, Validators.max(50)]],
-      country: ['', [Validators.required, Validators.max(50)]],
-      cp: ['', [Validators.required, Validators.min(4), Validators.max(4)]],
+      street: ['', [Validators.required, Validators.maxLength(50)]],
+      city: ['', [Validators.required, Validators.maxLength(50)]],
+      location: ['', [Validators.required, Validators.maxLength(50)]],
+      country: ['', [Validators.required, Validators.maxLength(50)]],
+      cp: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
     });
   }
 

@@ -1,20 +1,17 @@
 
-
         .login-container {
             background-color: rgba(0,0,0,0.6);
             border-radius: 8px;
             padding: 30px;
-            max-width: 500px;
-            width: 100%;
+            max-width: 400px;
         }
         .login-logo {
-            max-width: 700px;
-            width: 100%;
+            max-width: 400px;
             margin-bottom: 20px;
         }
         .form-control {
             background-color: #333;
-            border: 1px solid  rgba(199, 196, 196, 0.91);
+            border: 1px solid #444;
             color: #ccc;
         }
         .form-label {

@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { Character } from '../../../characters/interfaces/character.interface';
 import { RouterLink } from '@angular/router';
 
 @Component({

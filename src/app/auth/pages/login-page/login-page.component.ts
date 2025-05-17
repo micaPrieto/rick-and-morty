@@ -17,6 +17,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrl: './login-page.component.css',
 })
 export class LoginPageComponent implements OnInit {
+
   constructor(
     private fb: FormBuilder,
     private router : Router,
@@ -68,6 +69,7 @@ export class LoginPageComponent implements OnInit {
         duration: 3000,
        });
      }
+
 
 }
 

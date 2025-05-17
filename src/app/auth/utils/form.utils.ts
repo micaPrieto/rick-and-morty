@@ -31,8 +31,8 @@ export class FormUtils{
             case 'minlength':
               return `Debe tener un minimo de ${errors['minlength'].requiredLength} caracteres.`
 
-           // case 'maxlenght':
-              //return `Debe tener un máximo de ${errors['maxlenght'].requiredLength} caracteres.`
+            case 'maxlength':
+              return `Debe tener un máximo de ${errors['maxlength'].requiredLength} caracteres.`
 
             case 'email':
               return `El correo electronico no es válido`

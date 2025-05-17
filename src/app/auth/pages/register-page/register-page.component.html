@@ -19,7 +19,7 @@
           @if(formUtils.isInvaliedField(registerForm, 'name')){
              <span class="form-text text-danger">
                 {{formUtils.getFieldError(registerForm,'name')}}
-              </span>
+            </span>
           }
         </div>
 
@@ -106,68 +106,70 @@
             formControlName="city"
             placeholder="Mar del Plata"
           />
-        </div>
           @if(formUtils.isInvaliedField(registerForm, 'city')){
              <span class="form-text text-danger">
                 {{formUtils.getFieldError(registerForm,'city')}}
               </span>
           }
-      </div>
-
-      <!-- Provincia -->
-      <div class="form-row city-state-zip">
-        <div class="form-group city">
-          <label for="location" class="form-label">Provincia</label>
-          <input
-            type="text"
-            id="location"
-            class="form-control"
-            formControlName="location"
-            placeholder="Buenos Aires"
-          />
-            @if(formUtils.isInvaliedField(registerForm, 'location')){
-             <span class="form-text text-danger">
-                {{formUtils.getFieldError(registerForm,'location')}}
-              </span>
-          }
-        </div>
-
-        <!-- País -->
-        <div class="form-group state">
-          <label for="state" class="form-label">País</label>
-          <input
-            type="text"
-            id="state"
-            class="form-control"
-            formControlName="country"
-            placeholder="Argentina"
-          />
-            @if(formUtils.isInvaliedField(registerForm, 'state')){
-             <span class="form-text text-danger">
-                {{formUtils.getFieldError(registerForm,'state')}}
-              </span>
-          }
-        </div>
-
-        <!-- Código Postal -->
-        <div class="form-group zip">
-          <label for="cp" class="form-label">Código Postal</label>
-          <input
-            type="text"
-            id="cp"
-            class="form-control"
-            formControlName="cp"
-            placeholder="7600"
-          />
-            @if(formUtils.isInvaliedField(registerForm, 'cp')){
-             <span class="form-text text-danger">
-                {{formUtils.getFieldError(registerForm,'cp')}}
-              </span>
-          }
         </div>
       </div>
 
-      <!-- <div class="form-row">
+
+      <div class="form-row">
+
+         <!-- Provincia -->
+          <div class="form-group flex-item">
+            <label for="location" class="form-label">Provincia</label>
+            <input
+              type="text"
+              id="location"
+              class="form-control"
+              formControlName="location"
+              placeholder="Buenos Aires"
+            />
+              @if(formUtils.isInvaliedField(registerForm, 'location')){
+              <span class="form-text text-danger">
+                  {{formUtils.getFieldError(registerForm,'location')}}
+                </span>
+            }
+          </div>
+
+          <!-- País -->
+          <div class="form-group flex-item">
+            <label for="country" class="form-label">País</label>
+            <input
+              type="text"
+              id="country"
+              class="form-control"
+              formControlName="country"
+              placeholder="Argentina"
+            />
+              @if(formUtils.isInvaliedField(registerForm, 'country')){
+              <span class="form-text text-danger">
+                  {{formUtils.getFieldError(registerForm,'country')}}
+                </span>
+            }
+          </div>
+
+          <!-- Código Postal -->
+          <div class="form-group flex-item zip">
+            <label for="cp" class="form-label">Código Postal</label>
+            <input
+              type="text"
+              id="cp"
+              class="form-control"
+              formControlName="cp"
+              placeholder="7600"
+            />
+              @if(formUtils.isInvaliedField(registerForm, 'cp')){
+              <span class="form-text text-danger">
+                  {{formUtils.getFieldError(registerForm,'cp')}}
+                </span>
+            }
+          </div>
+      </div>
+
+       <!-- <div class="form-row">
         <div class="form-group">
           <label for="birthay" class="form-label">Cumpleaños</label>
           <input

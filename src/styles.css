@@ -1,7 +1,18 @@
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 body {
   background-color:#333;
-  color: #fff;
+  color: #0d6efdc2;
 }
 
 .card {
@@ -35,3 +46,6 @@ body {
   box-shadow: none !important;
 }
 
+app-footer {
+  margin-top: auto; /* empuja el footer al final si hay poco contenido */
+}

@@ -8,6 +8,7 @@ import {
 import { User } from '../../interfaces/user.interface';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormUtils } from '../../utils/form.utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-page',
@@ -24,6 +25,7 @@ export class RegisterPageComponent implements OnInit {
    constructor(
     private fb : FormBuilder,
     private snackBar : MatSnackBar,
+    private router : Router
    ) { }
 
   ngOnInit(): void {
@@ -58,16 +60,16 @@ export class RegisterPageComponent implements OnInit {
     console.log(this.registerForm.getRawValue());
 
     const user = this.getUserOfForm();
-    /*
+
     if(this.isFormValid(user)){
-      this.userService.addUser(user);
+      //this.userService.addUser(user);
 
       this.registerForm.reset();
       this.openSnackBar('Cuenta creada con éxito', 'Cerrar');
 
       this.router.navigateByUrl('login')
     }
-      */
+
   }
 
   getUserOfForm(): User {

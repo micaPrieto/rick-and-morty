@@ -1,13 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-
     <a
       class="navbar-brand navbar-logo"
       routerLink="/"
-      routerLinkActive="active"
-       >Rick & Morty
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Rick & Morty
     </a>
 
+    <!-- @if(authService.authStatus() === 'authenticated'){ -->
+    @if(true){
     <!--Boton de hamburguesa para celulares-->
     <button
       class="navbar-toggler navbar-toggle-button"
@@ -16,50 +18,68 @@
       data-bs-target="#mainNavbarMenu"
       aria-controls="mainNavbarMenu"
       aria-expanded="false"
-      aria-label="Toggle navigation">
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!---- Menu ---->
     <div class="collapse navbar-collapse" id="mainNavbarMenu">
-
       <!-- Secciones principales -->
       <ul class="navbar-nav navbar-menu-left me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a
-            class="nav-link"
-            (click)="goToCharacters()"
-            [class.active]="isCharactersRoute"
-            role="button"
-             >Personajes
+            class="nav-link base-link"
+            routerLink="/characters"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Personajes
           </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link"
-            routerLink="/not-found"
-            >Episodios
-          </a>
+          <a class="nav-link base-link" routerLinkActive="active-link"
+            >Episodios</a
+          >
         </li>
+
         <li class="nav-item">
-          <a
-           class="nav-link"
-           routerLink="/not-found"
-           >Ubicaciones
-          </a>
+          <a class="nav-link base-link" routerLinkActive="active-link"
+            >Ubicaciones</a
+          >
         </li>
       </ul>
 
       <!-- Usuario -->
       <ul class="navbar-nav navbar-menu-right mb-2 mb-lg-0">
+        <!-- Perfil -->
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login">Perfil</a>
+          <a
+            class="nav-link base-link"
+            routerLink="/not-found"
+            routerLinkActive="active-link"
+            >{{ authService.user()?.name }}</a
+          >
         </li>
+
+        <!-- Cerrar Sesión-->
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login">Cerrar sesión</a>
+          <a
+            class="nav-link base-link"
+            (click)="authService.logOut()"
+            routerLink="/auth/login"
+            >Cerrar sesión</a
+          >
         </li>
       </ul>
-
     </div>
 
+    } @else if(authService.authStatus() === 'not-authenticated'){
+    <ul class="navbar-nav navbar-menu-right mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/auth/login">Login</a>
+      </li>
+    </ul>
+    }
   </div>
 </nav>

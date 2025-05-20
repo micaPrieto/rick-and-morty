@@ -8,11 +8,16 @@ import {
 import { User } from '../../interfaces/user.interface';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormUtils } from '../../utils/form.utils';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register-page',
-  imports: [ReactiveFormsModule,MatSnackBarModule ],
+  imports: [
+    ReactiveFormsModule,
+    MatSnackBarModule ,
+    RouterLink
+  ],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.css',
 })
@@ -25,49 +30,74 @@ export class RegisterPageComponent implements OnInit {
    constructor(
     private fb : FormBuilder,
     private snackBar : MatSnackBar,
-    private router : Router
+    private router : Router,
+    private authService: AuthService
    ) { }
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
-      name: ['', [Validators.required, Validators.min(5), Validators.max(15)]],
-      mail: [
-        '',
-        [
-          Validators.required,
-          Validators.min(10),
-          Validators.max(50),
-          Validators.email,
+    this.registerForm = this.fb.group(
+      {
+        name: ['', [Validators.required, Validators.min(5), Validators.max(15)]],
+        mail: [
+          '',
+          [
+            Validators.required,
+            Validators.min(10),
+            Validators.max(50),
+            Validators.email,
+          ],
         ],
-      ],
-      password: [
-        '',
-        [Validators.required, Validators.minLength(8), Validators.maxLength(30)],
-      ],
-      confirmPassword: [
-        '',
-        [Validators.required, Validators.minLength(8), Validators.maxLength(30)],
-      ],
-      street: ['', [Validators.required, Validators.maxLength(50)]],
-      city: ['', [Validators.required, Validators.maxLength(50)]],
-      location: ['', [Validators.required, Validators.maxLength(50)]],
-      country: ['', [Validators.required, Validators.maxLength(50)]],
-      cp: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
-    });
+        password: [
+          '',
+          [Validators.required, Validators.minLength(8), Validators.maxLength(30)],
+        ],
+        confirmPassword: [
+          '',
+          [Validators.required, Validators.minLength(8), Validators.maxLength(30)],
+        ],
+        street: ['', [Validators.required, Validators.maxLength(50)]],
+        city: ['', [Validators.required, Validators.maxLength(50)]],
+        location: ['', [Validators.required, Validators.maxLength(50)]],
+        country: ['', [Validators.required, Validators.maxLength(50)]],
+        cp: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
+        phone: ['', [Validators.pattern(this.formUtils.telPattern)]],
+        birthday: [''],
+      },
+      {
+        validators: [
+          this.formUtils.isFieldOneEquealFieldTwo('password', 'confirmPassword'),
+        ],
+      }
+    );
   }
 
   onSubmit() {
-    console.log(this.registerForm.getRawValue());
+    //console.log(this.registerForm.getRawValue());
 
     const user = this.getUserOfForm();
 
-    if(this.isFormValid(user)){
-      //this.userService.addUser(user);
+    console.log(user);
 
-      this.registerForm.reset();
-      this.openSnackBar('Cuenta creada con éxito', 'Cerrar');
+    if (this.isFormValid(user))
+    {
+      this.authService.register(user).subscribe({
+        next: (success) => {
+          if (success) {
+            this.registerForm.reset();
+            this.openSnackBar('Cuenta creada con éxito', 'Cerrar');
+            this.router.navigateByUrl('auth/login');
+          }
+        },
+        error: (err) =>{
+          const errorMsg = err?.error?.header?.error;
 
-      this.router.navigateByUrl('login')
+          if (errorMsg === 'Mail already registered') {
+            this.openSnackBar('Ya existe una cuenta con ese email.', 'Cerrar');
+          } else {
+            this.openSnackBar('Error al registrar usuario. Intente nuevamente.', 'Cerrar');
+          }
+        }
+      });
     }
 
   }
@@ -86,6 +116,8 @@ export class RegisterPageComponent implements OnInit {
         country: formValue.country,
         cp: formValue.cp,
       },
+      ...(formValue.phone.trim() !== '' ? { phone: formValue.phone } : {}),//Sólo los agrega si existe un valor
+      ...(formValue.birthday.trim() !== '' ? { birthday: formValue.birthday } : {}),
     };
 
     return user;

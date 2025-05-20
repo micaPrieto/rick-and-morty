@@ -1,25 +1,33 @@
-
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-dark p-2 rounded">
+
     <li class="breadcrumb-item">
       <a
-      class="text-primary text-decoration-none"
-      routerLink="/"
-      routerLinkActive="active"
-      >Home</a>
+        class="text-primary text-decoration-none"
+        routerLink="/"
+        routerLinkActive="floating-bar-active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home </a
+      >
     </li>
+
     <li class="breadcrumb-item">
       <a
         class="text-primary text-decoration-none"
         routerLink="/characters"
-        routerLinkActive="active"
-        >/ Characters
+        routerLinkActive="floating-bar-active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >/   Characters
       </a>
     </li>
+
     <li
       class="breadcrumb-item active text-white"
-      routerLinkActive="active"
+      routerLinkActive="active-link"
       aria-current="page"
-      >/ {{actualCharacter?.name}}</li>
+    >
+      / {{ actualCharacter?.name }}
+    </li>
+
   </ol>
 </nav>

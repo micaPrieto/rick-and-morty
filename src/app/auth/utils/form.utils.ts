@@ -3,8 +3,7 @@ import { AbstractControl, FormGroup, ValidationErrors } from "@angular/forms";
 
 export class FormUtils{
 
-  static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'; //Expresion regular
-
+  static telPattern = /^\d{8,15}$/;
 
   static isInvaliedField(form: FormGroup, field: string): boolean {
     const control = form.get(field);
@@ -17,11 +16,11 @@ export class FormUtils{
 
     const errors = form.controls[fieldName]?.errors ?? {};
 
-    return FormUtils.getTextError(errors);
+    return FormUtils.getTextError(errors, fieldName);
   }
 
 
-  static getTextError(errors: ValidationErrors){
+  static getTextError(errors: ValidationErrors, fieldName: string = ''){
     // console.log( 'Objet key errors: ', Object.keys(errors));
     for(const key of Object.keys(errors)) {
           switch(key){
@@ -36,6 +35,12 @@ export class FormUtils{
 
             case 'email':
               return `El correo electronico no es válido`
+
+             case 'pattern':
+                 if (fieldName === 'phone') {
+                    return 'El número de teléfono debe tener solo números, sin 0 ni 15. Ej: 2235952534';
+                  }
+               return 'Formato inválido'
           }
       }
       return null;

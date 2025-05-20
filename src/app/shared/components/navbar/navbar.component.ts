@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CharactersService } from '../../../characters/services/characters-service';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,15 +12,12 @@ export class NavbarComponent {
   isCharactersRoute = false;
 
   constructor(
-    private router :Router
+    private router :Router,
+    //private authService: AuthService
     ){}
 
+    authService = inject(AuthService);
 
-  goToCharacters() {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/characters']);
-    });
-  }
 
 }
 

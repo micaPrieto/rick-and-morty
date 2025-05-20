@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -6,13 +6,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { FormUtils } from '../../utils/form.utils';
-import { Route, Router } from '@angular/router';
-import { User } from '../../interfaces/user.interface';
+import { Route, Router, RouterLink } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, MatSnackBarModule],
+  imports: [
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    RouterLink
+  ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
 })
@@ -21,45 +25,61 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router : Router,
-     private snackBar : MatSnackBar,
+    private snackBar : MatSnackBar,
+    private authService : AuthService
     ) {}
 
   loginForm!: FormGroup;
   formUtils = FormUtils;
 
+  hasError = signal(false)
+
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       mail: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
   onSubmit() {
-    console.log(this.loginForm.getRawValue());
-     //const user = this.getUserOfForm();
 
-      if(this.isFormValid(this.loginForm.getRawValue())){
-        //this.userService.addUser(user);
+    const {mail= '' ,password = ''} =  this.loginForm.value;
+    //Desestructura (extrae) los campos mail y password desde el objeto this.loginForm.value.
 
-        this.loginForm.reset();
-        this.openSnackBar('Inicio de sesión exitoso', 'Cerrar');
+      if(this.isFormValid())
+      {
+        this.authService.login(mail!, password!).subscribe({
+          next: (isAuthenticated) => {
+              if(isAuthenticated)
+              {
+                this.router.navigateByUrl('characters')
 
-        this.router.navigateByUrl('characters')
+                this.loginForm.reset();
+                this.openSnackBar('Inicio de sesión exitoso', 'Cerrar');
+              }
+            },
+          error: (err) => {
+              const errorMsg = err?.error?.header?.error;
+
+              if (errorMsg === 'User not found' || 'Invalid password' ) {
+                this.openSnackBar('Email o contraseña incorrecta', 'Cerrar');
+              } else {
+                this.openSnackBar('Error al iniciar sesión. Intenta nuevamente.', 'Cerrar');
+              }
+
+              this.hasError.set(true);
+            }
+          })
       }
-
   }
 
-    isFormValid(user: User): boolean{
+    isFormValid(): boolean{
       let valid = true;
       if (this.loginForm.invalid){
         this.loginForm.markAllAsTouched();
-        this.openSnackBar('Por favor, completá todos los campos correctamente.', 'Cerrar');
+        this.openSnackBar('Por favor, completa correctamente todos los campos correctamente.', 'Cerrar');
         valid =  false;
       }
-      // else if( this.userService.isEmailExists(user.email)&& user.email ){
-      //   this.openSnackBar('Ya existe una cuenta con ese email.', 'Cerrar');
-      //   valid = false;
-      // }
       return valid;
     }
 

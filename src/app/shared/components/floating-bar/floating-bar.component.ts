@@ -21,7 +21,6 @@ export class FloatingBarComponent  implements OnInit{
   ) {}
 
   ngOnInit(): void {
-
     this.subscription = this.charactersService.characterSelected.subscribe((character) => {
       this.actualCharacter  = character;
     });

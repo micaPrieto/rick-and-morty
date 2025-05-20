@@ -1,10 +1,11 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CharactersService } from '../../../services/characters-service';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pagination',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './pagination.component.html'
 })
 export class PaginationComponent implements OnInit, OnDestroy {
@@ -68,7 +69,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
 
 
   // Devuelve un array de páginas para mostrar alrededor de la página actual
-  pagesToShow () : number[]{
+  get pagesToShow () : number[]{
     const totalPages = this.totalPages;
     const visiblePages = 5; // Total de botones visibles
     const half = Math.floor(visiblePages / 2);

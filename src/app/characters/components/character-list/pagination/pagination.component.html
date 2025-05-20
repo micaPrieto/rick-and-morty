@@ -10,8 +10,19 @@
     </li>
 
 
+    <!-- Volver a la pagina uno [1][...]  -->
+     @if (pagesToShow[0] > 1) {
+       <li class="page-item">
+          <button class="page-link bg-dark text-white border-secondary" (click)="goToPage(1)">1</button>
+       </li>
+      <li class="page-item disabled">
+          <span class="page-link bg-dark text-white border-secondary">…</span>
+      </li>
+    }
+
+
     <!-- Botones numericos -->
-    @for (page of pagesToShow(); track $index)
+    @for (page of pagesToShow; track $index)
     {
       <li class="page-item" [class.pag-activa]="page === this.actualPage">
         <button
@@ -21,6 +32,19 @@
         </button>
       </li>
     }
+
+    <!-- Ir a la última página [...][42]  -->
+     @if (pagesToShow[pagesToShow.length - 1] < totalPages) {
+      <li class="page-item disabled">
+      <span class="page-link bg-dark text-white border-secondary">…</span>
+      </li>
+      <li class="page-item">
+        <button class="page-link bg-dark text-white border-secondary" (click)="goToPage(totalPages)">
+        {{ totalPages }}
+      </button>
+    </li>
+    }
+
 
     <!-- Boton siguiente -->
     <li class="page-item" [class.disabled]="actualPage === totalPages">

@@ -23,7 +23,6 @@
           }
         </div>
 
-
          <!-- Email -->
         <div class="form-group">
           <label for="mail" class="form-label">Email</label>
@@ -70,11 +69,11 @@
             formControlName="confirmPassword"
             class="form-control"
           />
-            @if(formUtils.isInvaliedField(registerForm, 'confirmPassword')){
-             <span class="form-text text-danger">
+          @if(formUtils.isInvaliedField(registerForm, 'confirmPassword')){
+            <span class="form-text text-danger">
                 {{formUtils.getFieldError(registerForm,'confirmPassword')}}
               </span>
-          }
+            }
         </div>
       </div>
 
@@ -89,11 +88,11 @@
             formControlName="street"
             placeholder="Luro 2800"
           />
-            @if(formUtils.isInvaliedField(registerForm, 'street')){
+          @if(formUtils.isInvaliedField(registerForm, 'street')){
              <span class="form-text text-danger">
                 {{formUtils.getFieldError(registerForm,'street')}}
               </span>
-          }
+           }
         </div>
 
         <!-- Ciudad -->
@@ -127,10 +126,10 @@
               formControlName="location"
               placeholder="Buenos Aires"
             />
-              @if(formUtils.isInvaliedField(registerForm, 'location')){
+            @if(formUtils.isInvaliedField(registerForm, 'location')){
               <span class="form-text text-danger">
                   {{formUtils.getFieldError(registerForm,'location')}}
-                </span>
+              </span>
             }
           </div>
 
@@ -144,7 +143,7 @@
               formControlName="country"
               placeholder="Argentina"
             />
-              @if(formUtils.isInvaliedField(registerForm, 'country')){
+            @if(formUtils.isInvaliedField(registerForm, 'country')){
               <span class="form-text text-danger">
                   {{formUtils.getFieldError(registerForm,'country')}}
                 </span>
@@ -161,43 +160,69 @@
               formControlName="cp"
               placeholder="7600"
             />
-              @if(formUtils.isInvaliedField(registerForm, 'cp')){
+            @if(formUtils.isInvaliedField(registerForm, 'cp')){
               <span class="form-text text-danger">
                   {{formUtils.getFieldError(registerForm,'cp')}}
                 </span>
-            }
+             }
           </div>
       </div>
 
-       <!-- <div class="form-row">
+       <!-- Cumple años -->
+       <div class="form-row mb-2">
         <div class="form-group">
-          <label for="birthay" class="form-label">Cumpleaños</label>
+          <label for="birthday" class="form-label">Cumpleaños</label>
           <input
-            type="text"
-            id="birthay"
+            type="date"
+            id="birthday"
             class="form-control"
-            placeholder="20/11/1997"
+            formControlName="birthday"
           />
+          @if(formUtils.isInvaliedField(registerForm, 'birthday')){
+            <span class="form-text text-danger">
+                {{formUtils.getFieldError(registerForm,'birthday')}}
+            </span>
+          }
         </div>
 
+         <!-- Teléfono -->
         <div class="form-group">
-          <label for="telephone" class="form-label">Telefono</label>
+          <label for="phone" class="form-label">Teléfono</label>
           <input
             type="text"
-            id="telephone"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            id="phone"
             class="form-control"
-            placeholder="Neighborhood or area"
+            formControlName="phone"
+            placeholder="2235952534"
           />
-        </div>
-      </div> -->
 
-      <div class="button-container">
+          @if(formUtils.isInvaliedField(registerForm, 'phone')){
+            <span class="form-text text-danger">
+                {{formUtils.getFieldError(registerForm,'phone')}}
+            </span>
+          }
+          @else {
+             <small class="text-secondary">
+             Ingresá el número sin 0 y sin 15. Ej: 2235952534
+            </small>
+          }
+        </div>
+      </div>
+
+      @if(registerForm.hasError('passwodsNotEqual') && registerForm.touched){
+          <span class="form-text text-danger">
+              Las contraseñas no coinciden
+          </span>
+      }
+
+      <div class="button-container mb-3">
         <button type="submit" class="btn-sing-up">Registrarse</button>
-        <!-- <button type="submit" class="btn-sing-up" [disabled]="registerForm.invalid">Sing Up</button> -->
       </div>
 
       <div class="sign-in-link">
-        Ya estas registrado? <a href="/#/login">Iniciar sesión</a>
+        Ya estas registrado? <a routerLink="/auth/login">Iniciar sesión</a>
       </div>
     </form>
   </div>

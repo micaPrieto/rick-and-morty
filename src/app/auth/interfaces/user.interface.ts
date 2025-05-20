@@ -1,8 +1,12 @@
-import { Address } from "./address.interface";
+import { Address } from './address.interface';
 
-export interface User  {
-    name: string,
-    mail:string,
-    password:string,
-    address?: Address,
+export interface User {
+  id?: string;
+  role?: string;
+  name: string;
+  mail: string;
+  password: string;
+  address?: Address;
+  birthday?: Date;
+  phone?: string;
 }

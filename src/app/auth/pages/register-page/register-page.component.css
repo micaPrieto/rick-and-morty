@@ -1,34 +1,35 @@
+
 .register-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 15px;
+  padding: 20px 10px;
   flex-grow: 1;
 }
 
 .register-card {
   background-color: #1e1e1e;
-  border-radius: 10px;
-  padding: 30px 25px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
-  max-width: 700px;
+  border-radius: 8px;
+  padding: 20px 35px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  max-width: 750px;
   width: 100%;
 }
 
 .register-title {
   text-align: center;
-  font-size: 28px;
-  margin-bottom: 30px;
+  font-size: 22px;
+  margin-bottom: 20px;
   color: #aaa;
   font-weight: bold;
 }
 
-
 .form-row {
   display: flex;
   gap: 10px;
-  margin-top: 15px;
+  margin-top: 16px;
 }
+
 
 .form-group {
   flex: 1 1 48%;
@@ -44,13 +45,22 @@
   flex: 1 1 100%;
 }
 
+.form-control {
+  padding: 6px 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  width: 100%;
+  height: 37px;
+}
+
+
 .zip {
-  max-width: 120px; /* El código postal es más corto */
+  max-width: 120px;
 }
 
 label {
   margin-bottom: 6px;
-  font-size: 14px;
+  font-size: 13px;
   color: #4da6ff;
 }
 
@@ -84,7 +94,7 @@ button {
   margin-top: 20px;
   border-radius: 4px;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
   align-self: flex-start;
@@ -108,4 +118,11 @@ button:hover {
 
 .register-footer a:hover {
   text-decoration: underline;
+}
+
+.form-text.text-danger {
+  font-size: 12px;
+  margin-top: 1px;
+  line-height: 1.2;
+  display: block;
 }

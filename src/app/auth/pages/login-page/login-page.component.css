@@ -1,5 +1,5 @@
 .login-container {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(15, 15, 15, 0.61);
   border-radius: 10px;
   padding: 25px;
   max-width: 360px;
@@ -37,4 +37,8 @@
 .sign-up:hover {
   color: #0af;
   text-decoration: underline;
+}
+
+input::placeholder {
+  color: #888;
 }

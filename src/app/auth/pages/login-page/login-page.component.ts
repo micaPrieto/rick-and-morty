@@ -55,16 +55,16 @@ export class LoginPageComponent implements OnInit {
                 this.router.navigateByUrl('characters')
 
                 this.loginForm.reset();
-                this.openSnackBar('Inicio de sesión exitoso', 'Cerrar');
+                this.openSnackBar('Inicio de sesión exitoso', 'Cerrar','snackbar-success');
               }
             },
           error: (err) => {
               const errorMsg = err?.error?.header?.error;
 
               if (errorMsg === 'User not found' || 'Invalid password' ) {
-                this.openSnackBar('Email o contraseña incorrecta', 'Cerrar');
+                this.openSnackBar('Email o contraseña incorrecta', 'Cerrar','snackbar-error');
               } else {
-                this.openSnackBar('Error al iniciar sesión. Intenta nuevamente.', 'Cerrar');
+                this.openSnackBar('Error al iniciar sesión. Intenta nuevamente.', 'Cerrar','snackbar-error');
               }
 
               this.hasError.set(true);
@@ -77,18 +77,19 @@ export class LoginPageComponent implements OnInit {
       let valid = true;
       if (this.loginForm.invalid){
         this.loginForm.markAllAsTouched();
-        this.openSnackBar('Por favor, completa correctamente todos los campos correctamente.', 'Cerrar');
+        this.openSnackBar('Por favor, completa correctamente todos los campos correctamente.', 'Cerrar','snackbar-error');
         valid =  false;
       }
       return valid;
     }
 
 
-     openSnackBar(message: string, action: string) {
+   openSnackBar(message: string, action: string, panelClass: string) {
       this.snackBar.open(message, action, {
-        duration: 3000,
-       });
-     }
+       duration: 3000,
+       panelClass: panelClass
+      });
+    }
 
 
 }

@@ -84,7 +84,7 @@ export class RegisterPageComponent implements OnInit {
         next: (success) => {
           if (success) {
             this.registerForm.reset();
-            this.openSnackBar('Cuenta creada con éxito', 'Cerrar');
+            this.openSnackBar('Cuenta creada con éxito', 'Cerrar','snackbar-success');
             this.router.navigateByUrl('auth/login');
           }
         },
@@ -92,9 +92,9 @@ export class RegisterPageComponent implements OnInit {
           const errorMsg = err?.error?.header?.error;
 
           if (errorMsg === 'Mail already registered') {
-            this.openSnackBar('Ya existe una cuenta con ese email.', 'Cerrar');
+            this.openSnackBar('Ya existe una cuenta con ese email.', 'Cerrar','snackbar-error');
           } else {
-            this.openSnackBar('Error al registrar usuario. Intente nuevamente.', 'Cerrar');
+            this.openSnackBar('Error al registrar usuario. Intente nuevamente.', 'Cerrar','snackbar-error');
           }
         }
       });
@@ -127,21 +127,17 @@ export class RegisterPageComponent implements OnInit {
     let valid = true;
     if (this.registerForm.invalid){
       this.registerForm.markAllAsTouched();
-      this.openSnackBar('Por favor, completá todos los campos correctamente.', 'Cerrar');
+      this.openSnackBar('Por favor, completá todos los campos correctamente.', 'Cerrar','snackbar-error');
       valid =  false;
     }
-    // else if( this.userService.isEmailExists(user.email)&& user.email ){
-    //   this.openSnackBar('Ya existe una cuenta con ese email.', 'Cerrar');
-    //   valid = false;
-    // }
     return valid;
   }
 
-
-   openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
+  openSnackBar(message: string, action: string, panelClass: string) {
+      this.snackBar.open(message, action, {
       duration: 3000,
-     });
-   }
+      panelClass: panelClass
+    });
+  }
 
 }

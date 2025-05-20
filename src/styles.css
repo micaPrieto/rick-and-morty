@@ -21,7 +21,7 @@ body {
 
 .card-character:hover {
   transform: scale(1.03);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); /* sutil glow */
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
   cursor: pointer;
 }
 
@@ -41,7 +41,6 @@ body {
   transform: scale(1.05);
 }
 
-/* Saca el borde por defecto en botones de bootstrap*/
 
 .page-link:focus {
   box-shadow: none !important;
@@ -53,10 +52,10 @@ body {
 }
 
 app-footer {
-  margin-top: auto; /* empuja el footer al final si hay poco contenido */
+  margin-top: auto;
 }
 
-/* Base style for all links */
+
 .base-link {
     color:rgba(202, 202, 202, 0.65);
     padding: 8px 16px;
@@ -65,7 +64,7 @@ app-footer {
     font-weight: 475;
 }
 
-/* Estilo para el link activo como el de la imagen */
+
 .active-link {
     background-color:rgba(18, 18, 18, 0.4);
     color: #ffffffc9 !important;
@@ -83,3 +82,16 @@ app-footer {
     font-weight: 450;
 }
 
+.snackbar-success {
+  --mdc-snackbar-container-color: #4caf50 !important;
+  --mdc-snackbar-supporting-text-color: white !important;
+  --mat-mdc-snack-bar-button-color: #d0f8ce !important;
+  font-weight: 500;
+}
+
+.snackbar-error {
+  --mdc-snackbar-container-color: #f44336 !important;
+  --mdc-snackbar-supporting-text-color: white !important;
+  --mat-mdc-snack-bar-button-color: #ffcdd2 !important;
+  font-weight: 500;
+}

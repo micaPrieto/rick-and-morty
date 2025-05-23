@@ -26,7 +26,6 @@ export class RegisterPageComponent implements OnInit {
   registerForm!: FormGroup;
   formUtils = FormUtils;
 
-
    constructor(
     private fb : FormBuilder,
     private snackBar : MatSnackBar,
@@ -99,7 +98,6 @@ export class RegisterPageComponent implements OnInit {
         }
       });
     }
-
   }
 
   getUserOfForm(): User {

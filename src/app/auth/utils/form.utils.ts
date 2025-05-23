@@ -20,8 +20,8 @@ export class FormUtils{
   }
 
 
-  static getTextError(errors: ValidationErrors, fieldName: string = ''){
-    // console.log( 'Objet key errors: ', Object.keys(errors));
+  static getTextError(errors: ValidationErrors, fieldName: string = '')
+  {
     for(const key of Object.keys(errors)) {
           switch(key){
             case 'required' :
@@ -47,8 +47,9 @@ export class FormUtils{
   }
 
 
-  //*Si las CONTRASEÑAS son IGUALES
-  static  isFieldOneEquealFieldTwo(field1: string, field2: string){
+  //Si las contraseñas son iguales
+  static  isFieldOneEquealFieldTwo(field1: string, field2: string)
+  {
     return(formGroup: AbstractControl) => {
       const field1Value = formGroup.get(field1)?.value;
       const field2Value = formGroup.get(field2)?.value;

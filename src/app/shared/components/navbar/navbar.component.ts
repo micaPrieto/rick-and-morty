@@ -9,14 +9,17 @@ import { AuthService } from '../../../auth/services/auth.service';
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
+
   isCharactersRoute = false;
 
   constructor(
     private router :Router,
+    private characterService : CharactersService
     //private authService: AuthService
     ){}
 
     authService = inject(AuthService);
+
 
 
 }

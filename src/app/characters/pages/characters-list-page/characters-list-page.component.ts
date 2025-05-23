@@ -21,29 +21,43 @@ import { Subscription } from 'rxjs';
 export default class CharactersListPageComponent implements OnInit, OnDestroy {
 
   characters : Character[] = [];
+  charactersQuery : Character[] = [];
   isError : any;
+  isSearching: boolean = false;
 
   sub =new Subscription()
+
 
   constructor(
     private charactersService: CharactersService
   ) {}
 
   ngOnInit(): void {
-
-    this.sub.add(
-      this.charactersService.characters.subscribe((data) => {
-        this.characters = data;
-      })
-    );
-
-    this.sub.add(
-      this.charactersService.isError.subscribe(err => {
-        this.isError = err;
-      })
-    );
-
+    this.subscriptions();
     this.charactersService.getCharacters(1);
+  }
+
+
+  subscriptions() {
+    this.charactersService.isSearching.subscribe(s => this.isSearching = s),
+
+      this.sub.add(
+        this.charactersService.characters.subscribe((data) => {
+          this.characters = data;
+        })
+      );
+
+      this.sub.add(
+        this.charactersService.charactersQuery.subscribe((data) => {
+          this.charactersQuery = data;
+        })
+      );
+
+      this.sub.add(
+        this.charactersService.isError.subscribe(err => {
+          this.isError = err;
+        })
+      );
   }
 
   ngOnDestroy(): void  {

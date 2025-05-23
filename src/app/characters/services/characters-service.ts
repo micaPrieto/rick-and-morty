@@ -5,9 +5,10 @@ import { Character } from '../interfaces/character.interface';
 import { BehaviorSubject, catchError, map, Observable, of, throwError } from 'rxjs';
 import { EpisodesService } from '../../episodes/services/episodes-service';
 import { CharacterMapper } from '../mapper/character.mapper';
+import { environment } from '../../../environments/environment';
 
 
-const API_URL = 'https://rickandmortyapi.com/api';
+const API_URL = environment.charactersBaseUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class CharactersService {
   //En RxJS, un BehaviorSubject<T>: Es un tipo especial de Observable<T> que mantiene el último valor emitido.
   // Podés suscribirte a él como a cualquier Observable
   characters = new BehaviorSubject<Character[]>([]);
+  charactersQuery = new BehaviorSubject<Character[]>([]);
   characterSelected = new BehaviorSubject<Character | null>(null);
 
   totalPages = new BehaviorSubject<number>(0);
@@ -60,27 +62,28 @@ export class CharactersService {
 
   searchCharacters(query: string, page: number = 1): void
   {
-      this.isSearching.next(true);
-      this.isError.next(null);
+    this.actualPage.next(page);
+    this.isSearching.next(true);
+    this.isError.next(null);
 
-      query = query.toLowerCase();
-      this.currentQuery.next(query);
+    query = query.toLowerCase();
+    this.currentQuery.next(query);
 
-       this.http.get<RESTCharacters>(`${API_URL}/character`, {
-        params: { name: query, page }
+      this.http.get<RESTCharacters>(`${API_URL}/character`, {
+       params: { name: query, page }
       })
       .subscribe({
         next: (resp) =>{
           this.totalPages.next(resp.info.pages);
           const characters = CharacterMapper.mapApiItemToCharacterArray(resp.results);
-          this.characters.next(characters);
+          this.charactersQuery.next(characters);
 
           console.log('Personajes encontrados: ',resp);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         },
         error:(err)=> {
           console.log("Err:",err);
-          this.characters.next([]);
+          this.charactersQuery.next([]);
           this.isError.next(`No se logró obtener personajes con el nombre: "${query}"`);
         },
       })
@@ -104,6 +107,14 @@ export class CharactersService {
       },
     })
   }
+
+  notSearching() {
+    this.isSearching.next(false);
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
+  }
+
+
+
 //
   /* // SIN EL SUBSCRIBE
   getCharacterById(id: number): void {

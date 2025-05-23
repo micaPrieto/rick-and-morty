@@ -3,8 +3,9 @@ import { Injectable, signal } from '@angular/core';
 import { Character } from '../../characters/interfaces/character.interface';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { Episode } from '../interfaces/rest-episode.interface';
+import { environment } from '../../../environments/environment';
 
-const API_URL = 'https://rickandmortyapi.com/api'
+const API_URL = environment.episodesBaseUrl;
 
 @Injectable({
   providedIn: 'root'

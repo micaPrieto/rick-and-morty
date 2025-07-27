@@ -1,0 +1,27 @@
+
+<div class="container my-4">
+
+  <app-floating-bar></app-floating-bar>
+
+   @if (isError)
+   {
+      <h3>{{isError}}</h3>
+   }
+   @else
+   {
+    <div class="row mt-4">
+
+         <!-- Información del usuario. Comlumna derecha -->
+          <div class="col-md-4">
+              <app-profile-info></app-profile-info>
+          </div>
+
+          <!-- Lista de episodios. Recuadro izquierdo-->
+          <div class="col-md-8">
+            <app-profile-episodes-list></app-profile-episodes-list>
+          </div>
+
+    </div>
+   }
+
+</div>

@@ -35,20 +35,27 @@ export class LoginPageComponent implements OnInit {
   hasError = signal(false)
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      mail: ['', [Validators.required, Validators.email]],
+    this.createForm();
+  }
+
+  createForm(){
+     this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
   onSubmit() {
+   this.login();
+  }
 
-    const {mail= '' ,password = ''} =  this.loginForm.value;
-    //Desestructura (extrae) los campos mail y password desde el objeto this.loginForm.value.
+  login(){
+     const {email= '' ,password = ''} =  this.loginForm.value;
+    //Desestructura (extrae) los campos email y password desde el objeto this.loginForm.value.
 
-      if(this.isFormValid())
+    if(this.isFormValid())
       {
-        this.authService.login(mail!, password!).subscribe({
+        this.authService.login(email!, password!).subscribe({
           next: (isAuthenticated) => {
               if(isAuthenticated)
               {
@@ -61,7 +68,7 @@ export class LoginPageComponent implements OnInit {
           error: (err) => {
               const errorMsg = err?.error?.header?.error;
 
-              if (errorMsg === 'User not found' || 'Invalid password' ) {
+              if (errorMsg === 'User not found' || errorMsg === 'Invalid password'){
                 this.openSnackBar('Email o contraseña incorrecta', 'Cerrar','snackbar-error');
               } else {
                 this.openSnackBar('Error al iniciar sesión. Intenta nuevamente.', 'Cerrar','snackbar-error');

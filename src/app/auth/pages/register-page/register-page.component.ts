@@ -34,10 +34,14 @@ export class RegisterPageComponent implements OnInit {
    ) { }
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group(
+    this.createForm();
+  }
+
+  createForm(){
+     this.registerForm = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.min(5), Validators.max(15)]],
-        mail: [
+        fullName: ['', [Validators.required, Validators.min(5), Validators.max(15)]],
+        email: [
           '',
           [
             Validators.required,
@@ -54,11 +58,11 @@ export class RegisterPageComponent implements OnInit {
           '',
           [Validators.required, Validators.minLength(8), Validators.maxLength(30)],
         ],
-        street: ['', [Validators.required, Validators.maxLength(50)]],
-        city: ['', [Validators.required, Validators.maxLength(50)]],
-        location: ['', [Validators.required, Validators.maxLength(50)]],
-        country: ['', [Validators.required, Validators.maxLength(50)]],
-        cp: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
+        street: ['', [/*Validators.required,*/ Validators.maxLength(50)]],
+        city: ['', [/*Validators.required,*/ Validators.maxLength(50)]],
+        location: ['', [/*Validators.required,*/ Validators.maxLength(50)]],
+        country: ['', [/*Validators.required,*/ Validators.maxLength(50)]],
+        cp: ['', [/*Validators.required,*/ Validators.minLength(4), Validators.maxLength(4)]],
         phone: ['', [Validators.pattern(this.formUtils.telPattern)]],
         birthday: [''],
       },
@@ -71,17 +75,18 @@ export class RegisterPageComponent implements OnInit {
   }
 
   onSubmit() {
-    //console.log(this.registerForm.getRawValue());
+    this.register()
+  }
 
+  register(){
     const user = this.getUserOfForm();
-
-    console.log(user);
-
-    if (this.isFormValid(user))
+     if (this.isFormValid(user))
     {
       this.authService.register(user).subscribe({
         next: (success) => {
           if (success) {
+            console.log(user);
+
             this.registerForm.reset();
             this.openSnackBar('Cuenta creada con éxito', 'Cerrar','snackbar-success');
             this.router.navigateByUrl('auth/login');
@@ -99,13 +104,13 @@ export class RegisterPageComponent implements OnInit {
       });
     }
   }
-
-  getUserOfForm(): User {
+/*
+  getUserOfForm2(): User {
     const formValue = this.registerForm.getRawValue();
 
     const user: User = {
       name: formValue.name,
-      mail: formValue.mail,
+      email: formValue.email, //!!! MODIFICAR ACÁ -si vuelvo a usar el endpoint de moby-
       password: formValue.password,
       address: {
         street: formValue.street,
@@ -120,6 +125,36 @@ export class RegisterPageComponent implements OnInit {
 
     return user;
   }
+*/
+  getUserOfForm(): User {
+  const formValue = this.registerForm.getRawValue();
+
+  const hasAddress =
+    formValue.street?.trim() ||
+    formValue.city?.trim() ||
+    formValue.location?.trim() ||
+    formValue.country?.trim() ||
+    formValue.cp?.trim();
+
+  const user: User = {
+    fullName: formValue.fullName,
+    email: formValue.email,
+    password: formValue.password,
+    ...(formValue.phone?.trim() ? { phone: formValue.phone } : {}),
+    ...(formValue.birthday?.trim() ? { birthday: formValue.birthday } : {}),
+    ...(hasAddress ? {
+      address: {
+        street: formValue.street,
+        city: formValue.city,
+        location: formValue.location,
+        country: formValue.country,
+        cp: formValue.cp,
+      }
+    } : {}),
+  };
+
+  return user;
+}
 
   isFormValid(user: User): boolean{
     let valid = true;

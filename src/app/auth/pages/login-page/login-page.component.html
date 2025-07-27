@@ -23,17 +23,17 @@
 
           <!-- Email -->
           <div class="mb-3">
-            <label for="mail" class="form-label">Email</label>
+            <label for="email" class="form-label">Email</label>
             <input
-              type="mail"
+              type="email"
               class="form-control"
-              id="mail"
-              formControlName="mail"
+              id="email"
+              formControlName="email"
               placeholder="email@example.com"
             />
-             @if(formUtils.isInvaliedField(loginForm, 'mail')){
+             @if(formUtils.isInvaliedField(loginForm, 'email')){
               <span class="form-text text-danger">
-                {{ formUtils.getFieldError(loginForm, "mail") }}
+                {{ formUtils.getFieldError(loginForm, "email") }}
               </span>
             }
           </div>

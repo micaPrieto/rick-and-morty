@@ -1,7 +1,8 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { CharactersService } from '../../../services/characters-service';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { CharactersService } from '../../../characters/services/characters-service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { EpisodesService } from '../../../episodes/services/episodes-service';
 
 @Component({
   selector: 'app-pagination',
@@ -18,12 +19,15 @@ export class PaginationComponent implements OnInit, OnDestroy {
   isSearching: boolean = false;
   currentQuery: string = '';
 
+  @Input() dad!: string;
+
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private charactersService: CharactersService
+    private charactersService: CharactersService,
+    private episodesService : EpisodesService
   ) {}
-
+/*
   ngOnInit(): void {
     this.subscriptions.push(
       this.charactersService.totalPages.subscribe(p => this.totalPages = p),
@@ -32,39 +36,71 @@ export class PaginationComponent implements OnInit, OnDestroy {
       this.charactersService.currentQuery.subscribe(q => this.currentQuery = q)
     );
   }
+    */
+
+   ngOnInit(): void {
+    if(this.dad === 'character'){
+        this.subscriptions.push(
+        this.charactersService.totalPages.subscribe(p => this.totalPages = p),
+        this.charactersService.actualPage.subscribe(p => this.actualPage = p),
+        this.charactersService.isSearching.subscribe(s => this.isSearching = s),
+        this.charactersService.currentQuery.subscribe(q => this.currentQuery = q)
+      );
+    }else{
+        this.subscriptions.push(
+        this.episodesService.totalPages.subscribe(p => this.totalPages = p),
+        this.episodesService.actualPage.subscribe(p => this.actualPage = p),
+        this.episodesService.isSearching.subscribe(s => this.isSearching = s),
+        this.episodesService.currentQuery.subscribe(q => this.currentQuery = q)
+      );
+    }
+  }
 
  ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
 
-  getCharactersWithPage(page: number):void {
-    this.charactersService.actualPage.next(page);
+  getWithPage(page: number):void {
 
-    if (this.isSearching) //Si estoy en modo busqueda
-    {
-      this.charactersService.searchCharacters(this.currentQuery, page);
-    } else {
-      this.charactersService.getCharacters(page);
+    if(this.dad === 'character'){
+      this.charactersService.actualPage.next(page);
+
+      if (this.isSearching) //Si estoy en modo busqueda
+      {
+        this.charactersService.searchCharacters(this.currentQuery, page);
+      } else {
+        this.charactersService.getCharacters(page);
+      }
     }
+    else{
+      this.episodesService.actualPage.next(page);
+
+      if (this.isSearching) //Si estoy en modo busqueda
+      {
+        this.episodesService.searchEpisodes(this.currentQuery, page);
+      } else {
+        this.episodesService.getAllEpisodes(page);
+      }
+    }
+
 
   }
 
   GoToprevPage():void {
     if (this.actualPage > 1) {
-      this.getCharactersWithPage(this.actualPage - 1);
+      this.getWithPage(this.actualPage - 1);
     }
   }
 
   goToNextPage() : void{
     if (this.actualPage < this.totalPages) {
-      this.getCharactersWithPage(this.actualPage + 1);
+      this.getWithPage(this.actualPage + 1);
     }
   }
 
   goToPage(page: number): void {
-    //??? this.charactersService.$actualPage.next(page);
-    this.getCharactersWithPage(page);
+    this.getWithPage(page);
   }
 
 

@@ -34,8 +34,7 @@ export class CharactersService {
 
   isError = new BehaviorSubject<string | null>(null);
 
-  getCharacters(page: number = 1): void
-  {
+  getCharacters(page: number = 1): void{
     this.isSearching.next(false);
     this.isError.next(null);
     this.characterSelected.next(null);
@@ -63,8 +62,8 @@ export class CharactersService {
   searchCharacters(query: string, page: number = 1): void
   {
     this.actualPage.next(page);
-    this.isSearching.next(true);
     this.isError.next(null);
+    this.isSearching.next(true);
 
     query = query.toLowerCase();
     this.currentQuery.next(query);
@@ -110,7 +109,6 @@ export class CharactersService {
 
   notSearching() {
     this.isSearching.next(false);
-    console.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
   }
 
 

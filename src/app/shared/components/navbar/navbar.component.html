@@ -37,7 +37,11 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link base-link" routerLinkActive="active-link"
+          <a
+          class="nav-link base-link"
+          routerLink="/episodes"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
             >Episodios</a
           >
         </li>
@@ -55,9 +59,9 @@
         <li class="nav-item">
           <a
             class="nav-link base-link"
-            routerLink="/not-found"
+            routerLink="/profile"
             routerLinkActive="active-link"
-            >{{ authService.user()?.name }}</a
+            >{{user?.fullName}}</a
           >
         </li>
 

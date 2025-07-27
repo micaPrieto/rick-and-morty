@@ -7,35 +7,35 @@
 
         <!-- Nombre -->
         <div class="form-group">
-          <label for="name" class="form-label">Nombre completo</label>
+          <label for="fullName" class="form-label">Nombre completo</label>
           <input
             type="text"
-            id="name"
+            id="fullName"
             class="form-control"
-            formControlName="name"
+            formControlName="fullName"
             placeholder="Juanito Pérez"
           />
 
-          @if(formUtils.isInvaliedField(registerForm, 'name')){
+          @if(formUtils.isInvaliedField(registerForm, 'fullName')){
              <span class="form-text text-danger">
-                {{formUtils.getFieldError(registerForm,'name')}}
+                {{formUtils.getFieldError(registerForm,'fullName')}}
             </span>
           }
         </div>
 
          <!-- Email -->
         <div class="form-group">
-          <label for="mail" class="form-label">Email</label>
+          <label for="email" class="form-label">Email</label>
           <input
             type="text"
-            id="mail"
+            id="email"
             class="form-control"
-            formControlName="mail"
+            formControlName="email"
             placeholder="example@example.com"
           />
-            @if(formUtils.isInvaliedField(registerForm, 'mail')){
+            @if(formUtils.isInvaliedField(registerForm, 'email')){
              <span class="form-text text-danger">
-                {{formUtils.getFieldError(registerForm,'mail')}}
+                {{formUtils.getFieldError(registerForm,'email')}}
               </span>
           }
         </div>
@@ -210,6 +210,8 @@
           }
         </div>
       </div>
+
+
 
       @if(registerForm.hasError('passwodsNotEqual') && registerForm.touched){
           <span class="form-text text-danger">

@@ -1,0 +1,19 @@
+
+
+<div class="card bg-dark text-white border-secondary">
+
+  <img
+  [src]=""
+  class="img-fluid w-75 mx-auto mt-2 rounded"
+  alt="characterSelected()?.name"
+  >
+
+  <div class="card-body">
+    <h5 class="card-title border-bottom pb-2">{{user?.fullName}}</h5>
+    <p class="mb-1"><strong>Email:</strong> {{user?.email}}</p>
+    <p class="mb-1"><strong>Fecha de nacimiento:</strong> {{user?.birthday}}</p>
+    <p class="mb-1"><strong>Ubicación:</strong> {{user?.address?.street}}, {{user?.address?.city}} ({{user?.address?.cp}}), {{user?.address?.location}}, {{user?.address?.country}}</p>
+
+  </div>
+
+</div>

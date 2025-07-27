@@ -1,21 +1,20 @@
-import { Component, inject, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import { CharactersService } from '../../services/characters-service';
-import {CharacterCardComponent } from "../../components/character-list/character-card/character-card.component";
-import { SearchInputComponent } from "../../components/character-list/search-input/search-input.component";
+
 import { FloatingBarComponent } from "../../../shared/components/floating-bar/floating-bar.component";
-import { PaginationComponent } from '../../components/character-list/pagination/pagination.component';
 import { Character } from '../../interfaces/character.interface';
 import { Subscription } from 'rxjs';
+import { CardsListComponent } from "../../components/character-list/cards-list/cards-list.component";
+import { SearchInputComponent } from '../../../shared/components/search-input/search-input.component';
 
 
 @Component({
   selector: 'app-characters-list-page',
   imports: [
-     CharacterCardComponent,
-     PaginationComponent,
-     SearchInputComponent,
-     FloatingBarComponent
-    ],
+    SearchInputComponent,
+    FloatingBarComponent,
+    CardsListComponent
+],
   templateUrl: './characters-list-page.component.html'
 })
 export default class CharactersListPageComponent implements OnInit, OnDestroy {
@@ -24,6 +23,8 @@ export default class CharactersListPageComponent implements OnInit, OnDestroy {
   charactersQuery : Character[] = [];
   isError : any;
   isSearching: boolean = false;
+
+  name:string = 'character';
 
   sub =new Subscription()
 
@@ -62,8 +63,6 @@ export default class CharactersListPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void  {
     this.sub.unsubscribe();
-  }//Angular invoca ngOnDestroy automáticamente
-  //cuando el componente se elimina del DOM
-  //(por ej, al cambiar de ruta o condicionalmente ocultar el componente).
+  }
 
 }

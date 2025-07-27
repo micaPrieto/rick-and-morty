@@ -1,6 +1,7 @@
 export const environment = {
 
-  usersBaseUrl : 'https://api-auth-moby.herokuapp.com/api',
+  //usersBaseUrl : 'https://api-auth-moby.herokuapp.com/api',
+   usersBaseUrl : 'http://localhost:3000/auth',
 
   charactersBaseUrl:  'https://rickandmortyapi.com/api',
 

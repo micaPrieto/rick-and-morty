@@ -1,0 +1,20 @@
+
+  <div class="card bg-dark text-white border-secondary">
+    <div class="card-body">
+
+      <h5 class="card-title border-bottom pb-2">Lista de episodios favoritos</h5>
+
+      <ul class="list-unstyled">
+        <div *ngIf="episodes as episodes">
+          <li *ngFor="let episode of episodes">
+            <a  class="text-primary text-decoration-none">
+              Episodio {{ episode.id }} - {{ episode.name }}
+            </a>
+          </li>
+        </div>
+
+      </ul>
+
+    </div>
+  </div>
+

@@ -1,8 +1,9 @@
 import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { EpisodesService } from '../../../../episodes/services/episodes-service';
 import { CommonModule } from '@angular/common';
-import { Episode } from '../../../../episodes/interfaces/rest-episode.interface';
+import { Episode } from '../../../../episodes/interfaces/episode.interface';
 import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-character-episodes-list',
@@ -21,7 +22,7 @@ export class CharacterEpisodesListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.sub.add(
-      this.episodesService.episodes.subscribe((episodes) => {
+      this.episodesService.characterEpisodes.subscribe((episodes) => {
         this.episodes = episodes;
       })
     )

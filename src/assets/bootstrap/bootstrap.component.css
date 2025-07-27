@@ -1,0 +1,25 @@
+.contenedor{
+  margin-bottom: 20px;
+  background: #0d6efd;
+  color: #fff;
+}
+
+.contenedor > div{
+  background: rgba(236, 76, 76, 0.93);
+  padding: 15px;
+  border: 1px solid  #0d6efd;
+}
+
+
+.contenedor2{
+  margin-bottom: 20px;
+  background: #0d6efd;
+  color: #fff;
+  height: 100px;
+}
+
+.contenedor2 > div{
+  background: rgba(236, 76, 76, 0.93);
+  padding: 15px 20px;
+  border: 1px solid  #0d6efd;
+}

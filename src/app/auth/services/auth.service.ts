@@ -43,23 +43,31 @@ export class AuthService {
 
   //? ------------------------------------------------------
 
-  login(mail: string, password: string): Observable <boolean>
+  login(email: string, password: string): Observable <boolean>
   {
+    console.log(email);
+    console.log(password);
+
     return this.http.post<AuthResponse>
     (
-      `${baseUrl}/user/login`,{
-        mail: mail,
+      `${baseUrl}/login`,{
+        email: email, //! MODIFICAR ACÁ -si vuelvo a usar el endpoint-
         password: password,
       })
       .pipe(
+        tap(resp => console.log('Respuesta del backend:', resp)),
         map((resp)=> this.handleAuthSuccess(resp) ), // Regresa un true
-        catchError((error: any) => this.handleAuthError(error))
+          catchError((error: any) => {
+          console.error('Login error:', error);
+           return this.handleAuthError(error);
+        })
       )
   }
 
   register(user: User): Observable <boolean>
   {
-    return this.http.post<AuthResponse>(`${baseUrl}/user/register`,user)
+    console.log(user);
+    return this.http.post<AuthResponse>(`${baseUrl}/register`,user)
       .pipe(
         map(()=> true ),
         catchError((error: any) => { return throwError(() => error);
@@ -88,12 +96,13 @@ export class AuthService {
   //Manejar el ÉXITO
   private handleAuthSuccess(resp: AuthResponse)
   {
-    this._user.set(resp.data.user);
+    console.log('handleAuthSuccess resp:', resp);
+    this._user.set(resp.user);
     this._authStatus.set('authenticated');
-    this._token.set(resp.data.token);
+    this._token.set(resp.token);
 
-    localStorage.setItem('token', resp.data.token);
-    localStorage.setItem('user', JSON.stringify(resp.data.user));
+    localStorage.setItem('token', resp.token);
+    localStorage.setItem('user', JSON.stringify(resp.user));
 
      return true;
   }

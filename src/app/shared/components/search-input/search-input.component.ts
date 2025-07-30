@@ -12,7 +12,6 @@ export class SearchInputComponent {
 
   @Input() dad!: string;
 
-
   constructor(
     private charactersService: CharactersService,
     private episodesService : EpisodesService,

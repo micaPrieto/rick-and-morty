@@ -1,13 +1,13 @@
 import { Router } from "@angular/router";
 import { inject } from "@angular/core";
-import { AuthService } from "../services/auth.service";
+import { UserService } from "../services/user.service";
 import { firstValueFrom } from "rxjs";
 
 
 export const NotAuthenticatedGuard = async()=>{
 
   const router = inject(Router);
-  const authService = inject(AuthService);
+  const authService = inject(UserService);
 
   //const isAuthenticated  = authService.authStatus(); //Podriamos usar esto, pero no se tendria en cuenta el estado 'checking',
  // por eso tenemos que hacer el async await

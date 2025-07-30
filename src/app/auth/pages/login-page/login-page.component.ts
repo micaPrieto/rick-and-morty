@@ -8,7 +8,7 @@ import {
 import { FormUtils } from '../../utils/form.utils';
 import { Route, Router, RouterLink } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login-page',
@@ -26,7 +26,7 @@ export class LoginPageComponent implements OnInit {
     private fb: FormBuilder,
     private router : Router,
     private snackBar : MatSnackBar,
-    private authService : AuthService
+    private authService : UserService
     ) {}
 
   loginForm!: FormGroup;

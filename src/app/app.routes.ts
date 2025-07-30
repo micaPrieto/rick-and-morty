@@ -22,6 +22,11 @@ export const routes: Routes = [
     canActivate:  [AuthenticatedGuard],
   },
   {
+    path: 'episodes/:id',
+    loadComponent : () => import ('./episodes/pages/episode-detail-page/episode-detail-page.component'),
+    canActivate:  [AuthenticatedGuard],
+  },
+  {
     path: 'auth',
     loadChildren : () => import ('./auth/auth.routes'),
     canActivate:  [NotAuthenticatedGuard],

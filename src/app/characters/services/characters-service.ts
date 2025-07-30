@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { RESTCharacters } from '../interfaces/rest-characters.interface';
 import { Character } from '../interfaces/character.interface';
-import { BehaviorSubject, catchError, map, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, forkJoin, map, Observable, of, throwError } from 'rxjs';
 import { EpisodesService } from '../../episodes/services/episodes-service';
 import { CharacterMapper } from '../mapper/character.mapper';
 import { environment } from '../../../environments/environment';
+import { Episode } from '../../episodes/interfaces/episode.interface';
 
 
 const API_URL = environment.charactersBaseUrl;
@@ -17,7 +18,6 @@ export class CharactersService {
 
   constructor(
     private http: HttpClient,
-    private episodesService: EpisodesService
   ) {}
 
   //En RxJS, un BehaviorSubject<T>: Es un tipo especial de Observable<T> que mantiene el último valor emitido.
@@ -25,6 +25,8 @@ export class CharactersService {
   characters = new BehaviorSubject<Character[]>([]);
   charactersQuery = new BehaviorSubject<Character[]>([]);
   characterSelected = new BehaviorSubject<Character | null>(null);
+
+  characterEpisodes = new BehaviorSubject<Episode[]| null>(null);
 
   totalPages = new BehaviorSubject<number>(0);
   actualPage = new BehaviorSubject<number>(1);
@@ -96,7 +98,7 @@ export class CharactersService {
     .subscribe({
       next: (character) =>{
         this.characterSelected.next(character);
-        this.episodesService.getCharacterEpisodes(character)
+        this.getEpisodesByCharacter(character)
 
         console.log('Personaje encontrado: ',character);
       },
@@ -113,24 +115,34 @@ export class CharactersService {
 
 
 
-//
-  /* // SIN EL SUBSCRIBE
-  getCharacterById(id: number): void {
-    this.isSearching.set(false);
-    this.http.get<Character>(`${this.baseUrl}/character/${id}`)
-    .pipe(
-      map((resp) =>{
-        this.$characterSelected.set(resp);
-        return CharacterMapper.mapApiItemToCharacterArray(resp.results);
-      }),
+     //?----------- Acceder a los episodios en los que sale el personaje -----------------
 
-      catchError((error) => {
-        console.log('Error fetching', error);
-        return throwError(() => new Error(`No se logró obtener personajes con el nombre " ${query} "`));
-      })
-  )
-  }
-*/
+    //Función generica que recibe un array de URLs de episodios, y retorna un Observable<Episode[]>.
+    getEpisodesByUrls(episodeUrls: string[]): Observable<Episode[]> {
+      const episodes = episodeUrls.map(url => this.http.get<Episode>(url));
+      return forkJoin(episodes);// Obtiene datos multiples
+    }
+
+    getEpisodesByCharacter(character: Character) : void{
+      if (character.episode?.length) {
+        this.getEpisodesByUrls(character.episode)
+          .subscribe({
+            next: (episodes) => {
+              this.characterEpisodes!.next(episodes);
+              console.log(`Episodios del personaje:`, episodes);
+            },
+            error: (err) => {
+              console.log("Error al acceder a los episodios");
+            }
+          });
+      }
+      else{
+        console.log('No se ha podido acceder a los episodios');
+      }
+    }
+
+
+
 
 }
 

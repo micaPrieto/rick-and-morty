@@ -5,6 +5,7 @@ import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { RESTEpisode } from '../interfaces/rest-episode.interface';
 import { environment } from '../../../environments/environment';
 import { Episode } from '../interfaces/episode.interface';
+import { CharactersService } from '../../characters/services/characters-service';
 
 const API_URL = environment.episodesBaseUrl;
 
@@ -13,11 +14,13 @@ const API_URL = environment.episodesBaseUrl;
 })
 export class EpisodesService {
 
-  characterEpisodes = new BehaviorSubject<Episode[]| null>(null);
+
+  episodeCharacters = new BehaviorSubject<Character[]| null>(null);
 
   allEpisodes = new BehaviorSubject<Episode[]>([]);
   episodeQuery = new BehaviorSubject<Episode[]>([]);
   episodeSelected = new BehaviorSubject<Episode | null>(null);
+
 
   totalPages = new BehaviorSubject<number>(0);
   actualPage = new BehaviorSubject<number>(1);
@@ -27,31 +30,9 @@ export class EpisodesService {
 
   isError = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient) {}
-
-  //Función generica que recibe un array de URLs de episodios, y retorna un Observable<Episode[]>.
-  getEpisodesByUrls(episodeUrls: string[]): Observable<Episode[]> {
-    const episodes = episodeUrls.map(url => this.http.get<Episode>(url));
-    return forkJoin(episodes);// Obtiene datos multiples
-  }
-
-  getCharacterEpisodes(character: Character) : void{
-    if (character.episode?.length) {
-      this.getEpisodesByUrls(character.episode)
-        .subscribe({
-          next: (episodes) => {
-            this.characterEpisodes!.next(episodes);
-            console.log(`Episodios del personaje:`, episodes);
-          },
-          error: (err) => {
-            console.log("Error al acceder a los episodios");
-          }
-        });
-    }
-    else{
-      console.log('No se ha podido acceder a los episodios');
-    }
-  }
+  constructor(
+    private http: HttpClient,
+  ) {}
 
 
    getAllEpisodes(page: number = 1): void{
@@ -64,6 +45,7 @@ export class EpisodesService {
         })
         .subscribe({
           next: (resp) =>{
+            console.log(resp);
             const episodes = resp.results;
 
             this.allEpisodes.next(episodes);
@@ -108,29 +90,60 @@ export class EpisodesService {
           })
       }
 
-      /*
-      getEpisodeById(id: number): void {
-         this.isError.next(null);
-         this.isSearching.next(false);
+    notSearching() {
+      this.isSearching.next(false);
+    }
 
-        this.http.get<Character>(`${API_URL}/character/${id}`)
-        .subscribe({
-          next: (character) =>{
-            this.characterSelected.next(character);
-            this.episodesService.getCharacterEpisodes(character)
-
-            console.log('Personaje encontrado: ',character);
-          },
-          error:(err)=> {
-            console.log("Error getCharacterById: ",err);
-            this.isError.next("No se ha encontrado el persoanje.");
-          },
-        })
-      }
-    */
-      notSearching() {
+    getEpisodeById(id: string): void {
+        this.isError.next(null);
         this.isSearching.next(false);
+
+      this.http.get<Episode>(`${API_URL}/episode/${id}`)
+      .subscribe({
+        next: (episode) =>{
+          this.episodeSelected.next(episode);
+          this.getCharactersByEpisode(episode)
+
+          console.log('Episodio encontrado: ',episode);
+        },
+        error:(err)=> {
+          console.log("Error getEpisodeById: ",err);
+          this.isError.next("No se ha encontrado el episodio.");
+        },
+      })
+    }
+
+    getEpisodeById$(id: string): Observable<Episode> {
+      return this.http.get<Episode>(`${API_URL}/episode/${id}`);
+    }
+
+    //?----------- Acceder a los personajes del episodio -----------------
+
+    //Función generica que recibe un array de URLs de personajes y los retorna
+    getCharactersByUrls(charactersUrls: string[]): Observable<Character[]> {
+      const characters = charactersUrls.map(url => this.http.get<Character>(url));
+      return forkJoin(characters);// Obtiene datos multiples
+    }
+
+    getCharactersByEpisode(episode: Episode) : void{
+      if (episode.episode?.length) {
+        this.getCharactersByUrls(episode.characters)
+          .subscribe({
+            next: (characters) => {
+              this.episodeCharacters!.next(characters);
+              console.log(`Personajes del episodio:`, characters);
+            },
+            error: (err) => {
+              console.log("Error al acceder a los personajes");
+            }
+          });
       }
+      else{
+        console.log('No se ha podido acceder a los personajes');
+      }
+    }
+
+
 
 
 }

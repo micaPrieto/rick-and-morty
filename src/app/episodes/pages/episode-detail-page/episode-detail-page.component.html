@@ -1,1 +1,28 @@
-<p>episode-detail-page works!</p>
+
+<div class="container my-4">
+
+  <app-floating-bar></app-floating-bar>
+
+   @if (isError)
+   {
+      <h3>{{isError}}</h3>
+   }
+   @else
+   {
+    <div class="row mt-4">
+
+         <!-- Información del episodio. Comlumna derecha -->
+          <div class="col-md-4">
+              <app-episode-info></app-episode-info>
+          </div>
+
+          <!-- Lista de personajes. Recuadro izquierdo-->
+          <div class="col-md-8">
+            <app-episode-characters-list></app-episode-characters-list>
+          </div>
+
+
+    </div>
+   }
+
+</div>

@@ -1,14 +1,45 @@
-<div
-  routerLink="{{episode.id}}"
-  class="btn btn-primary mt-2 card h-100 bg-dark text-white card-character"
-  >
+<div class="position-relative mb-3">
 
-  <div class="card-body  d-flex flex-column justify-content-between">
-    <h6 class="card-title mb-0">{{episode.name}}</h6>
-    <p class="card-title mb-0">{{episode.air_date}}</p>
-    <p class="card-title mb-0">Fecha de emisión:{{episode.air_date}}</p>
-    <p class="card-title mb-0">Creado en:{{episode.created}}</p>
+  <div
+    class="card card-episode bg-dark text-white p-3 shadow-sm"
+  >
+    <!-- Botón de favorito -->
+    <!-- <button
+      (click)="addToFavorite(episode.id); $event.stopPropagation()"
+      class="btn btn-outline-danger btn-sm position-absolute top-0 end-0 m-2"
+      title="Agregar a favoritos">
+      ❤️
+    </button> -->
+
+    <button
+      [disabled]="isFavorite"
+      (click)="addToFavorite(episode.id); $event.stopPropagation()"
+      class="heart-button"
+      [ngClass]="{ 'favorito': isFavorite }"
+      title="Agregar a favoritos"
+    >
+      <i class="fas fa-heart"></i>
+    </button>
+
+    <!-- <button
+      class="heart-button"
+      [class.favorito]="usuario.isFavorito"
+      (click)="toggleFavorito(usuario.id!)"
+      >
+      <i class="fas fa-heart"></i>
+    </button> -->
+
+    <!-- Contenido con routerLink -->
+    <div
+      class="card-body d-flex flex-column justify-content-between"
+      [routerLink]="['/episodes', episode.id]"
+      style="cursor: pointer"
+    >
+      <h6 class="text-uppercase text-secondary mb-2">Episode {{ episode.id }}</h6>
+      <h5 class="mb-1 fw-bold">{{ episode.name }}</h5>
+      <p class="mb-1 text-white-50">{{ episode.episode }}</p>
+      <small class="text-white-50">Air Date: {{ episode.air_date }}</small>
+    </div>
   </div>
 
 </div>
-

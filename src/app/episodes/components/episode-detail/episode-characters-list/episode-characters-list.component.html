@@ -1,0 +1,25 @@
+
+  <div class="card bg-dark text-white border-secondary">
+    <div class="card-body">
+
+      <h5 class="card-title border-bottom pb-2">Lista de personajes que aparecen en el episodio</h5>
+
+      <ul class="list-unstyled">
+        <div *ngIf="characters as characters">
+          <li *ngFor="let character of characters">
+
+           <a
+            [routerLink]="['/characters', character.id]"
+            class="text-primary text-decoration-none"
+            title="Ver detalle del episodio">
+            Episodio {{ character.id }} - {{ character.name }}
+          </a>
+
+          </li>
+        </div>
+
+      </ul>
+
+    </div>
+  </div>
+

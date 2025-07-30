@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CharactersService } from '../../../characters/services/characters-service';
-import { AuthService } from '../../../auth/services/auth.service';
+import { UserService } from '../../../auth/services/user.service';
 import { User } from '../../../auth/interfaces/user.interface';
 
 @Component({
@@ -17,7 +17,7 @@ export class NavbarComponent {
   constructor(
     private router :Router,
     private characterService : CharactersService,
-    public authService: AuthService
+    public authService: UserService
     ){}
 
 

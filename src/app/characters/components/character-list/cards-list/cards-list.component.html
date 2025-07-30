@@ -1,12 +1,21 @@
-         <!------------ Lista de Cards ------------>
-          <div class=" row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 mx-auto">
-              @for (character of characters; track $index) {
-                <div class="col">
-                  <app-character-card [character]="character"></app-character-card>
+  <!-- Lista de Cards -->
+  <ng-container *ngIf="characters.length === 1; else multipleCards">
+    <div class="row justify-content-center g-4 mx-auto">
+      <div class="col-auto">
+        <app-character-card [character]="characters[0]"></app-character-card>
+      </div>
+    </div>
+  </ng-container>
 
-                </div>
-              }
-          </div>
+  <ng-template #multipleCards>
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 mx-auto">
+      @for (character of characters; track $index) {
+        <div class="col">
+          <app-character-card [character]="character"></app-character-card>
+        </div>
+      }
+    </div>
+  </ng-template>
 
-          <!------------ Paginador ------------>
-          <app-pagination [dad] = 'name'></app-pagination>
+  <!------------ Paginador ------------>
+  <app-pagination [dad] = 'name'></app-pagination>

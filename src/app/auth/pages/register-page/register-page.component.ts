@@ -9,7 +9,7 @@ import { User } from '../../interfaces/user.interface';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormUtils } from '../../utils/form.utils';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-register-page',
@@ -30,7 +30,7 @@ export class RegisterPageComponent implements OnInit {
     private fb : FormBuilder,
     private snackBar : MatSnackBar,
     private router : Router,
-    private authService: AuthService
+    private authService: UserService
    ) { }
 
   ngOnInit(): void {

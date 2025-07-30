@@ -1,24 +1,31 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, forkJoin, map, Observable, of, tap, throwError } from 'rxjs';
 
 import { AuthResponse } from '../interfaces/auth-response.interface';
 import { User } from '../interfaces/user.interface';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { environment } from '../../../environments/environment';
+import { CharactersService } from '../../characters/services/characters-service';
+import { Episode } from '../../episodes/interfaces/episode.interface';
+import { EpisodesService } from '../../episodes/services/episodes-service';
 
 type AuthStatus = 'checking' | 'authenticated' |'not-authenticated'
 
 const baseUrl = environment.usersBaseUrl;
 
 @Injectable({providedIn: 'root'})
-export class AuthService {
+export class UserService {
 
   private _authStatus = signal<AuthStatus>('checking')
   private _user = signal<User | null>(null)
   private _token = signal<string | null>(null)
 
+ favoritesEpisodes = new BehaviorSubject<Episode[]| null>(null);
+
   private http = inject(HttpClient);
+
+  private episodesService = inject(EpisodesService);
 
   checkStatusResourse = rxResource ({
     loader: ( ) => this.checkStatus()
@@ -51,7 +58,7 @@ export class AuthService {
     return this.http.post<AuthResponse>
     (
       `${baseUrl}/login`,{
-        email: email, //! MODIFICAR ACÁ -si vuelvo a usar el endpoint-
+        email: email,
         password: password,
       })
       .pipe(
@@ -78,20 +85,30 @@ export class AuthService {
   checkStatus(): Observable<boolean> {
 
     const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
+    const userString  = localStorage.getItem('user');
+    const favoritesString = localStorage.getItem('favoritesEpisodes');
 
-    if (!token || !user) {
+
+    if (!token || !userString ) {
       this.logOut();
       return of(false);
     }
 
+    const user = JSON.parse(userString );
+
     this._token.set(token);
-    this._user.set(JSON.parse(user));
+    this._user.set(user);
     this._authStatus.set('authenticated');
+
+    if (favoritesString) {
+    const favorites = JSON.parse(favoritesString);
+    this.favoritesEpisodes!.next(favorites); // 👈 emite los episodios desde localStorage
+    } else if (user.episodesFavorites?.length) {
+      this.getFavoriteEpisodesByIds(user.episodesFavorites); // fallback
+    }
 
     return of(true);
   }
-
 
   //Manejar el ÉXITO
   private handleAuthSuccess(resp: AuthResponse)
@@ -101,11 +118,17 @@ export class AuthService {
     this._authStatus.set('authenticated');
     this._token.set(resp.token);
 
+    if(resp.user.episodesFavorites)
+    {
+      this.getFavoriteEpisodesByIds(resp.user.episodesFavorites)
+    }
+
     localStorage.setItem('token', resp.token);
     localStorage.setItem('user', JSON.stringify(resp.user));
 
      return true;
   }
+
 
   //Manejar el ERROR
   private handleAuthError(error: any){
@@ -122,6 +145,61 @@ export class AuthService {
     localStorage.removeItem('user');
 
     console.log('Usuario no autenticado. Status:', this._authStatus());
+  }
+
+  getFavoriteEpisodesByIds(episodeIds: string[]): void {
+    const episodeRequests = episodeIds.map(id =>
+      this.episodesService.getEpisodeById$(id)
+    );
+
+    forkJoin(episodeRequests).subscribe({
+      next: (episodes) => {
+        this.favoritesEpisodes!.next(episodes);
+        localStorage.setItem('favoritesEpisodes', JSON.stringify(episodes));
+        console.log('Episodios favoritos:', episodes);
+      },
+      error: (err) => {
+        console.error('Error al obtener episodios favoritos:', err);
+      }
+    });
+  }
+
+  addFavorite(episodeId: string): Observable<string[]> {
+    const token = this.token();
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.patch<{ favorites: string[] }>(
+      `${baseUrl}/favorites/${episodeId}`,
+      {},
+      { headers }
+    ).pipe(
+      tap(resp => {
+        localStorage.setItem('favoritesEpisodes', JSON.stringify(resp.favorites));
+        this.getFavoriteEpisodesByIds(resp.favorites);
+      }),
+      map(resp => resp.favorites)
+    );
+  }
+
+  removeFavorite(episodeId: string): Observable<string[]> {
+    const token = this.token();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.delete<{ episodesFavorites: string[] }>(
+        `${baseUrl}/favorites/${episodeId}`,
+        { headers }
+      )
+      .pipe(
+        tap(resp => {
+          localStorage.setItem('favoritesEpisodes', JSON.stringify(resp.episodesFavorites));
+          this.getFavoriteEpisodesByIds(resp.episodesFavorites);
+        }),
+        map(resp => resp.episodesFavorites)
+      );
   }
 
 

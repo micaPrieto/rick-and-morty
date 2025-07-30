@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { translaterCharacterInfo } from '../../characters/pipes/translater-character-info.pipe';
 import { User } from '../../auth/interfaces/user.interface';
-import { AuthService } from '../../auth/services/auth.service';
+import { UserService } from '../../auth/services/user.service';
 
 @Component({
   selector: 'app-profile-info',
@@ -18,11 +18,11 @@ export class ProfileInfoComponent {
     user : User | null = null;
 
     constructor(
-      private authService: AuthService,
+      private userService: UserService,
     ) {}
 
     ngOnInit(): void {
-      this.user = this.authService.user();
+      this.user = this.userService.user();
     }
 
 }

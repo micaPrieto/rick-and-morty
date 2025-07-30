@@ -3,11 +3,13 @@ import { EpisodesService } from '../../../../episodes/services/episodes-service'
 import { CommonModule } from '@angular/common';
 import { Episode } from '../../../../episodes/interfaces/episode.interface';
 import { Subscription } from 'rxjs';
+import { CharactersService } from '../../../services/characters-service';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-character-episodes-list',
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './character-episodes-list.component.html'
 })
 export class CharacterEpisodesListComponent implements OnInit, OnDestroy {
@@ -16,13 +18,13 @@ export class CharacterEpisodesListComponent implements OnInit, OnDestroy {
   sub =new Subscription();
 
   constructor(
-    private episodesService: EpisodesService
+    private charactersService: CharactersService
   ) {}
 
   ngOnInit(): void {
 
     this.sub.add(
-      this.episodesService.characterEpisodes.subscribe((episodes) => {
+      this.charactersService.characterEpisodes.subscribe((episodes) => {
         this.episodes = episodes;
       })
     )

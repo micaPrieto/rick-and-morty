@@ -2,10 +2,11 @@ import { Component, Input } from '@angular/core';
 import { Episode } from '../../../interfaces/episode.interface';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 import { EpisodeCardComponent } from "../episode-card/episode-card.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cards-episodes-list',
-  imports: [PaginationComponent, EpisodeCardComponent],
+  imports: [PaginationComponent, EpisodeCardComponent, CommonModule],
   templateUrl: './cards-episodes-list.component.html',
   styleUrl: './cards-episodes-list.component.css'
 })

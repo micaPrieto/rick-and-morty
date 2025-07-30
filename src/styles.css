@@ -30,6 +30,66 @@ body {
   object-fit: cover;
 }
 
+.center-if-single-card {
+  justify-content: center !important; /* fuerza el centrado horizontal */
+}
+
+.center-if-single-card > .col {
+  flex: 0 0 auto; /* evita que se estire */
+  max-width: 250px; /* o cualquier ancho deseado para la card */
+}
+
+
+.single-card-row {
+  justify-content: center !important;
+}
+
+.single-card-row > .col {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 auto;
+  max-width: 250px;
+  margin: 0 auto; /* ayuda a centrar dentro del espacio de columna */
+}
+
+.single-card-row .card {
+  width: 100%;
+  max-width: 250px;
+}
+
+.single-card-row .col {
+  display: flex;
+  justify-content: center;
+}
+
+.single-card-row .card {
+  width: 100%;
+  max-width: 250px; /* Evita que se estire de más */
+}
+
+.card-episode {
+  border-radius: 0.75rem;
+  background-color: #2c2f33;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  height: 100%; /* ocupa toda la altura disponible en la columna */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-episode:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+}
+
+.card-episode .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160px; /* podés ajustar este valor si querés más o menos altura */
+}
+
 .page-link.active {
   background-color: #0d6efd;
   border-color: #0d6efd;

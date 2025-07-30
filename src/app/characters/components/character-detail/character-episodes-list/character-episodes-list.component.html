@@ -7,9 +7,13 @@
       <ul class="list-unstyled">
         <div *ngIf="episodes as episodes">
           <li *ngFor="let episode of episodes">
-            <a  class="text-primary text-decoration-none">
+            <a
+              [routerLink]="['/episodes', episode.id]"
+              class="text-primary text-decoration-none"
+              title="Ver detalle del episodio">
               Episodio {{ episode.id }} - {{ episode.name }}
             </a>
+
           </li>
         </div>
 

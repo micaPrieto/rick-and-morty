@@ -209,5 +209,37 @@ export class UserService {
       );
   }
 
+  uploadProfileImage(file: File): Observable<{ message: string; profileImage: string }> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.patch<{ message: string; profileImage: string }>(
+      `${baseUrl}/upload-profile-image`,
+      formData,
+      { headers }
+    ).pipe(
+      tap((resp) => {
+        console.log('Imagen subida correctamente:', resp);
+        if (this._user()) {
+          this._user.set({
+            ...this._user()!,
+            profileImage: resp.profileImage
+          });
+          localStorage.setItem('user', JSON.stringify(this._user()));
+        }
+      }),
+      catchError((error) => {
+        console.error('Error al subir imagen:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
 
 }

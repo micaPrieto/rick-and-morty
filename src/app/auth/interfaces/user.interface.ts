@@ -9,5 +9,6 @@ export interface User {
   address?: Address;
   birthday?: Date;
   phone?: string;
-  episodesFavorites? : string[]
+  episodesFavorites? : string[];
+  profileImage? : string;
 }

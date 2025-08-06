@@ -104,57 +104,36 @@ export class RegisterPageComponent implements OnInit {
       });
     }
   }
-/*
-  getUserOfForm2(): User {
+
+  getUserOfForm(): User {
     const formValue = this.registerForm.getRawValue();
 
+    const hasAddress =
+      formValue.street?.trim() ||
+      formValue.city?.trim() ||
+      formValue.location?.trim() ||
+      formValue.country?.trim() ||
+      formValue.cp?.trim();
+
     const user: User = {
-      name: formValue.name,
-      email: formValue.email, //!!! MODIFICAR ACÁ -si vuelvo a usar el endpoint de moby-
+      fullName: formValue.fullName,
+      email: formValue.email,
       password: formValue.password,
-      address: {
-        street: formValue.street,
-        city: formValue.city,
-        location: formValue.location,
-        country: formValue.country,
-        cp: formValue.cp,
-      },
-      ...(formValue.phone.trim() !== '' ? { phone: formValue.phone } : {}),//Sólo los agrega si existe un valor
-      ...(formValue.birthday.trim() !== '' ? { birthday: formValue.birthday } : {}),
+      ...(formValue.phone?.trim() ? { phone: formValue.phone } : {}),
+      ...(formValue.birthday?.trim() ? { birthday: formValue.birthday } : {}),
+      ...(hasAddress ? {
+        address: {
+          street: formValue.street,
+          city: formValue.city,
+          location: formValue.location,
+          country: formValue.country,
+          cp: formValue.cp,
+        }
+      } : {}),
     };
 
     return user;
   }
-*/
-  getUserOfForm(): User {
-  const formValue = this.registerForm.getRawValue();
-
-  const hasAddress =
-    formValue.street?.trim() ||
-    formValue.city?.trim() ||
-    formValue.location?.trim() ||
-    formValue.country?.trim() ||
-    formValue.cp?.trim();
-
-  const user: User = {
-    fullName: formValue.fullName,
-    email: formValue.email,
-    password: formValue.password,
-    ...(formValue.phone?.trim() ? { phone: formValue.phone } : {}),
-    ...(formValue.birthday?.trim() ? { birthday: formValue.birthday } : {}),
-    ...(hasAddress ? {
-      address: {
-        street: formValue.street,
-        city: formValue.city,
-        location: formValue.location,
-        country: formValue.country,
-        cp: formValue.cp,
-      }
-    } : {}),
-  };
-
-  return user;
-}
 
   isFormValid(user: User): boolean{
     let valid = true;

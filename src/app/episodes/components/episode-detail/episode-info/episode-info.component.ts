@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { EpisodesService } from '../../../services/episodes-service';
@@ -11,9 +11,11 @@ import { Episode } from '../../../interfaces/episode.interface';
   templateUrl: './episode-info.component.html',
   styleUrl: './episode-info.component.css'
 })
-export class EpisodeInfoComponent implements OnInit,OnDestroy{
+export class EpisodeInfoComponent /*implements OnInit,OnDestroy*/{
 
+   @Input() episodeSelected: Episode | null = null;
 
+   /*
   episodeSelected : Episode | null = null;
   sub =new Subscription();
 
@@ -43,5 +45,5 @@ export class EpisodeInfoComponent implements OnInit,OnDestroy{
   ngOnDestroy(): void  {
     this.sub.unsubscribe();
   }
-
+*/
 }

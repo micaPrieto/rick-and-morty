@@ -8,7 +8,7 @@
       >Rick & Morty
     </a>
 
-    @if(authService.authStatus() === 'authenticated'){
+    @if(userService.authStatus() === 'authenticated'){
     <!--Boton de hamburguesa para celulares-->
     <button
       class="navbar-toggler navbar-toggle-button"
@@ -56,20 +56,27 @@
       <!-- Usuario -->
       <ul class="navbar-nav navbar-menu-right mb-2 mb-lg-0">
         <!-- Perfil -->
-        <li class="nav-item">
+       <li class="nav-item" *ngIf="userService.user() as user; else loginLink">
           <a
             class="nav-link base-link"
             routerLink="/profile"
             routerLinkActive="active-link"
-            >{{user?.fullName}}</a
           >
+            {{ user.fullName }}
+          </a>
         </li>
+
+        <ng-template #loginLink>
+          <li class="nav-item">
+            <a class="nav-link base-link" routerLink="/login">Iniciar sesión</a>
+          </li>
+        </ng-template>
 
         <!-- Cerrar Sesión-->
         <li class="nav-item">
           <a
             class="nav-link base-link"
-            (click)="authService.logOut()"
+            (click)="userService.logOut()"
             routerLink="/auth/login"
             >Cerrar sesión</a
           >
@@ -77,7 +84,7 @@
       </ul>
     </div>
 
-    } @else if(authService.authStatus() === 'not-authenticated'){
+    } @else if(userService.authStatus() === 'not-authenticated'){
     <ul class="navbar-nav navbar-menu-right mb-2 mb-lg-0">
       <li class="nav-item">
         <a class="nav-link" routerLink="/auth/login">Login</a>

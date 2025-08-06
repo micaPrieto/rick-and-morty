@@ -2,7 +2,7 @@ import { Address } from './address.interface';
 
 export interface User {
   id?: string;
-  role?: string;
+  roles?: string[];
   fullName?: string;
   email: string;
   password: string;

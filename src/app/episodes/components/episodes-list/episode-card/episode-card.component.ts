@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, inject } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { Episode } from '../../../interfaces/episode.interface';
 import { CommonModule } from '@angular/common';
@@ -10,29 +10,28 @@ import { UserService } from '../../../../auth/services/user.service';
   templateUrl: './episode-card.component.html',
   styleUrl: './episode-card.component.css'
 })
-export class EpisodeCardComponent implements OnInit{
-   @Input() episode!: Episode;
+export class EpisodeCardComponent implements  OnChanges{
+  @Input() episode!: Episode;
+  isFavorite = false;
 
-   isFavorite: boolean = false;
+  constructor(private userService: UserService) {}
 
-   constructor(
-    private userService : UserService
-   ){}
-
-  ngOnInit(): void {
-    // Se suscribe a los episodios favoritos para marcar si este está incluido
-    this.userService.favoritesEpisodes.subscribe((episodes) => {
-      this.isFavorite = episodes?.some(e => e.id === this.episode.id) ?? false;
-    });
+  ngOnChanges(): void {
+    const episodes = this.userService.favoritesEpisodes.getValue();
+    this.isFavorite = episodes?.some(e => e.id === this.episode.id) ?? false;
   }
 
+  toggleFavorite(): void {
+    const id = this.episode.id.toString();
 
-   addToFavorite(id: number){
-      if (this.isFavorite) return;
-
-      this.userService.addFavorite(id.toString()).subscribe(() => {
+    if (this.isFavorite) {
+      this.userService.removeFavorite(id).subscribe(() => {
+        this.isFavorite = false;
+      });
+    } else {
+      this.userService.addFavorite(id).subscribe(() => {
         this.isFavorite = true;
       });
-   }
-
+    }
+  }
 }

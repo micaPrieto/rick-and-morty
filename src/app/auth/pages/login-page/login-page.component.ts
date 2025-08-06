@@ -51,7 +51,6 @@ export class LoginPageComponent implements OnInit {
 
   login(){
      const {email= '' ,password = ''} =  this.loginForm.value;
-    //Desestructura (extrae) los campos email y password desde el objeto this.loginForm.value.
 
     if(this.isFormValid())
       {

@@ -3,31 +3,16 @@
   <div
     class="card card-episode bg-dark text-white p-3 shadow-sm"
   >
-    <!-- Botón de favorito -->
-    <!-- <button
-      (click)="addToFavorite(episode.id); $event.stopPropagation()"
-      class="btn btn-outline-danger btn-sm position-absolute top-0 end-0 m-2"
-      title="Agregar a favoritos">
-      ❤️
-    </button> -->
 
     <button
-      [disabled]="isFavorite"
-      (click)="addToFavorite(episode.id); $event.stopPropagation()"
+      (click)="toggleFavorite(); $event.stopPropagation()"
       class="heart-button"
       [ngClass]="{ 'favorito': isFavorite }"
-      title="Agregar a favoritos"
+      [title]="isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'"
     >
-      <i class="fas fa-heart"></i>
-    </button>
 
-    <!-- <button
-      class="heart-button"
-      [class.favorito]="usuario.isFavorito"
-      (click)="toggleFavorito(usuario.id!)"
-      >
-      <i class="fas fa-heart"></i>
-    </button> -->
+      <i [ngClass]="isFavorite ? 'fas fa-heart' : 'far fa-heart'"></i>
+    </button>
 
     <!-- Contenido con routerLink -->
     <div

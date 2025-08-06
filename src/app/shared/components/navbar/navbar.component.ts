@@ -3,10 +3,11 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CharactersService } from '../../../characters/services/characters-service';
 import { UserService } from '../../../auth/services/user.service';
 import { User } from '../../../auth/interfaces/user.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive,CommonModule],
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
@@ -15,18 +16,14 @@ export class NavbarComponent {
     user: User | null = null;
 
   constructor(
-    private router :Router,
-    private characterService : CharactersService,
-    public authService: UserService
+    public userService: UserService
     ){}
 
 
   ngOnInit(): void {
-    this.user = this.authService.user();
+    this.user = this.userService.user();
     console.log('Usuario logueado:', this.user);
   }
-
-
 }
 
 

@@ -1,0 +1,67 @@
+<div *ngIf="isError; else showComments">
+  <p class="error">{{ isError }}</p>
+</div>
+
+<ng-template #showComments>
+  <div *ngIf="comments.length > 0; else noComments">
+    <div *ngFor="let comment of comments" class="comment">
+
+      <p><strong>{{ comment.userName }}</strong> comentó:</p>
+
+      <!-- Si estamos editando este comentario -->
+      <div *ngIf="editingCommentId === comment.id; else showText">
+        <textarea [(ngModel)]="editedContent" rows="3" class="form-control"></textarea>
+        <div class="mt-2">
+          <button class="btn btn-success btn-sm me-2" (click)="saveEdit()">Guardar</button>
+          <button class="btn btn-secondary btn-sm" (click)="cancelEdit()">Cancelar</button>
+        </div>
+      </div>
+
+      <!-- Si NO estamos editando -->
+      <ng-template #showText>
+        <p>{{ comment.comment }}</p>
+        <small>{{ comment.creationDate | commentDate }}</small>
+
+        <!-- Mostrar estado (opcional) -->
+        <span
+          *ngIf="comment.state === false"
+          class="badge bg-secondary ms-2"
+          >Oculto</span
+        >
+
+        <!-- Botón editar: solo si es el autor -->
+        <button
+          *ngIf="comment.userId === currentUserId"
+          class="btn btn-outline-primary btn-sm mt-1 me-2"
+          (click)="startEdit(comment)"
+        >
+          Editar
+        </button>
+
+        <!-- Botón eliminar: si es autor o admin -->
+        <button
+          *ngIf="canEditOrDelete(comment)"
+          class="btn btn-outline-danger btn-sm mt-1 me-2"
+          (click)="delete(comment.id)"
+        >
+          Eliminar
+        </button>
+
+        <!-- Botón cambiar estado: solo admin -->
+        <button
+          *ngIf="isAdmin"
+          class="btn btn-outline-warning btn-sm mt-1"
+          (click)="toggleCommentState(comment)"
+        >
+          {{ comment.state ? 'Ocultar' : 'Mostrar' }}
+        </button>
+      </ng-template>
+
+      <hr />
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noComments>
+  <p>No hay comentarios todavía.</p>
+</ng-template>

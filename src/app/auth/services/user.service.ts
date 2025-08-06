@@ -110,23 +110,27 @@ export class UserService {
     return of(true);
   }
 
-  //Manejar el ÉXITO
-  private handleAuthSuccess(resp: AuthResponse)
-  {
+
+  private handleAuthSuccess(resp: AuthResponse) {
     console.log('handleAuthSuccess resp:', resp);
+
+    localStorage.removeItem('favoritesEpisodes');
+
     this._user.set(resp.user);
     this._authStatus.set('authenticated');
     this._token.set(resp.token);
 
-    if(resp.user.episodesFavorites)
-    {
-      this.getFavoriteEpisodesByIds(resp.user.episodesFavorites)
-    }
-
     localStorage.setItem('token', resp.token);
     localStorage.setItem('user', JSON.stringify(resp.user));
 
-     return true;
+    // Cargo nuevos favoritos si hay
+    if (resp.user.episodesFavorites?.length) {
+      this.getFavoriteEpisodesByIds(resp.user.episodesFavorites);
+    } else {
+      this.favoritesEpisodes.next([]); // 👈 limpio si no hay
+    }
+
+    return true;
   }
 
 
@@ -143,6 +147,7 @@ export class UserService {
 
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('favoritesEpisodes');
 
     console.log('Usuario no autenticado. Status:', this._authStatus());
   }
@@ -188,6 +193,8 @@ export class UserService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
+
+    console.log('TOKEN ACTUAL:', this.token());
 
     return this.http.delete<{ episodesFavorites: string[] }>(
         `${baseUrl}/favorites/${episodeId}`,

@@ -1,0 +1,24 @@
+<div>
+
+  <form [formGroup]="commentForm" (ngSubmit)="onSubmit()" class="mb-3">
+    <textarea
+      formControlName="content"
+      placeholder="Agregá un comentario..."
+      rows="3"
+      class="form-control"
+    ></textarea>
+    <div class="text-end mt-2">
+      <button type="submit" class="btn btn-primary" [disabled]="commentForm.invalid || isLoading">
+        Comentar
+      </button>
+    </div>
+  </form>
+
+  <!-- Error -->
+  <div *ngIf="errorMessage" class="text-danger mt-1">
+    {{ errorMessage }}
+  </div>
+
+
+</div>
+

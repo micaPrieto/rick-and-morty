@@ -4,10 +4,11 @@ import { Subscription } from 'rxjs';
 import { EpisodesService } from '../../../services/episodes-service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { CommentFormComponent } from "../../../../comments/components/comment-form/comment-form.component";
 
 @Component({
   selector: 'app-episode-characters-list',
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './episode-characters-list.component.html',
   styleUrl: './episode-characters-list.component.css'
 })
@@ -15,7 +16,7 @@ export class EpisodeCharactersListComponent implements OnInit, OnDestroy{
 //Muestro los personajes del episodio seleccionado
 
    characters : Character[] | null =  null;
-    sub =new Subscription();
+   sub =new Subscription();
 
     constructor(
       private episodesService: EpisodesService

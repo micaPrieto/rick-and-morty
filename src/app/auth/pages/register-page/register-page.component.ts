@@ -93,6 +93,9 @@ export class RegisterPageComponent implements OnInit {
           }
         },
         error: (err) =>{
+
+          console.log('Error register:', err);
+
           const errorMsg = err?.error?.header?.error;
 
           if (errorMsg === 'Mail already registered') {

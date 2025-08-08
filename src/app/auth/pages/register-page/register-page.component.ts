@@ -40,7 +40,7 @@ export class RegisterPageComponent implements OnInit {
   createForm(){
      this.registerForm = this.fb.group(
       {
-        fullName: ['', [Validators.required, Validators.min(5), Validators.max(15)]],
+        fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
         email: [
           '',
           [
@@ -58,11 +58,11 @@ export class RegisterPageComponent implements OnInit {
           '',
           [Validators.required, Validators.minLength(8), Validators.maxLength(30)],
         ],
-        street: ['', [/*Validators.required,*/ Validators.maxLength(50)]],
-        city: ['', [/*Validators.required,*/ Validators.maxLength(50)]],
-        location: ['', [/*Validators.required,*/ Validators.maxLength(50)]],
-        country: ['', [/*Validators.required,*/ Validators.maxLength(50)]],
-        cp: ['', [/*Validators.required,*/ Validators.minLength(4), Validators.maxLength(4)]],
+        street: ['', [ Validators.maxLength(50)]],
+        city: ['', [ Validators.maxLength(50)]],
+        location: ['', [ Validators.maxLength(50)]],
+        country: ['', [ Validators.maxLength(50)]],
+        cp: ['', [ Validators.minLength(4), Validators.maxLength(4)]],
         phone: ['', [Validators.pattern(this.formUtils.telPattern)]],
         birthday: [''],
       },

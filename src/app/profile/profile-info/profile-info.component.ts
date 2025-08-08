@@ -38,7 +38,7 @@ export class ProfileInfoComponent  {
 
   getProfileImageUrl(path: string | undefined): string {
       return path
-      ? `http://localhost:3000/${path}`
+      ? `https://back-rickymorty.onrender.com/${path}`
       : 'assets/images/default-avatar.png'; // Ruta del avatar por defecto
   }
 

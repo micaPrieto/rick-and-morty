@@ -1,4 +1,78 @@
 
+<div class="search-container mb-4">
+  <div class="row">
+    <div class="col-12 col-lg-8 mx-auto">
+
+      <!-- Card contenedor -->
+      <div class="card search-card border-0 shadow-lg">
+        <div class="card-body p-1">
+
+          <div class="search-wrapper">
+
+            <!-- Botón volver -->
+            <button
+              class="btn btn-back me-1"
+              type="button"
+              (click)="clear()"
+              title="Volver al inicio"
+            >
+              <i class="fas fa-arrow-left"></i>
+              <span class="d-none d-sm-inline ms-1">Volver</span>
+            </button>
+
+            <!-- Input group principal -->
+            <div class="input-group search-input-group flex-grow-1">
+
+              <!-- Icono de búsqueda -->
+              <span class="input-group-text search-icon">
+                <i class="fas fa-search"></i>
+              </span>
+
+              <!-- Input de búsqueda -->
+              <input
+                type="text"
+                class="form-control search-input"
+                placeholder="Buscar personaje..."
+                [(ngModel)]="searchText"
+                (keyup.enter)="onSearch(searchText)"
+                #txtSearch
+                id="searchInput"
+                autocomplete="off"
+              >
+
+              <!-- Botón limpiar (solo si hay texto) -->
+              <button
+                *ngIf="searchText"
+                class="btn btn-clear"
+                type="button"
+                (click)="clearInput()"
+                title="Limpiar búsqueda"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+
+              <!-- Botón buscar -->
+              <button
+                class="btn btn-search"
+                type="button"
+                (click)="onSearch(searchText)"
+                [disabled]="!searchText || !searchText.trim()"
+                title="Buscar"
+              >
+                <i class="fas fa-search me-1"></i>
+                <span class="d-none d-sm-inline">Buscar</span>
+              </button>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
 <div class="row mb-4">
   <div class="col-12 col-md-7 mx-auto">
 
@@ -15,4 +89,4 @@
     </div>
 
   </div>
- </div>
+ </div> -->

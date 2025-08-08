@@ -1,32 +1,65 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb bg-dark p-2 rounded">
+<nav aria-label="breadcrumb" class="mb-4 mx-5">
+  <ol class="breadcrumb-custom bg-dark p-3 rounded-3 shadow-sm border" style="background: linear-gradient(135deg, #121316 0%, #262f52 100%) !important; border-color: #303031 !important;">
 
-    <li class="breadcrumb-item">
+    <!-- Home -->
+    <li class="breadcrumb-item-custom">
       <a
-        class="text-primary text-decoration-none"
+        class="breadcrumb-link"
         routerLink="/"
-        routerLinkActive="floating-bar-active-link"
+        routerLinkActive="breadcrumb-active"
         [routerLinkActiveOptions]="{ exact: true }"
-        >Home </a
       >
-    </li>
-
-    <li class="breadcrumb-item">
-      <a
-        class="text-primary text-decoration-none"
-        routerLink="/characters"
-        routerLinkActive="floating-bar-active-link"
-        [routerLinkActiveOptions]="{ exact: true }"
-        >/   Characters
+        <i class="fas fa-home me-2"></i>Home
       </a>
+      <i class="fas fa-chevron-right breadcrumb-separator ms-2 me-2"></i>
     </li>
 
+    <!-- Characters (solo si estamos en ruta de personajes) -->
+    <li *ngIf="isCharacterRoute" class="breadcrumb-item-custom">
+      <a
+        class="breadcrumb-link"
+        routerLink="/characters"
+        routerLinkActive="breadcrumb-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <i class="fas fa-users me-2"></i>Personajes
+      </a>
+      <i *ngIf="actualCharacter?.name" class="fas fa-chevron-right breadcrumb-separator ms-2 me-2"></i>
+    </li>
+
+    <!-- Episodios (solo si estamos en ruta de episodios) -->
+    <li *ngIf="isEpisodeRoute" class="breadcrumb-item-custom">
+      <a
+        class="breadcrumb-link"
+        routerLink="/episodes"
+        routerLinkActive="breadcrumb-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <i class="fas fa-tv me-2"></i>Episodios
+      </a>
+      <i *ngIf="actualEpisode?.name" class="fas fa-chevron-right breadcrumb-separator ms-2 me-2"></i>
+    </li>
+
+    <!-- Personaje específico (solo si existe y estamos en characters) -->
     <li
-      class="breadcrumb-item active text-white"
-      routerLinkActive="active-link"
+      *ngIf="actualCharacter?.name && isCharacterRoute"
+      class="breadcrumb-item-custom active"
       aria-current="page"
     >
-      / {{ actualCharacter?.name }}
+      <span class="breadcrumb-current">
+        <i class="fas fa-user me-2"></i>{{ actualCharacter!.name }}
+      </span>
+    </li>
+
+    <!-- Episodio específico (solo si existe y estamos en episodios) -->
+    <li
+      *ngIf="actualEpisode?.name && isEpisodeRoute"
+      class="breadcrumb-item-custom active"
+      aria-current="page"
+    >
+      <span class="breadcrumb-current">
+        <i class="fas fa-play-circle me-2"></i>{{ actualEpisode!.name }}
+      </span>
     </li>
 
   </ol>

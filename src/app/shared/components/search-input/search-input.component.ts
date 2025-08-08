@@ -2,15 +2,18 @@ import { Component, inject, Input, output } from '@angular/core';
 import { CharactersService } from '../../../characters/services/characters-service';
 import { Router } from '@angular/router';
 import { EpisodesService } from '../../../episodes/services/episodes-service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search-input',
-  imports: [],
+  imports: [CommonModule,FormsModule],
   templateUrl: './search-input.component.html'
 })
 export class SearchInputComponent {
 
   @Input() dad!: string;
+  searchText: string = '';
 
   constructor(
     private charactersService: CharactersService,
@@ -25,12 +28,17 @@ export class SearchInputComponent {
     else{
       this.episodesService.searchEpisodes(query)
     }
+  }
 
+  clearInput(): void {
+    this.searchText = '';
+    const input = document.getElementById('searchInput') as HTMLInputElement;
+    if (input) {
+      input.focus();
+    }
   }
 
   clear() {
-    // Fuerza la recarga navegando a una URL ficticia y luego vuelve a /characters
-
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       if(this.dad === 'character'){
         this.router.navigate(['/characters']);
@@ -40,6 +48,4 @@ export class SearchInputComponent {
       }
     });
   }
-
-
 }

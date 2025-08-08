@@ -61,6 +61,11 @@ export class CommentsEpisodeListComponent implements OnChanges, OnInit{
     return this.userService.user();
   }
 
+  get isAdmin(): boolean {
+    return this.currentUser?.roles?.includes('admin') ?? false;
+  }
+
+
   // Verifica si puede editar/eliminar el comentario segun rol
   canEditOrDelete(comment: Comment): boolean {
     const user = this.currentUser;
@@ -98,9 +103,10 @@ export class CommentsEpisodeListComponent implements OnChanges, OnInit{
     this.editedContent = '';
   }
 
-  get isAdmin(): boolean {
-    return this.currentUser?.roles?.includes('admin') ?? false;
+  trackByCommentId(index: number, comment: Comment): string {
+    return comment.id;
   }
+
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();

@@ -1,24 +1,32 @@
 import { Component, OnInit, Signal } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Character } from '../../characters/interfaces/character.interface';
-import { CharactersService } from '../../characters/services/characters-service';
-import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { translaterCharacterInfo } from '../../characters/pipes/translater-character-info.pipe';
+import { CommonModule, DatePipe } from '@angular/common';
+
 import { User } from '../../auth/interfaces/user.interface';
 import { UserService } from '../../auth/services/user.service';
+import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-profile-info',
-  imports: [CommonModule],
-  templateUrl: './profile-info.component.html'
+  imports: [
+    CommonModule,
+    RouterLink,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    DatePipe
+  ],
+  templateUrl: './profile-info.component.html',
+  styleUrl: './profile-info.component.css'
 })
 export class ProfileInfoComponent  {
 
   showImageInput = false;
 
   constructor(
-    private userService: UserService,
+    private userService: UserService
   ) {}
 
   onFileSelected(event: Event) {
@@ -32,7 +40,7 @@ export class ProfileInfoComponent  {
         alert('Imagen subida con éxito');
         this.showImageInput = false;
       },
-      error: () => alert('Hubo un error al subir la imagen'),
+      error: () => alert('Ha ocurrido un error al subir la imagen'),
     });
   }
 
@@ -46,11 +54,49 @@ export class ProfileInfoComponent  {
     this.showImageInput = !this.showImageInput;
   }
 
+  onImageError(event: Event) {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.src = 'assets/default-avatar2.jpg';
+  }
+
 
   get user(): Signal<User | null> {
     return this.userService.user;
   }
 
+
+  getFormattedAddress(): string {
+    const addr = this.user()?.address;
+    if (!addr) return ' - ';
+
+    const parts = [];
+
+    if (addr.street) parts.push(addr.street);
+
+    // Para ciudad y código postal, los agrupamos juntos si existen
+    if (addr.city && addr.cp) {
+      parts.push(`${addr.city} (${addr.cp})`);
+    } else if (addr.city) {
+      parts.push(addr.city);
+    } else if (addr.cp) {
+      parts.push(`(${addr.cp})`);
+    }
+
+    if (addr.location) parts.push(addr.location);
+    if (addr.country) parts.push(addr.country);
+
+    return parts.join(', ');
+  }
+
+
+   getFormattedBirthday(): string {
+    const birthday = this.user()?.birthday;
+    if (!birthday) return '-';
+
+    // Usar el pipe de fecha directamente
+    const date = new Date(birthday);
+    return date.toLocaleDateString('es-ES'); // Formato español: dd/mm/aaaa
+  }
 
 
 }

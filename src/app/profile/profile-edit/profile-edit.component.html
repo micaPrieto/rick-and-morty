@@ -1,0 +1,195 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2 class="register-title">Editar Perfil</h2>
+
+    <!-- Sección de imagen de usuario -->
+    <div class="profile-image-section">
+      <!-- Imagen del usuario -->
+      <img
+        *ngIf="user()?.profileImage"
+        class="profile-image"
+        [src]="getProfileImageUrl(user()!.profileImage!)"
+        alt="Usuario"
+        (error)="onImageError($event)"
+      />
+
+      <!-- Si no hay imagen de usuario, mostrar avatar por defecto -->
+      <img
+        *ngIf="!user()?.profileImage"
+        class="profile-image"
+        src="assets/default-avatar2.jpg"
+        alt="Usuario"
+      />
+
+      <!-- Botón para mostrar input -->
+      <button
+        type="button"
+        class="btn-edit-image"
+        (click)="toggleImageUpload()"
+      >
+        Editar imagen
+      </button>
+
+      <!-- Input para seleccionar nueva imagen -->
+      <div *ngIf="showImageInput" class="image-upload-container">
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+          class="form-control file-input"
+        />
+      </div>
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+      <!-- Nombre y Email -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fullName" class="form-label">Nombre completo</label>
+          <input
+            type="text"
+            id="fullName"
+            class="form-control"
+            formControlName="fullName"
+            placeholder="Juanito Pérez">
+
+          @if(isFieldInvalid('fullName')){
+            <span class="form-text text-danger">
+              {{ getFieldError('fullName') }}
+            </span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            readonly
+            style="background-color: #2a2a2a; cursor: not-allowed;">
+          <small class="email-help">El email no se puede modificar</small>
+        </div>
+      </div>
+
+      <!-- Dirección y Ciudad -->
+      <div class="form-row">
+        <div class="form-group" formGroupName="address">
+          <label for="street" class="form-label">Dirección</label>
+          <input
+            type="text"
+            id="street"
+            class="form-control"
+            formControlName="street"
+            placeholder="Luro 2800">
+        </div>
+
+        <div class="form-group" formGroupName="address">
+          <label for="city" class="form-label">Ciudad</label>
+          <input
+            type="text"
+            id="city"
+            class="form-control"
+            formControlName="city"
+            placeholder="Mar del Plata">
+        </div>
+      </div>
+
+      <!-- Provincia, País y Código Postal -->
+      <div class="form-row">
+        <div class="form-group flex-item" formGroupName="address">
+          <label for="location" class="form-label">Provincia</label>
+          <input
+            type="text"
+            id="location"
+            class="form-control"
+            formControlName="location"
+            placeholder="Buenos Aires">
+        </div>
+
+        <div class="form-group flex-item" formGroupName="address">
+          <label for="country" class="form-label">País</label>
+          <input
+            type="text"
+            id="country"
+            class="form-control"
+            formControlName="country"
+            placeholder="Argentina">
+        </div>
+
+        <div class="form-group flex-item zip" formGroupName="address">
+          <label for="cp" class="form-label">Código Postal</label>
+          <input
+            type="text"
+            id="cp"
+            class="form-control"
+            formControlName="cp"
+            placeholder="7600">
+
+          @if(isAddressFieldInvalid('cp')){
+            <span class="form-text text-danger">
+              {{ getAddressFieldError('cp') }}
+            </span>
+          }
+        </div>
+      </div>
+
+      <!-- Cumpleaños y Teléfono -->
+      <div class="form-row mb-2">
+        <div class="form-group">
+          <label for="birthday" class="form-label">Cumpleaños</label>
+          <input
+            type="date"
+            id="birthday"
+            class="form-control"
+            formControlName="birthday">
+        </div>
+
+        <div class="form-group">
+          <label for="phone" class="form-label">Teléfono</label>
+          <input
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            id="phone"
+            class="form-control"
+            formControlName="phone"
+            placeholder="2235952534">
+
+          @if(isFieldInvalid('phone')){
+            <span class="form-text text-danger">
+              {{ getFieldError('phone') }}
+            </span>
+          } @else {
+            <small class="text-secondary">
+              Ingresá el número sin 0 y sin 15. Ej: 2235952534
+            </small>
+          }
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="button-container mb-3">
+        <button
+          type="submit"
+          class="btn-sing-up"
+          [disabled]="isSaving()">
+          @if(isSaving()){
+            <span class="spinner"></span>
+          }
+          {{ isSaving() ? 'Guardando...' : 'Guardar Cambios' }}
+        </button>
+
+        <button
+          type="button"
+          class="btn-cancel"
+          (click)="cancelEdit()">
+          Cancelar
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

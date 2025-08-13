@@ -65,7 +65,9 @@ export class LoginPageComponent implements OnInit {
               }
             },
           error: (err) => {
-              const errorMsg = err?.error?.header?.error;
+              const errorMsg = err?.error.message;
+
+              console.log("Error: ",errorMsg);
 
               if (errorMsg === 'Credentials are not valid (email)' || errorMsg === 'Credentials are not valid (password)'){
                 this.openSnackBar('Email o contraseña incorrecta', 'Cerrar','snackbar-error');

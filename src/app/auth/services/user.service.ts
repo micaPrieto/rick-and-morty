@@ -29,7 +29,7 @@ export class UserService {
 
   checkStatusResourse = rxResource ({
     loader: ( ) => this.checkStatus()
-  }) //Esto se va a disparar ni bien se inyecte por primera vez
+  })
 
 
   //? ----------------------- GETTERS ---------------------
@@ -63,7 +63,7 @@ export class UserService {
       })
       .pipe(
         tap(resp => console.log('Respuesta del backend:', resp)),
-        map((resp)=> this.handleAuthSuccess(resp) ), // Regresa un true
+        map((resp)=> this.handleAuthSuccess(resp) ),
           catchError((error: any) => {
           console.error('Login error:', error);
            return this.handleAuthError(error);
@@ -102,9 +102,9 @@ export class UserService {
 
     if (favoritesString) {
     const favorites = JSON.parse(favoritesString);
-    this.favoritesEpisodes!.next(favorites); // 👈 emite los episodios desde localStorage
+    this.favoritesEpisodes!.next(favorites);
     } else if (user.episodesFavorites?.length) {
-      this.getFavoriteEpisodesByIds(user.episodesFavorites); // fallback
+      this.getFavoriteEpisodesByIds(user.episodesFavorites);
     }
 
     return of(true);
@@ -123,11 +123,10 @@ export class UserService {
     localStorage.setItem('token', resp.token);
     localStorage.setItem('user', JSON.stringify(resp.user));
 
-    // Cargo nuevos favoritos si hay
     if (resp.user.episodesFavorites?.length) {
       this.getFavoriteEpisodesByIds(resp.user.episodesFavorites);
     } else {
-      this.favoritesEpisodes.next([]); // 👈 limpio si no hay
+      this.favoritesEpisodes.next([]);
     }
 
     return true;
@@ -236,6 +235,35 @@ export class UserService {
       }),
       catchError((error) => {
         console.error('Error al subir imagen:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  updateUser(userData: Partial<User>): Observable<{ message: string; user: User }> {
+    const token = this.token();
+
+    if (!token) {
+      return throwError(() => new Error('No hay token de autenticación'));
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.patch<{ message: string; user: User }>(
+      `${baseUrl}/edit-profile`,
+      userData,
+      { headers }
+    ).pipe(
+      tap((resp) => {
+        console.log('Usuario actualizado:', resp);
+        this._user.set(resp.user);
+        localStorage.setItem('user', JSON.stringify(resp.user));
+      }),
+      catchError((error) => {
+        console.error('Error al actualizar usuario:', error);
         return throwError(() => error);
       })
     );

@@ -1,4 +1,4 @@
-export const environmentDevelopment = {
+export const environment = {
 
   //usersBaseUrl : 'https://api-auth-moby.herokuapp.com/api',
    usersBaseUrl : 'https://back-rickymorty.onrender.com/user',

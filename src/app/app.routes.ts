@@ -4,6 +4,7 @@ import { NotAuthenticatedGuard } from './auth/guards/not-authenticated.guard';
 import { BootstrapComponent } from '../assets/bootstrap/bootstrap.component';
 import ProfileComponent from './profile/profile.component';
 import { EpisodesListPageComponent } from './episodes/pages/episodes-list-page/episodes-list-page.component';
+import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 
 export const routes: Routes = [
   {
@@ -38,6 +39,12 @@ export const routes: Routes = [
     //loadChildren : () => import ('./profile/profile.component'),
     canActivate:  [AuthenticatedGuard],
   },
+    {
+      path: 'edit-profile',
+      component: ProfileEditComponent,
+      //loadChildren : () => import ('./profile/profile.component'),
+      canActivate:  [AuthenticatedGuard],
+    },
   {
     path: '',
     loadComponent : () => import ('./shared/pages/home-page/home-page.component'),

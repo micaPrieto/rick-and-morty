@@ -96,7 +96,7 @@ export class RegisterPageComponent implements OnInit {
 
           console.log('Error register:', err);
 
-          const errorMsg = err?.error?.header?.error;
+          const errorMsg = err?.error?.message;
 
           if (errorMsg === 'Mail already registered') {
             this.openSnackBar('Ya existe una cuenta con ese email.', 'Cerrar','snackbar-error');

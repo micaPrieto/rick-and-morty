@@ -88,6 +88,7 @@ export class ProfileEditComponent  implements OnInit{
       });
     }
   }
+
    private formatDateForInput(date: Date | string): string {
     try {
       if (date instanceof Date) {

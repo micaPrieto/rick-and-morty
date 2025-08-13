@@ -15,8 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     RouterLink,
     MatButtonModule,
     MatIconModule,
-    MatTooltipModule,
-    DatePipe
+    MatTooltipModule
   ],
   templateUrl: './profile-info.component.html',
   styleUrl: './profile-info.component.css'

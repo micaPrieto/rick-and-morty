@@ -9,31 +9,71 @@ import { CommentFormComponent } from "../../../../comments/components/comment-fo
 @Component({
   selector: 'app-episode-characters-list',
   imports: [CommonModule, RouterLink],
-  templateUrl: './episode-characters-list.component.html',
-  styleUrl: './episode-characters-list.component.css'
+  templateUrl: './episode-characters-list.component.html'
 })
 export class EpisodeCharactersListComponent implements OnInit, OnDestroy{
 //Muestro los personajes del episodio seleccionado
 
-   characters : Character[] | null =  null;
-   sub =new Subscription();
 
-    constructor(
-      private episodesService: EpisodesService
-    ) {}
+ characters: Character[] | null = null;
+  sub = new Subscription();
 
-    ngOnInit(): void {
+  // Propiedades para el "Ver más"
+  showAll: boolean = false;
+  initialDisplayCount: number = 5; // Número inicial de personajes a mostrar
 
-      this.sub.add(
-        this.episodesService.episodeCharacters.subscribe((characters) => {
-          this.characters = characters;
-        })
-      )
+  constructor(
+    private episodesService: EpisodesService
+  ) {}
+
+  ngOnInit(): void {
+    this.sub.add(
+      this.episodesService.episodeCharacters.subscribe((characters) => {
+        this.characters = characters;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  // Método para obtener los personajes a mostrar
+  getDisplayedCharacters(): Character[] {
+    if (!this.characters) return [];
+
+    if (this.showAll || this.characters.length <= this.initialDisplayCount) {
+      return this.characters;
     }
 
-    ngOnDestroy(): void  {
-      this.sub.unsubscribe();
-    }
+    return this.characters.slice(0, this.initialDisplayCount);
+  }
+
+  // Método para alternar entre mostrar todos o solo algunos
+  toggleShowAll(): void {
+    this.showAll = !this.showAll;
+  }
+
+
+  //  characters : Character[] | null =  null;
+  //  sub =new Subscription();
+
+  //   constructor(
+  //     private episodesService: EpisodesService
+  //   ) {}
+
+  //   ngOnInit(): void {
+
+  //     this.sub.add(
+  //       this.episodesService.episodeCharacters.subscribe((characters) => {
+  //         this.characters = characters;
+  //       })
+  //     )
+  //   }
+
+  //   ngOnDestroy(): void  {
+  //     this.sub.unsubscribe();
+  //   }
 
 
 }

@@ -14,7 +14,8 @@ import { RouterLink } from '@angular/router';
 })
 export class ProfileEpisodesListComponent {
 
-    favoritesEpisodes : Episode[] | null =  null;
+
+  favoritesEpisodes : Episode[] | null =  null;
     sub =new Subscription();
 
     constructor(
@@ -35,6 +36,10 @@ export class ProfileEpisodesListComponent {
       this.sub.unsubscribe();
     }
 
+  showAll: boolean = false;
+  initialDisplayCount: number = 7;
+
+
 
    removeFavorite(id: number) {
     this.userService.removeFavorite(id.toString()).subscribe({
@@ -47,4 +52,58 @@ export class ProfileEpisodesListComponent {
     });
   }
 
+  // Obtener los episodios a mostrar
+  getDisplayedEpisodes() {
+    if (!this.favoritesEpisodes) return [];
+
+    if (this.showAll || this.favoritesEpisodes.length <= this.initialDisplayCount) {
+      return this.favoritesEpisodes;
+    }
+
+    return this.favoritesEpisodes.slice(0, this.initialDisplayCount);
+  }
+
+  // Alternar entre mostrar todos o solo algunos
+  toggleShowAll() {
+    this.showAll = !this.showAll;
+  }
+
 }
+
+  //   favoritesEpisodes : Episode[] | null =  null;
+  //   sub =new Subscription();
+
+  //   constructor(
+  //     private userService: UserService,
+
+  //   ) {}
+
+  //   ngOnInit(): void {
+
+  //     this.sub.add(
+  //       this.userService.favoritesEpisodes.subscribe((episodes) => {
+  //         this.favoritesEpisodes = episodes;
+  //       })
+  //     )
+  //   }
+
+  //   ngOnDestroy(): void  {
+  //     this.sub.unsubscribe();
+  //   }
+
+
+  //  removeFavorite(id: number) {
+  //   this.userService.removeFavorite(id.toString()).subscribe({
+  //     next: (updatedFavorites) => {
+  //       this.favoritesEpisodes = this.favoritesEpisodes?.filter(e => e.id !== id) || null;
+  //     },
+  //     error: (err) => {
+  //       console.error('Error al eliminar el episodio:', err);
+  //     }
+  //   });
+  // }
+
+
+
+
+

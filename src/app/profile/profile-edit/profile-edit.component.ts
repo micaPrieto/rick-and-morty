@@ -14,7 +14,7 @@ import { FormUtils } from '../../auth/utils/form.utils';
   templateUrl: './profile-edit.component.html',
   styleUrl: './profile-edit.component.css'
 })
-export class ProfileEditComponent  implements OnInit{
+export default class ProfileEditComponent  implements OnInit{
 
     constructor(
       private fb : FormBuilder,

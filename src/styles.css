@@ -456,3 +456,144 @@ app-footer {
     padding: 1rem !important;
   }
 }
+
+
+
+
+/* Estilos para los enlaces de episodios */
+.episode-item {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  padding: 8px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(5px);
+  }
+}
+
+.episode-link {
+  color: #64b5f6;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    color: #90caf9;
+    background: rgba(100, 181, 246, 0.1);
+    transform: translateX(3px);
+  }
+
+  &:active {
+    transform: translateX(1px);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(100, 181, 246, 0.3);
+  }
+}
+
+.episode-number {
+  font-weight: 600;
+  color: #81c784;
+  margin-right: 8px;
+  font-size: 0.9rem;
+  min-width: 60px;
+
+  &::before {
+    content: 'EP ';
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+}
+
+.episode-name {
+  font-weight: 400;
+  flex: 1;
+}
+
+/* Botón "Ver más" / "Ver menos" */
+.btn-show-more {
+  background: rgba(100, 181, 246, 0.1);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(100, 181, 246, 0.3);
+  border-radius: 25px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  color: #64b5f6;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: 500;
+
+  &:hover {
+    background: rgba(100, 181, 246, 0.2);
+    border-color: rgba(100, 181, 246, 0.5);
+    color: #90caf9;
+    transform: translateY(-2px);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.25);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  i {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover i {
+    transform: translateY(-1px);
+  }
+}
+
+/* Estilo 5: Botón con efecto glassmorphism (tu elección) */
+.btn-remove-glass {
+  background: rgba(229, 62, 62, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(229, 62, 62, 0.3);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  color: #ff6b6b;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(229, 62, 62, 0.2);
+    border-color: rgba(229, 62, 62, 0.6);
+    color: #ff8a80;
+    transform: translateY(-1px);
+  }
+}
+
+/* Animación adicional para el botón */
+.btn-remove-glass {
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.25);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* Modificador para números de personajes */
+.character-number {
+  &::before {
+    content: '# ';
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+}

@@ -11,7 +11,7 @@ import { CardsEpisodesListComponent } from '../../components/episodes-list/cards
   imports: [SearchInputComponent,FloatingBarComponent,CardsEpisodesListComponent],
   templateUrl: './episodes-list-page.component.html'
 })
-export class EpisodesListPageComponent {
+export default class  EpisodesListPageComponent {
 
 
     episodes : Episode[] = [];

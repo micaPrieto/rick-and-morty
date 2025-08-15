@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthenticatedGuard } from './auth/guards/authenticated.guard';
 import { NotAuthenticatedGuard } from './auth/guards/not-authenticated.guard';
-import ProfileComponent from './profile/profile.component';
+import ProfileComponent from './profile/pages/user-profile-page/user-profile-page.component';
 
 export const routes: Routes = [
   {
@@ -16,7 +16,6 @@ export const routes: Routes = [
   },
   {
     path: 'episodes',
-    //component:EpisodesListPageComponent,
     loadComponent : () => import ('./episodes/pages/episodes-list-page/episodes-list-page.component'),
     canActivate:  [AuthenticatedGuard],
   },
@@ -29,18 +28,15 @@ export const routes: Routes = [
     path: 'auth',
     loadChildren : () => import ('./auth/auth.routes'),
     canActivate:  [NotAuthenticatedGuard],
-    //canMatch:  [authLogOutGuard],
   },
   {
     path: 'profile',
-    //component: ProfileComponent,
-    loadComponent : () => import ('./profile/profile.component'),
+    loadComponent : () => import ('./profile/pages/user-profile-page/user-profile-page.component'),
     canActivate:  [AuthenticatedGuard],
   },
     {
       path: 'edit-profile',
-      //component: ProfileEditComponent,
-      loadComponent : () => import ('./profile/profile-edit/profile-edit.component'),
+      loadComponent : () => import ('./profile/components/edit-profile/edit-profile.component'),
       canActivate:  [AuthenticatedGuard],
     },
   {

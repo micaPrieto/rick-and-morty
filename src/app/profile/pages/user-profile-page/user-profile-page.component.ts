@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CharactersService } from '../characters/services/characters-service';
-import { FloatingBarComponent } from '../shared/components/floating-bar/floating-bar.component';
-import { ProfileInfoComponent } from "./profile-info/profile-info.component";
-import { ProfileEpisodesListComponent } from "./profile-episodes-list/profile-episodes-list.component";
+import { CharactersService } from '../../../characters/services/characters-service';
+import { FloatingBarComponent } from '../../../shared/components/floating-bar/floating-bar.component';
+import { ProfileInfoComponent } from "../../components/profile-info/profile-info.component";
+import { ProfileEpisodesListComponent } from '../../components/profile-episodes-list/profile-episodes-list.component';
+
 
 @Component({
   selector: 'app-profile',
   imports: [FloatingBarComponent, ProfileInfoComponent, ProfileEpisodesListComponent],
-  templateUrl: './profile.component.html',
+  templateUrl: './user-profile-page.component.html',
 })
 export default class ProfileComponent {
     isError : any;

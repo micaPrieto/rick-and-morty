@@ -25,11 +25,11 @@ export class EpisodeCardComponent implements  OnChanges{
     const id = this.episode.id.toString();
 
     if (this.isFavorite) {
-      this.userService.removeFavorite(id).subscribe(() => {
+      this.userService.removeFavoriteEpisode(id).subscribe(() => {
         this.isFavorite = false;
       });
     } else {
-      this.userService.addFavorite(id).subscribe(() => {
+      this.userService.addFavoriteEpisode(id).subscribe(() => {
         this.isFavorite = true;
       });
     }

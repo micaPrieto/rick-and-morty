@@ -12,15 +12,13 @@ import { CommentFormComponent } from "../../../../comments/components/comment-fo
   templateUrl: './episode-characters-list.component.html'
 })
 export class EpisodeCharactersListComponent implements OnInit, OnDestroy{
-//Muestro los personajes del episodio seleccionado
 
 
- characters: Character[] | null = null;
+  characters: Character[] | null = null;
   sub = new Subscription();
 
-  // Propiedades para el "Ver más"
   showAll: boolean = false;
-  initialDisplayCount: number = 5; // Número inicial de personajes a mostrar
+  initialDisplayCount: number = 5;
 
   constructor(
     private episodesService: EpisodesService

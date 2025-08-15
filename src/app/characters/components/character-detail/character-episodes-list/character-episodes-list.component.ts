@@ -19,9 +19,9 @@ export class CharacterEpisodesListComponent implements OnInit, OnDestroy {
 episodes: Episode[] | null = null;
   sub = new Subscription();
 
-  // Propiedades para el "Ver más"
+
   showAll: boolean = false;
-  initialDisplayCount: number = 5; // Número inicial de episodios a mostrar
+  initialDisplayCount: number = 5;
 
   constructor(
     private charactersService: CharactersService
@@ -39,7 +39,7 @@ episodes: Episode[] | null = null;
     this.sub.unsubscribe();
   }
 
-  // Método para obtener los episodios a mostrar
+
   getDisplayedEpisodes(): Episode[] {
     if (!this.episodes) return [];
 
@@ -50,42 +50,9 @@ episodes: Episode[] | null = null;
     return this.episodes.slice(0, this.initialDisplayCount);
   }
 
-  // Método para alternar entre mostrar todos o solo algunos
+
   toggleShowAll(): void {
     this.showAll = !this.showAll;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // episodes : Episode[] | null =  null;
-  // sub =new Subscription();
-
-  // constructor(
-  //   private charactersService: CharactersService
-  // ) {}
-
-  // ngOnInit(): void {
-
-  //   this.sub.add(
-  //     this.charactersService.characterEpisodes.subscribe((episodes) => {
-  //       this.episodes = episodes;
-  //     })
-  //   )
-  // }
-
-  // ngOnDestroy(): void  {
-  //   this.sub.unsubscribe();
-  // }
-
 
 }

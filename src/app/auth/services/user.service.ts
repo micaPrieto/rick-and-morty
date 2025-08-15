@@ -111,46 +111,6 @@ export class UserService {
   }
 
 
-  private handleAuthSuccess(resp: AuthResponse) {
-    console.log('handleAuthSuccess resp:', resp);
-
-    localStorage.removeItem('favoritesEpisodes');
-
-    this._user.set(resp.user);
-    this._authStatus.set('authenticated');
-    this._token.set(resp.token);
-
-    localStorage.setItem('token', resp.token);
-    localStorage.setItem('user', JSON.stringify(resp.user));
-
-    if (resp.user.episodesFavorites?.length) {
-      this.getFavoriteEpisodesByIds(resp.user.episodesFavorites);
-    } else {
-      this.favoritesEpisodes.next([]);
-    }
-
-    return true;
-  }
-
-
-  //Manejar el ERROR
-  private handleAuthError(error: any){
-    this.logOut();
-    return throwError(() => error);
-  }
-
-  logOut(){
-    this._user.set(null);
-    this._token.set(null);
-    this._authStatus.set('not-authenticated');
-
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('favoritesEpisodes');
-
-    console.log('Usuario no autenticado. Status:', this._authStatus());
-  }
-
   getFavoriteEpisodesByIds(episodeIds: string[]): void {
     const episodeRequests = episodeIds.map(id =>
       this.episodesService.getEpisodeById$(id)
@@ -168,7 +128,7 @@ export class UserService {
     });
   }
 
-  addFavorite(episodeId: string): Observable<string[]> {
+  addFavoriteEpisode(episodeId: string): Observable<string[]> {
     const token = this.token();
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -186,7 +146,7 @@ export class UserService {
     );
   }
 
-  removeFavorite(episodeId: string): Observable<string[]> {
+  removeFavoriteEpisode(episodeId: string): Observable<string[]> {
     const token = this.token();
 
     const headers = new HttpHeaders({
@@ -268,6 +228,46 @@ export class UserService {
       })
     );
   }
+
+ handleAuthSuccess(resp: AuthResponse) {
+    console.log('handleAuthSuccess resp:', resp);
+
+    localStorage.removeItem('favoritesEpisodes');
+
+    this._user.set(resp.user);
+    this._authStatus.set('authenticated');
+    this._token.set(resp.token);
+
+    localStorage.setItem('token', resp.token);
+    localStorage.setItem('user', JSON.stringify(resp.user));
+
+    if (resp.user.episodesFavorites?.length) {
+      this.getFavoriteEpisodesByIds(resp.user.episodesFavorites);
+    } else {
+      this.favoritesEpisodes.next([]);
+    }
+
+    return true;
+  }
+
+    //Manejar el ERROR
+  handleAuthError(error: any){
+    this.logOut();
+    return throwError(() => error);
+  }
+
+  logOut(){
+    this._user.set(null);
+    this._token.set(null);
+    this._authStatus.set('not-authenticated');
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('favoritesEpisodes');
+
+    console.log('Usuario no autenticado. Status:', this._authStatus());
+  }
+
 
 
 }

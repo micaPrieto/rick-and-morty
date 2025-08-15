@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { EpisodesService } from '../../episodes/services/episodes-service';
-import { Episode } from '../../episodes/interfaces/episode.interface';
-import { CharactersService } from '../../characters/services/characters-service';
-import { UserService } from '../../auth/services/user.service';
+import { EpisodesService } from '../../../episodes/services/episodes-service';
+import { Episode } from '../../../episodes/interfaces/episode.interface';
+import { CharactersService } from '../../../characters/services/characters-service';
+import { UserService } from '../../../auth/services/user.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -42,7 +42,7 @@ export class ProfileEpisodesListComponent {
 
 
    removeFavorite(id: number) {
-    this.userService.removeFavorite(id.toString()).subscribe({
+    this.userService.removeFavoriteEpisode(id.toString()).subscribe({
       next: (updatedFavorites) => {
         this.favoritesEpisodes = this.favoritesEpisodes?.filter(e => e.id !== id) || null;
       },

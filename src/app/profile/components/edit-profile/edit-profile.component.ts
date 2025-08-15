@@ -1,18 +1,18 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { User } from '../../auth/interfaces/user.interface';
+import { User } from '../../../auth/interfaces/user.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../../auth/services/user.service';
-import { Address } from '../../auth/interfaces/address.interface';
+import { UserService } from '../../../auth/services/user.service';
+import { Address } from '../../../auth/interfaces/address.interface';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormUtils } from '../../auth/utils/form.utils';
+import { FormUtils } from '../../../auth/utils/form.utils';
 
 @Component({
   selector: 'app-profile-edit',
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './profile-edit.component.html',
-  styleUrl: './profile-edit.component.css'
+  templateUrl: './edit-profile.component.html',
+  styleUrl: './edit-profile.component.css'
 })
 export default class ProfileEditComponent  implements OnInit{
 
@@ -52,11 +52,11 @@ export default class ProfileEditComponent  implements OnInit{
 
   private initializeForm() {
     this.profileForm = this.fb.group({
-       fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      email: [{value: '', disabled: true}],
-      phone: ['', [Validators.pattern(this.formUtils.telPattern)]],
-      birthday: [''],
-      address: this.fb.group({
+        fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+        email: [{value: '', disabled: true}],
+        phone: ['', [Validators.pattern(this.formUtils.telPattern)]],
+        birthday: [''],
+        address: this.fb.group({
         street: ['', [ Validators.maxLength(50)]],
         city: ['', [ Validators.maxLength(50)]],
         location: ['', [ Validators.maxLength(50)]],

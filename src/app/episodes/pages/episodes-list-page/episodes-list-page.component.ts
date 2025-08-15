@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Episode } from '../../interfaces/episode.interface';
 import { Subscription } from 'rxjs';
 import { EpisodesService } from '../../services/episodes-service';
@@ -11,7 +11,7 @@ import { CardsEpisodesListComponent } from '../../components/episodes-list/cards
   imports: [SearchInputComponent,FloatingBarComponent,CardsEpisodesListComponent],
   templateUrl: './episodes-list-page.component.html'
 })
-export default class  EpisodesListPageComponent {
+export default class  EpisodesListPageComponent implements OnInit, OnDestroy{
 
 
     episodes : Episode[] = [];

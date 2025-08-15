@@ -1,8 +1,8 @@
 import { Component, OnInit, Signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 
-import { User } from '../../auth/interfaces/user.interface';
-import { UserService } from '../../auth/services/user.service';
+import { User } from '../../../auth/interfaces/user.interface';
+import { UserService } from '../../../auth/services/user.service';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';

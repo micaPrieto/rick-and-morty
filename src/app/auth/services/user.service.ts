@@ -6,7 +6,6 @@ import { AuthResponse } from '../interfaces/auth-response.interface';
 import { User } from '../interfaces/user.interface';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { environment } from '../../../environments/environment';
-import { CharactersService } from '../../characters/services/characters-service';
 import { Episode } from '../../episodes/interfaces/episode.interface';
 import { EpisodesService } from '../../episodes/services/episodes-service';
 
@@ -111,6 +110,7 @@ export class UserService {
   }
 
 
+  //! NO GUARDAR EN EL LOCAL STORAGE , SOLO SERVICIO
   getFavoriteEpisodesByIds(episodeIds: string[]): void {
     const episodeRequests = episodeIds.map(id =>
       this.episodesService.getEpisodeById$(id)

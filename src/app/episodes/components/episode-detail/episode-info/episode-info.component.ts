@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { EpisodesService } from '../../../services/episodes-service';
 import { Episode } from '../../../interfaces/episode.interface';
+import { UserService } from '../../../../auth/services/user.service';
 
 @Component({
   selector: 'app-episode-info',
@@ -11,39 +12,35 @@ import { Episode } from '../../../interfaces/episode.interface';
   templateUrl: './episode-info.component.html',
   styleUrl: './episode-info.component.css'
 })
-export class EpisodeInfoComponent /*implements OnInit,OnDestroy*/{
+export class EpisodeInfoComponent {
 
    @Input() episodeSelected: Episode | null = null;
 
-   /*
-  episodeSelected : Episode | null = null;
-  sub =new Subscription();
+    isFavorite = false;
 
-  constructor(
-    private episodesService: EpisodesService,
-    private activatedRoute : ActivatedRoute
-  ) {}
+  constructor(private userService: UserService) {}
 
-  ngOnInit(): void {
-    this.getCharacterById();
+  ngOnChanges(): void {
+    if (!this.episodeSelected) return;
 
-    this.sub.add(
-      this.episodesService.episodeSelected.subscribe((episode) => {
-      this.episodeSelected  = episode;
-    }))
+    const episodes = this.userService.favoritesEpisodes.getValue();
+    this.isFavorite = episodes?.some(e => e.id === this.episodeSelected!.id) ?? false;
   }
 
-  getCharacterById(): void {
-    this.activatedRoute.params.subscribe((params) => {
-      const id = params['id'];
-      if (id) {
-        this.episodesService.getEpisodeById(id)
-      }
-    });
+  toggleFavorite(): void {
+    if (!this.episodeSelected) return;
+
+    const id = this.episodeSelected.id.toString();
+
+    if (this.isFavorite) {
+      this.userService.removeFavoriteEpisode(id).subscribe(() => {
+        this.isFavorite = false;
+      });
+    } else {
+      this.userService.addFavoriteEpisode(id).subscribe(() => {
+        this.isFavorite = true;
+      });
+    }
   }
 
-  ngOnDestroy(): void  {
-    this.sub.unsubscribe();
-  }
-*/
 }

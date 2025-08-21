@@ -1,4 +1,3 @@
-
 html, body {
   height: 100%;
   margin: 0;
@@ -25,20 +24,19 @@ body {
   cursor: pointer;
 }
 
- .card-img-top {
+.card-img-top {
   height: 180px;
   object-fit: cover;
 }
 
 .center-if-single-card {
-  justify-content: center !important; /* fuerza el centrado horizontal */
+  justify-content: center !important;
 }
 
 .center-if-single-card > .col {
-  flex: 0 0 auto; /* evita que se estire */
-  max-width: 250px; /* o cualquier ancho deseado para la card */
+  flex: 0 0 auto;
+  max-width: 250px;
 }
-
 
 .single-card-row {
   justify-content: center !important;
@@ -49,7 +47,7 @@ body {
   justify-content: center;
   flex: 0 0 auto;
   max-width: 250px;
-  margin: 0 auto; /* ayuda a centrar dentro del espacio de columna */
+  margin: 0 auto;
 }
 
 .single-card-row .card {
@@ -57,21 +55,11 @@ body {
   max-width: 250px;
 }
 
-.single-card-row .col {
-  display: flex;
-  justify-content: center;
-}
-
-.single-card-row .card {
-  width: 100%;
-  max-width: 250px; /* Evita que se estire de más */
-}
-
 .card-episode {
   border-radius: 0.75rem;
   background-color: #2c2f33;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  height: 100%; /* ocupa toda la altura disponible en la columna */
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -87,7 +75,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 160px; /* podés ajustar este valor si querés más o menos altura */
+  min-height: 160px;
 }
 
 .page-link.active {
@@ -101,7 +89,6 @@ body {
   transform: scale(1.05);
 }
 
-
 .page-link:focus {
   box-shadow: none !important;
 }
@@ -109,6 +96,7 @@ body {
 .pagination-sm .page-link {
   padding: 0.3rem 0.6rem;
   font-size: 0.85rem;
+  background: linear-gradient(135deg, #121316 0%, #262f52 100%) !important
 }
 
 app-footer {
@@ -116,32 +104,43 @@ app-footer {
 }
 
 
+/* Animation for mobile menu */
+@media (max-width: 991.98px) {
+  .custom-collapse.collapsing,
+  .custom-collapse.show {
+    animation: slideDown 0.3s ease-out;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -------------------- LEGACY STYLES -------------------- */
 .base-link {
-    color:rgba(202, 202, 202, 0.65);
-    padding: 8px 16px;
-    border-radius: 2px;
-    transition: all 0.2s ease-in-out;
-    font-weight: 475;
+  color: rgba(202, 202, 202, 0.65);
+  padding: 8px 16px;
+  border-radius: 2px;
+  transition: all 0.2s ease-in-out;
+  font-weight: 475;
 }
 
-
-.active-link {
-    background-color:rgba(18, 18, 18, 0.4);
-    color: #ffffffc9 !important;
-    border-radius: 3px;
-    font-weight: 500;
+/* Active link SOLO para elementos que no sean navbar */
+.base-link.active-link:not(.custom-nav-link) {
+  background-color: rgba(18, 18, 18, 0.4);
+  color: #ffffffc9 !important;
+  border-radius: 3px;
+  font-weight: 500;
 }
 
-.navbar-logo{
-  color:rgba(202, 202, 202, 0.65);
-}
-
-.floating-bar-active-link {
-    color:rgba(255, 255, 255, 0.88) !important;
-    border-radius: 3px;
-    font-weight: 450;
-}
-
+/* -------------------- SNACKBAR STYLES -------------------- */
 .snackbar-success {
   --mdc-snackbar-container-color: #4caf50 !important;
   --mdc-snackbar-supporting-text-color: white !important;
@@ -156,8 +155,7 @@ app-footer {
   font-weight: 500;
 }
 
-
-/*----------------------FLOATING-BAR---------------------------- */
+/* -------------------- FLOATING-BAR/BREADCRUMB -------------------- */
 
 .breadcrumb-custom {
   display: flex;
@@ -166,10 +164,12 @@ app-footer {
   padding: 0.3rem 1.25rem !important;
   margin-bottom: 0;
   list-style: none;
-  border-radius: 15px !important;
+  background: linear-gradient(135deg, #282a36 0%, #44475a 100%) !important;
   border: 1px solid #6272a4;
+  border-radius: 15px !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   animation: slideInDown 0.5s ease-out;
+  backdrop-filter: blur(5px);
 }
 
 .breadcrumb-item-custom {
@@ -186,35 +186,51 @@ app-footer {
   font-weight: 500;
   display: flex;
   align-items: center;
+  border: 1px solid transparent;
 }
 
 .breadcrumb-link:hover {
-  background-color: rgba(139, 233, 253, 0.1);
-  color: #7d6ff5 !important;
+  background: linear-gradient(135deg, rgba(139, 233, 253, 0.1) 0%, rgba(80, 250, 123, 0.05) 100%);
+  color: #50fa7b !important;
   transform: translateY(-1px);
   text-decoration: none;
+  border-color: rgba(80, 250, 123, 0.3);
+  box-shadow: 0 4px 12px rgba(80, 250, 123, 0.15);
 }
 
 .breadcrumb-active {
-  background-color: rgba(102, 105, 250, 0.2) !important;
-  color: #5350fa !important;
-  box-shadow: 0 0 10px rgba(102, 92, 241, 0.3);
+  background: linear-gradient(135deg, rgba(98, 114, 164, 0.2) 0%, rgba(139, 233, 253, 0.1) 100%) !important;
+  color: #8be9fd !important;
+  border: 1px solid rgba(139, 233, 253, 0.3);
+  box-shadow: 0 0 10px rgba(139, 233, 253, 0.2);
 }
 
 .breadcrumb-current {
   color: #f8f8f2 !important;
   font-weight: 600;
   padding: 0.5rem 0.75rem;
-  background-color: rgba(248, 248, 242, 0.1);
+  background: linear-gradient(135deg, rgba(248, 248, 242, 0.1) 0%, rgba(68, 71, 90, 0.3) 100%);
+  border: 1px solid rgba(248, 248, 242, 0.2);
   border-radius: 8px;
   display: flex;
   align-items: center;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .breadcrumb-separator {
   color: #6272a4;
   font-size: 0.75rem;
   opacity: 0.7;
+  margin: 0 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Floating Bar Active Link - SOLO para floating bar */
+.floating-bar-active-link {
+  color: rgba(255, 255, 255, 0.88) !important;
+  border-radius: 3px;
+  font-weight: 450;
 }
 
 @keyframes slideInDown {
@@ -237,13 +253,13 @@ app-footer {
 
   .breadcrumb-link,
   .breadcrumb-current {
-    padding: 0.25rem 0.5rem;
+    padding: 0.375rem 0.5rem;
     font-size: 0.85rem;
   }
 
   .breadcrumb-separator {
     font-size: 0.7rem;
-    margin: 0 0.5rem !important;
+    margin: 0 0.375rem !important;
   }
 
   .fas {
@@ -259,7 +275,20 @@ app-footer {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  .breadcrumb-custom {
+    padding: 0.5rem 0.75rem;
+  }
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -323,7 +352,7 @@ app-footer {
 }
 
 .btn-back {
-  background: linear-gradient(135deg, #6272a4 0%, #44475a 100%) !important;
+  background:linear-gradient(135deg, #121316 0%, #262f52 100%) !important;
   border: none !important;
   color: #f8f8f2 !important;
   border-radius: 12px !important;
@@ -410,25 +439,84 @@ app-footer {
   }
 }
 
-/* Responsive */
+/*  Mantener horizontal pero con mejor distribución */
 @media (max-width: 768px) {
   .search-wrapper {
-    flex-direction: column !important;
-    gap: 0.75rem !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    gap: 0.5rem !important;
   }
 
   .btn-back {
-    align-self: flex-start !important;
+    flex-shrink: 0 !important; /* Evita que se comprima */
+    min-width: 50px !important; /* Ancho mínimo para el botón */
   }
 
   .search-input-group {
-    width: 100% !important;
+    flex: 1 !important; /* Toma el espacio restante */
+    min-width: 0 !important; /* Permite que se contraiga si es necesario */
   }
 
   .quick-suggestions {
     justify-content: center !important;
   }
 }
+
+@media (max-width: 576px) {
+  .search-wrapper {
+    gap: 0.375rem !important; /* Reducir el gap en pantallas muy pequeñas */
+  }
+
+  .btn-back {
+    padding: 0.375rem 0.5rem !important;
+    font-size: 0.9rem !important;
+    min-height: 34px !important;
+    min-width: 44px !important; /* Botón más compacto */
+  }
+
+  .btn-back span {
+    display: none !important; /* Ocultar texto "Volver" en móviles pequeños */
+  }
+
+  .btn-search {
+    padding: 0.375rem 0.5rem !important;
+    font-size: 0.9rem !important;
+    min-height: 34px !important;
+  }
+
+  .search-icon {
+    padding: 0.375rem 0.5rem !important;
+  }
+
+  .search-input {
+    padding: 0.375rem 0.5rem !important;
+    min-height: 34px !important;
+  }
+
+  .btn-clear {
+    padding: 0.375rem !important;
+    min-height: 34px !important;
+  }
+
+  .search-card .card-body {
+    padding: 0.75rem !important; /* Reducir padding interno */
+  }
+}
+
+/* Para pantallas extra pequeñas */
+@media (max-width: 480px) {
+  .btn-back {
+    min-width: 40px !important;
+    padding: 0.375rem 0.375rem !important;
+  }
+
+  .search-input {
+    font-size: 14px !important; /* Reducir tamaño de fuente */
+  }
+}
+
+
 
 @media (max-width: 576px) {
   .btn-back,
@@ -597,3 +685,67 @@ app-footer {
     opacity: 0.7;
   }
 }
+
+footer {
+  background: linear-gradient(135deg, #121316 0%, #262f52 100%) !important
+}
+
+/* -------------------- NAVBAR CUSTOM -------------------- */
+ //BORRAR
+/* Responsive Adjustments */
+/* @media (max-width: 991.98px) {
+  .custom-nav-link {
+    padding: 0.875rem 1.25rem !important;
+    margin: 0.125rem 0 !important;
+    border-left: 3px solid transparent !important;
+  }
+
+  .custom-nav-link:hover {
+    border-left-color: #50fa7b !important;
+    transform: translateX(5px) !important;
+  }
+
+  .custom-nav-link.active-link {
+    border-left-color: #8be9fd !important;
+  }
+
+  .custom-collapse {
+    background: rgba(40, 42, 54, 0.95);
+    border-radius: 0 0 15px 15px;
+    padding: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+} */
+
+/* @media (max-width: 576px) {
+  .container-fluid {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .navbar-logo {
+    font-size: 1.25rem;
+  }
+
+  .custom-nav-link {
+    font-size: 0.95rem !important;
+  }
+} */
+
+/* Responsive */
+/* @media (max-width: 768px) {
+  .search-wrapper {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+
+   .btn-back {
+    align-self: flex-start !important;
+  }
+
+
+  .quick-suggestions {
+    justify-content: center !important;
+  }
+} */

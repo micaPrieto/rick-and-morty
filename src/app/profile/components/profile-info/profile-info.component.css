@@ -1,23 +1,23 @@
 .profile-card {
-  background: #2a2a2a !important;
-  border: 1px solid #444 !important;
+  background: linear-gradient(135deg, #121316 0%, #262f52 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 12px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
   overflow: hidden !important;
   color: white !important;
 }
 
 .card-header-custom {
-  background: #2a2a2a !important;
+  background: transparent !important;
   padding: 2rem 1.5rem 1rem !important;
   text-align: center !important;
-  border-bottom: 1px solid #444 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .card-body-custom {
   padding: 1.5rem !important;
   color: #e0e0e0 !important;
-  background: #2a2a2a !important;
+  background: transparent !important;
 }
 
 /* === AVATAR COMPONENTS === */
@@ -32,12 +32,12 @@
   height: 180px !important;
   border-radius: 50% !important;
   object-fit: cover !important;
-  border: 4px solid #555 !important;
+  border: 4px solid rgba(255, 255, 255, 0.2) !important;
   transition: all 0.3s ease !important;
 }
 
 .avatar-image:hover {
-  border-color: #777 !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
   transform: scale(1.02) !important;
 }
 
@@ -70,7 +70,7 @@
 }
 
 .btn-primary-custom {
-  background: #6c5ce7 !important;
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe) !important;
   border: none !important;
   border-radius: 25px !important;
   padding: 0.5rem 1.25rem !important;
@@ -78,27 +78,30 @@
   font-weight: 500 !important;
   font-size: 0.875rem !important;
   transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3) !important;
 }
 
 .btn-primary-custom:hover {
-  background: #5a4fcf !important;
+  background: linear-gradient(135deg, #5a4fcf, #8b7eff) !important;
   transform: translateY(-1px) !important;
   color: white !important;
+  box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4) !important;
 }
 
 .btn-secondary-custom {
   background: transparent !important;
-  border: 1px solid #6c757d !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
   border-radius: 25px !important;
   padding: 0.5rem 1.25rem !important;
-  color: #6c757d !important;
+  color: rgba(255, 255, 255, 0.8) !important;
   font-weight: 500 !important;
   font-size: 0.875rem !important;
   transition: all 0.3s ease !important;
 }
 
 .btn-secondary-custom:hover {
-  background: #6c757d !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
   color: white !important;
   transform: translateY(-1px) !important;
 }
@@ -122,7 +125,7 @@
   display: flex !important;
   align-items: flex-start !important;
   padding: 0.75rem 0 !important;
-  border-bottom: 1px solid #444 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   transition: all 0.2s ease !important;
 }
 
@@ -133,7 +136,7 @@
 .info-icon {
   width: 20px !important;
   margin-right: 0.75rem !important;
-  color: #888 !important;
+  color: rgba(255, 255, 255, 0.6) !important;
   font-size: 0.875rem !important;
   margin-top: 0.1rem !important;
   flex-shrink: 0 !important;
@@ -142,13 +145,13 @@
 .info-label {
   font-weight: 600 !important;
   margin-right: 0.5rem !important;
-  color: #ccc !important;
+  color: rgba(255, 255, 255, 0.8) !important;
   min-width: 100px !important;
   flex-shrink: 0 !important;
 }
 
 .info-value {
-  color: #e0e0e0 !important;
+  color: rgba(255, 255, 255, 0.95) !important;
   flex: 1 !important;
   word-wrap: break-word !important;
   overflow-wrap: break-word !important;
@@ -158,8 +161,8 @@
 
 /* === UTILITY COMPONENTS === */
 .upload-area {
-  background: #3a3a3a !important;
-  border: 2px dashed #555 !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 2px dashed rgba(255, 255, 255, 0.3) !important;
   border-radius: 12px !important;
   padding: 1rem !important;
   margin: 1rem 0 !important;
@@ -168,20 +171,20 @@
 }
 
 .upload-area:hover {
-  background: #444 !important;
-  border-color: #666 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
 }
 
 .file-input-custom {
-  background: #3a3a3a !important;
-  border: 1px solid #555 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
   border-radius: 8px !important;
   color: white !important;
   padding: 0.5rem !important;
 }
 
 .file-input-custom::file-selector-button {
-  background: #555 !important;
+  background: rgba(255, 255, 255, 0.2) !important;
   border: none !important;
   border-radius: 6px !important;
   color: white !important;

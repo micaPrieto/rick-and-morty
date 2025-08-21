@@ -1,49 +1,57 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
   <div class="container-fluid">
     <a
       class="navbar-brand navbar-logo"
       routerLink="/"
       routerLinkActive="active-link"
       [routerLinkActiveOptions]="{ exact: true }"
+      (click)="closeNavbar()"
       >Rick & Morty
     </a>
 
     @if(userService.authStatus() === 'authenticated'){
     <!--Boton de hamburguesa para celulares-->
     <button
-      class="navbar-toggler navbar-toggle-button"
+      class="navbar-toggler custom-toggler"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#mainNavbarMenu"
       aria-controls="mainNavbarMenu"
       aria-expanded="false"
       aria-label="Toggle navigation"
+      #navbarToggler
     >
-      <span class="navbar-toggler-icon"></span>
+      <span class="custom-toggler-icon"></span>
     </button>
 
     <!---- Menu ---->
-    <div class="collapse navbar-collapse" id="mainNavbarMenu">
+    <div class="collapse navbar-collapse custom-collapse" id="mainNavbarMenu">
       <!-- Secciones principales -->
       <ul class="navbar-nav navbar-menu-left me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a
-            class="nav-link base-link"
+            class="nav-link custom-nav-link"
             routerLink="/characters"
             routerLinkActive="active-link"
             [routerLinkActiveOptions]="{ exact: true }"
-            >Personajes
+            (click)="closeNavbar()"
+            >
+            <i class="fas fa-users me-2"></i>
+            Personajes
           </a>
         </li>
 
         <li class="nav-item">
           <a
-          class="nav-link base-link"
-          routerLink="/episodes"
-          routerLinkActive="active-link"
-          [routerLinkActiveOptions]="{ exact: true }"
-            >Episodios</a
-          >
+            class="nav-link custom-nav-link"
+            routerLink="/episodes"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeNavbar()"
+            >
+            <i class="fas fa-tv me-2"></i>
+            Episodios
+          </a>
         </li>
       </ul>
 
@@ -52,28 +60,39 @@
         <!-- Perfil -->
        <li class="nav-item" *ngIf="userService.user() as user; else loginLink">
           <a
-            class="nav-link base-link"
+            class="nav-link custom-nav-link"
             routerLink="/profile"
             routerLinkActive="active-link"
+            (click)="closeNavbar()"
           >
+            <i class="fas fa-user me-2"></i>
             {{ user.fullName }}
           </a>
         </li>
 
         <ng-template #loginLink>
           <li class="nav-item">
-            <a class="nav-link base-link" routerLink="/login">Iniciar sesión</a>
+            <a
+              class="nav-link custom-nav-link"
+              routerLink="/login"
+              (click)="closeNavbar()"
+            >
+              <i class="fas fa-sign-in-alt me-2"></i>
+              Iniciar sesión
+            </a>
           </li>
         </ng-template>
 
         <!-- Cerrar Sesión-->
         <li class="nav-item">
           <a
-            class="nav-link base-link"
-            (click)="userService.logOut()"
+            class="nav-link custom-nav-link logout-link"
+            (click)="logout()"
             routerLink="/auth/login"
-            >Cerrar sesión</a
-          >
+            >
+            <i class="fas fa-sign-out-alt me-2"></i>
+            Cerrar sesión
+          </a>
         </li>
       </ul>
     </div>
@@ -81,7 +100,14 @@
     } @else if(userService.authStatus() === 'not-authenticated'){
     <ul class="navbar-nav navbar-menu-right mb-2 mb-lg-0">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/auth/login">Login</a>
+        <a
+          class="nav-link custom-nav-link"
+          routerLink="/auth/login"
+          (click)="closeNavbar()"
+        >
+          <i class="fas fa-sign-in-alt me-2"></i>
+          Login
+        </a>
       </li>
     </ul>
     }

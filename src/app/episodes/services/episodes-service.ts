@@ -26,7 +26,7 @@ export class EpisodesService {
   actualPage = new BehaviorSubject<number>(1);
 
   isSearching = new BehaviorSubject<boolean>(false);
-  currentQuery = new BehaviorSubject<string>('');
+  currentQuery = new BehaviorSubject<string>(''); //! REVISAR
 
   isError = new BehaviorSubject<string | null>(null);
 

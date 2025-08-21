@@ -1,63 +1,95 @@
-<div class="card bg-dark text-white border-secondary">
-  <!-- Imagen del usuario -->
-  <img
-    *ngIf="user()?.profileImage"
-    class="img-fluid w-75 mx-auto mt-2 rounded"
-    [src]="getProfileImageUrl(user()!.profileImage!)"
-    alt="Usuario"
-    (error)="onImageError($event)"
-  />
+<div class="profile-card">
+  <!-- Header with Avatar -->
+  <div class="card-header-custom">
+    <div class="avatar-container">
+      <!-- Usuario con imagen -->
+      <img
+        *ngIf="user()?.profileImage"
+        class="avatar-image"
+        style="width: 180px; height: 180px;"
+        [src]="getProfileImageUrl(user()!.profileImage!)"
+        alt="Usuario"
+        (error)="onImageError($event)"
+      />
 
-  <!-- Si no hay imagen de usuario, mostrar avatar por defecto -->
-  <img
-    *ngIf="!user()?.profileImage"
-    class="img-fluid w-75 mx-auto mt-2 rounded"
-    src="assets/default-avatar2.jpg"
-    alt="Usuario"
-  />
+      <!-- Avatar por defecto -->
+      <img
+        *ngIf="!user()?.profileImage"
+        class="avatar-image"
+        style="width: 180px; height: 180px;"
+        src="assets/default-avatar2.jpg"
+        alt="Usuario"
+      />
 
-  <!-- Botones centrados y con mejor estilo -->
-  <div class="text-center mt-3 mb-3">
-    <!-- Botón para mostrar input -->
-    <button
-      class="btn btn-edit-image me-2"
-      (click)="toggleImageUpload()"
-    >
-      <i class="fas fa-camera me-1"></i>
-      Editar foto
-    </button>
+      <!-- Overlay para hover effect -->
+      <div class="avatar-overlay" (click)="toggleImageUpload()">
+        <i class="fas fa-camera text-white"></i>
+      </div>
+    </div>
 
-    <!-- Botón para ir a editar perfil -->
-    <button
-      class="btn btn-edit-profile"
-      routerLink="/edit-profile"
-    >
-      <i class="fas fa-user-edit me-1"></i>
-      Editar perfil
-    </button>
+    <h2 class="profile-title">{{ user()?.fullName }}</h2>
+    <span class="status-badge status-active">Activo</span>
+
+    <!-- Action Buttons -->
+    <div class="btn-group-custom">
+      <button
+        class="btn btn-secondary-custom"
+        (click)="toggleImageUpload()"
+      >
+        <i class="fas fa-camera me-1"></i>
+        Editar foto
+      </button>
+
+      <button
+        class="btn btn-primary-custom"
+        routerLink="/edit-profile"
+      >
+        <i class="fas fa-user-edit me-1"></i>
+        Editar perfil
+      </button>
+    </div>
+
+    <!-- Upload Area -->
+    <div *ngIf="showImageInput" class="upload-area">
+      <i class="fas fa-cloud-upload-alt mb-2 text-white-50"></i>
+      <input
+        type="file"
+        (change)="onFileSelected($event)"
+        class="file-input-custom w-100"
+        accept="image/*"
+      />
+    </div>
   </div>
 
-  <!-- Input para seleccionar nueva imagen -->
-  <div *ngIf="showImageInput" class="my-2">
-    <input
-      type="file"
-      (change)="onFileSelected($event)"
-      class="form-control w-75 mx-auto"
-    />
-  </div>
+  <!-- Body with Information -->
+  <div class="card-body-custom">
+    <ul class="profile-info-list">
+      <li class="info-item">
+        <i class="fas fa-envelope info-icon"></i>
+        <span class="info-label">Email:</span>
+        <div class="info-value">{{ user()?.email }}</div>
+      </li>
 
-  <div class="card-body">
-    <h5 class="card-title border-bottom pb-2">{{ user()?.fullName }}</h5>
-    <p class="mb-1"><strong>Email:</strong> {{ user()?.email }}</p>
-    <p class="mb-1" *ngIf="user()?.birthday; else noBirthday">
-      <strong>Fecha de nacimiento:</strong> {{ getFormattedBirthday() }}
-    </p>
-    <ng-template #noBirthday>
-      <p class="mb-1"><strong>Fecha de nacimiento:</strong> -</p>
-    </ng-template>
-    <p class="mb-1"><strong>Ubicación:</strong> {{ getFormattedAddress() }}</p>
+      <li class="info-item">
+        <i class="fas fa-birthday-cake info-icon"></i>
+        <span class="info-label">Nacimiento:</span>
+        <div class="info-value" *ngIf="user()?.birthday; else noBirthday">
+          {{ getFormattedBirthday() }}
+        </div>
+        <ng-template #noBirthday>
+          <div class="info-value">-</div>
+        </ng-template>
+      </li>
+
+      <li class="info-item">
+        <i class="fas fa-map-marker-alt info-icon"></i>
+        <span class="info-label">Ubicación:</span>
+        <div class="info-value">{{ getFormattedAddress() }}</div>
+      </li>
+    </ul>
   </div>
 </div>
+
 <!-- <div class="card bg-dark text-white border-secondary">
 
   <img

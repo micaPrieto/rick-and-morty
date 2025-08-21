@@ -35,7 +35,7 @@ export class CommentsEpisodeListComponent implements OnChanges, OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.currentUserId = JSON.parse(localStorage.getItem('user')!)?.id ?? 0;
+    this.currentUserId = JSON.parse(localStorage.getItem('user')!)?.id ?? 0; //! TRAER DERL SERVICE
 
     this.sub.add(
       this.commentsService.comments.subscribe((comments) => {
@@ -61,7 +61,7 @@ export class CommentsEpisodeListComponent implements OnChanges, OnInit{
     return this.userService.user();
   }
 
-  get isAdmin(): boolean {
+  get isAdmin(): boolean { //! MOVER AL SERVICE
     return this.currentUser?.roles?.includes('admin') ?? false;
   }
 

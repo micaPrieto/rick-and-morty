@@ -1,14 +1,22 @@
+<div class="card bg-dark text-white border-secondary position-relative">
 
-
-<div class="card bg-dark text-white border-secondary">
+  <!-- Boton favorito -->
+  <button
+    (click)="toggleFavorite(); $event.stopPropagation()"
+    class="heart-button"
+    [ngClass]="{ 'favorito': isFavorite }"
+    [title]="isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'">
+    <i [ngClass]="isFavorite ? 'fas fa-heart' : 'far fa-heart'"></i>
+  </button>
 
   <div class="card-body">
-    <h5 class="card-title border-bottom pb-2">Episodio {{episodeSelected?.id}}</h5>
+    <h5 class="card-title border-bottom pb-2">
+      Episodio {{episodeSelected?.id}}
+    </h5>
     <p class="mb-1"><strong>Nombre: </strong> {{episodeSelected?.name}}</p>
     <p class="mb-1"><strong>Fecha de estreno: </strong> {{episodeSelected?.air_date}}</p>
-    <p class="mb-1"><strong>Episodio :</strong> {{episodeSelected?.episode}}
-    <p class="mb-1"><strong>Creado en :</strong> {{episodeSelected?.created | date: 'yyyy-MM-dd'}}
-
+    <p class="mb-1"><strong>Episodio :</strong> {{episodeSelected?.episode}}</p>
+    <p class="mb-1"><strong>Creado en :</strong> {{episodeSelected?.created | date: 'yyyy-MM-dd'}}</p>
   </div>
 
 </div>

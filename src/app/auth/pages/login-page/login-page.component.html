@@ -61,8 +61,16 @@
           </div>
 
           <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-primary">
+            <!-- <button type="submit" class="btn btn-primary">
               Iniciar sesión
+            </button> -->
+            <button type="submit" class="btn btn-primary" [disabled]="loading()">
+              @if(loading()){
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Cargando...
+              } @else {
+                Iniciar sesión
+              }
             </button>
           </div>
 

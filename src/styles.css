@@ -687,8 +687,6 @@ app-footer {
 
 
 /* ------------------ FOOTER  ---------------------- */
-
-
 footer {
   background: linear-gradient(135deg, #121316 0%, #262f52 100%) !important
 }
@@ -745,24 +743,186 @@ app-character-episodes-list .list-unstyled {
   .equal-height-col {
     display: block !important;
   }
-  
+
   app-character-info .character-card,
   app-character-episodes-list .card {
     height: auto !important;
     display: block !important;
     margin-bottom: 1.5rem !important;
   }
-  
+
   app-character-info .card-body-custom,
   app-character-episodes-list .card-body {
     flex: none !important;
     display: block !important;
   }
-  
+
   app-character-episodes-list .list-unstyled {
     flex: none !important;
   }
 }
 
 
+/* === PROFILE COMPONENTS EQUAL HEIGHT === */
+app-profile-info .profile-card {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
 
+app-profile-info .card-body-custom {
+  flex: 1 !important;
+}
+
+app-profile-episodes-list .card {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+app-profile-episodes-list .card-body {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+app-profile-episodes-list .list-unstyled {
+  flex: 1 !important;
+}
+
+/* === RESPONSIVE FIXES === */
+@media (max-width: 767.98px) {
+  /* Desactivar flexbox en móviles para profile components */
+  .equal-height-col {
+    display: block !important;
+  }
+
+  app-profile-info .profile-card,
+  app-profile-episodes-list .card {
+    height: auto !important;
+    display: block !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  app-profile-info .card-body-custom,
+  app-profile-episodes-list .card-body {
+    flex: none !important;
+    display: block !important;
+  }
+
+  app-profile-episodes-list .list-unstyled {
+    flex: none !important;
+  }
+}
+
+
+
+/* === RESPONSIVE FIXES MEJORADOS === */
+@media (max-width: 991.98px) {
+  /* Tablet - mantener flexbox pero ajustar */
+  .equal-height-col {
+    margin-bottom: 1rem !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* Móvil - desactivar flexbox completamente */
+  .equal-height-row {
+    display: block !important;
+  }
+
+  .equal-height-col {
+    display: block !important;
+  }
+
+  app-profile-info .profile-card,
+  app-profile-episodes-list .card {
+    height: auto !important;
+    display: block !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  app-profile-info .card-body-custom,
+  app-profile-episodes-list .card-body {
+    flex: none !important;
+    display: block !important;
+  }
+
+  app-profile-episodes-list .list-unstyled {
+    flex: none !important;
+  }
+}
+
+/* === FIX PARA TEXTO LARGO === */
+.info-value {
+  color: rgba(255, 255, 255, 0.95) !important;
+  flex: 1 !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important; /* Cambiar de break-all a break-word */
+  line-height: 1.4 !important;
+  hyphens: auto !important; /* Agregar guiones automáticos */
+}
+
+/* === RESPONSIVE ESPECÍFICO PARA INFO ITEMS === */
+@media (max-width: 576px) {
+  .info-item {
+    align-items: flex-start !important;
+  }
+
+    .info-icon {
+    width: 20px !important;
+    margin-right: 0.5rem !important; /* Reducir un poco el margen */
+    flex-shrink: 0 !important;
+    margin-top: 0.2rem !important; /* Ajustar alineación vertical */
+  }
+
+  .info-label {
+    flex-direction: row !important;
+    margin-bottom: 0.25rem !important;
+    min-width: auto !important;
+    flex-wrap: wrap !important;
+  }
+
+ .info-value {
+    margin-left: 0 !important;
+    word-break: break-all !important;
+    flex: 1 !important;
+    min-width: 0 !important; /* Permitir que se contraiga */
+  }
+
+  .profile-card {
+    margin: 0.5rem !important;
+  }
+}
+
+/* === FIX PARA BOTONES EN RESPONSIVE === */
+@media (max-width: 480px) {
+  .btn-group-custom {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+
+  .btn-primary-custom,
+  .btn-secondary-custom {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+/* === PARA MÓVILES MUY PEQUEÑOS === */
+@media (max-width: 400px) {
+  .info-label {
+    min-width: 70px !important; /* Aún más pequeño */
+    font-size: 0.85rem !important;
+  }
+
+  .info-icon {
+    font-size: 0.8rem !important;
+    margin-right: 0.4rem !important;
+  }
+
+  .info-value {
+    font-size: 0.85rem !important;
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -25,6 +25,7 @@ export class RegisterPageComponent implements OnInit {
 
   registerForm!: FormGroup;
   formUtils = FormUtils;
+  loading = signal(false);
 
    constructor(
     private fb : FormBuilder,
@@ -80,10 +81,12 @@ export class RegisterPageComponent implements OnInit {
 
   register(){
     const user = this.getUserOfForm();
-     if (this.isFormValid(user))
+    if (this.isFormValid(user))
     {
+      this.loading.set(true);
       this.authService.register(user).subscribe({
         next: (success) => {
+          this.loading.set(false);
           if (success) {
             console.log(user);
 
@@ -93,7 +96,7 @@ export class RegisterPageComponent implements OnInit {
           }
         },
         error: (err) =>{
-
+          this.loading.set(false);
           console.log('Error register:', err);
 
           const errorMsg = err?.error?.message;

@@ -33,6 +33,7 @@ export class LoginPageComponent implements OnInit {
   formUtils = FormUtils;
 
   hasError = signal(false)
+  loading = signal(false);
 
   ngOnInit(): void {
     this.createForm();
@@ -54,8 +55,11 @@ export class LoginPageComponent implements OnInit {
 
     if(this.isFormValid())
       {
+        this.loading.set(true);
+
         this.authService.login(email!, password!).subscribe({
           next: (isAuthenticated) => {
+              this.loading.set(false);
               if(isAuthenticated)
               {
                 this.router.navigateByUrl('characters')
@@ -65,6 +69,7 @@ export class LoginPageComponent implements OnInit {
               }
             },
           error: (err) => {
+             this.loading.set(false);
               const errorMsg = err?.error.message;
 
               console.log("Error: ",errorMsg);

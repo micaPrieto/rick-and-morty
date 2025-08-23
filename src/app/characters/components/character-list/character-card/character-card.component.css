@@ -1,6 +1,3 @@
-
-
-
 .card-episode {
   border-radius: 15px !important;
   background: linear-gradient(135deg, rgba(6, 182, 212, 0.9) 0%, rgba(14, 116, 144, 0.7) 100%) !important;
@@ -195,6 +192,208 @@
   box-shadow: 0 0 15px rgba(34, 211, 238, 0.3) !important;
 }
 
+/* -------------------- CARD CHARACTER MEJORADA -------------------- */
+
+.card-character {
+  border-radius: 20px !important;
+  background: linear-gradient(135deg, #121316 0%, #262f52 100%) !important;
+  border: 2px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.card-character::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(13, 110, 253, 0.1) 0%, rgba(139, 233, 253, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-character:hover {
+  transform: translateY(-12px) scale(1.05) !important;
+  box-shadow: 0 20px 50px rgba(13, 110, 253, 0.2) !important;
+  border-color: #0d6efd !important;
+  text-decoration: none !important;
+}
+
+.card-character:hover::before {
+  opacity: 1;
+}
+
+/* Efecto de brillo más sutil para personajes */
+.card-character::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.08) 50%, transparent 60%);
+  transform: rotate(45deg);
+  transition: all 0.8s ease;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.card-character:hover::after {
+  animation: shimmerCharacter 0.8s ease-out;
+}
+
+@keyframes shimmerCharacter {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Imagen del personaje */
+.card-character .card-img-top {
+  height: 200px !important;
+  object-fit: cover !important;
+  border-radius: 20px 20px 0 0 !important;
+  position: relative !important;
+  z-index: 2 !important;
+  transition: transform 0.4s ease !important;
+}
+
+.card-character:hover .card-img-top {
+  transform: scale(1.02) !important;
+}
+
+/* Overlay sutil en la imagen */
+.card-character .card-img-top::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    transparent 60%, 
+    rgba(18, 19, 22, 0.4) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-character:hover .card-img-top::after {
+  opacity: 1;
+}
+
+/* Cuerpo de la card de personaje */
+.card-character .card-body {
+  position: relative !important;
+  z-index: 2 !important;
+  padding: 1.25rem 1rem 1rem 1rem !important;
+  background: linear-gradient(to bottom, 
+    rgba(18, 19, 22, 0.95) 0%, 
+    rgba(38, 47, 82, 0.95) 100%) !important;
+  border-radius: 0 0 20px 20px !important;
+}
+
+.card-character .card-title {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  margin-bottom: 0 !important;
+  text-align: center !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+  transition: color 0.3s ease !important;
+  line-height: 1.3 !important;
+}
+
+.card-character:hover .card-title {
+  color: #0d6efd !important;
+}
+
+/* Indicador de estado del personaje */
+.card-character .card-body::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: #0d6efd;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.card-character:hover .card-body::before {
+  opacity: 1;
+  width: 30px;
+  height: 2px;
+  border-radius: 1px;
+  box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+}
+
+/* Efecto de focus para accesibilidad */
+.card-character:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.3) !important;
+}
+
+/* Estados activos */
+.card-character:active {
+  transform: translateY(-10px) scale(1.03) !important;
+}
+
+/* Responsive para cards de personajes */
+@media (max-width: 768px) {
+  .card-character {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .card-character .card-img-top {
+    height: 180px !important;
+  }
+  
+  .card-character .card-body {
+    padding: 1rem 0.875rem 1rem 0.875rem !important;
+  }
+  
+  .card-character .card-title {
+    font-size: 0.95rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-character .card-img-top {
+    height: 160px !important;
+  }
+  
+  .card-character .card-body {
+    padding: 0.875rem 0.75rem 0.875rem 0.75rem !important;
+  }
+  
+  .card-character .card-title {
+    font-size: 0.9rem !important;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .card-episode {
@@ -234,29 +433,3 @@
     font-size: 0.95rem !important;
   }
 }
-
-
-
-/*
-
-.heart-button {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.4rem;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.heart-button.favorito {
-  color: red;
-}
-
-.heart-button:hover {
-  transform: scale(1.1);
-}
-
-*/

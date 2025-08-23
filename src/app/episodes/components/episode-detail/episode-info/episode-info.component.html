@@ -1,6 +1,45 @@
-<div class="card bg-dark text-white border-secondary position-relative">
+<div class="episode-detail-card">
 
-  <!-- Boton favorito -->
+  <!-- Botón favorito -->
+  <button
+    (click)="toggleFavorite(); $event.stopPropagation()"
+    class="heart-button"
+    [ngClass]="{ 'favorito': isFavorite }"
+    [title]="isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'">
+    <i [ngClass]="isFavorite ? 'fas fa-heart' : 'far fa-heart'"></i>
+  </button>
+
+  <div class="episode-card-body-enhanced">
+    <h5 class="episode-title-enhanced">
+      Episodio {{episodeSelected?.id}}
+    </h5>
+    
+    <p class="episode-info-enhanced">
+      <span class="episode-info-label-enhanced">Nombre:</span>
+      <span class="episode-info-value-enhanced">{{episodeSelected?.name}}</span>
+    </p>
+    
+    <p class="episode-info-enhanced">
+      <span class="episode-info-label-enhanced">Fecha de estreno:</span>
+      <span class="episode-info-value-enhanced">{{episodeSelected?.air_date}}</span>
+    </p>
+    
+    <p class="episode-info-enhanced">
+      <span class="episode-info-label-enhanced">Episodio:</span>
+      <span class="episode-info-value-enhanced">{{episodeSelected?.episode}}</span>
+    </p>
+    
+    <p class="episode-info-enhanced">
+      <span class="episode-info-label-enhanced">Creado en:</span>
+      <span class="episode-info-value-enhanced">{{episodeSelected?.created | date: 'yyyy-MM-dd'}}</span>
+    </p>
+  </div>
+
+</div>
+
+<!-- <div class="card bg-dark text-white border-secondary position-relative">
+
+
   <button
     (click)="toggleFavorite(); $event.stopPropagation()"
     class="heart-button"
@@ -19,4 +58,4 @@
     <p class="mb-1"><strong>Creado en :</strong> {{episodeSelected?.created | date: 'yyyy-MM-dd'}}</p>
   </div>
 
-</div>
+</div> -->

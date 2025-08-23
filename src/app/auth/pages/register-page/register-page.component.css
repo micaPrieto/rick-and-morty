@@ -8,7 +8,7 @@
 }
 
 .register-card {
-  background-color: #1e1e1e;
+  background:   linear-gradient(135deg, #121316 0%, #1f253b 100%) !important;
   border-radius: 8px;
   padding: 20px 35px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
@@ -20,7 +20,7 @@
   text-align: center;
   font-size: 22px;
   margin-bottom: 20px;
-  color: #aaa;
+  color: #fdfcfc;
   font-weight: bold;
 }
 

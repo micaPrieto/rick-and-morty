@@ -10,12 +10,14 @@ main {
 }
 
 body {
-  background-color:#333;
+  background-color:#232324;
   color: #0d6efdc2;
 }
 
 .card {
   transition: transform 0.2s ease-in-out;
+  background: linear-gradient(135deg, #121316 0%, #262f52 100%) !important;
+
 }
 
 .card-character:hover {
@@ -155,6 +157,11 @@ app-footer {
   font-weight: 500;
 }
 
+
+
+
+
+
 /* -------------------- FLOATING-BAR/BREADCRUMB -------------------- */
 
 .breadcrumb-custom {
@@ -280,13 +287,6 @@ app-footer {
     padding: 0.5rem 0.75rem;
   }
 }
-
-
-
-
-
-
-
 
 
 
@@ -548,6 +548,8 @@ app-footer {
 
 
 
+/* ------------------ DETALLES, LISTADO DE ..(episodios, personajes)  ---------------------- */
+
 /* Estilos para los enlaces de episodios */
 .episode-item {
   transition: all 0.3s ease;
@@ -686,66 +688,12 @@ app-footer {
   }
 }
 
+
+
+
+
+/* ------------------ FOOTER  ---------------------- */
 footer {
   background: linear-gradient(135deg, #121316 0%, #262f52 100%) !important
 }
 
-/* -------------------- NAVBAR CUSTOM -------------------- */
- //BORRAR
-/* Responsive Adjustments */
-/* @media (max-width: 991.98px) {
-  .custom-nav-link {
-    padding: 0.875rem 1.25rem !important;
-    margin: 0.125rem 0 !important;
-    border-left: 3px solid transparent !important;
-  }
-
-  .custom-nav-link:hover {
-    border-left-color: #50fa7b !important;
-    transform: translateX(5px) !important;
-  }
-
-  .custom-nav-link.active-link {
-    border-left-color: #8be9fd !important;
-  }
-
-  .custom-collapse {
-    background: rgba(40, 42, 54, 0.95);
-    border-radius: 0 0 15px 15px;
-    padding: 1rem;
-    margin-top: 1rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  }
-} */
-
-/* @media (max-width: 576px) {
-  .container-fluid {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-
-  .navbar-logo {
-    font-size: 1.25rem;
-  }
-
-  .custom-nav-link {
-    font-size: 0.95rem !important;
-  }
-} */
-
-/* Responsive */
-/* @media (max-width: 768px) {
-  .search-wrapper {
-    flex-direction: column !important;
-    gap: 0.75rem !important;
-  }
-
-   .btn-back {
-    align-self: flex-start !important;
-  }
-
-
-  .quick-suggestions {
-    justify-content: center !important;
-  }
-} */

@@ -1,11 +1,187 @@
-.alive {
-  color: green;
+.character-card {
+  background: linear-gradient(135deg, #121316 0%, #262f52 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+  overflow: hidden !important;
+  color: white !important;
+  width: 100% !important;
 }
 
-.dead {
-  color: red;
+.card-header-custom {
+  background: transparent !important;
+  padding: 2rem 1.5rem 1rem !important;
+  text-align: center !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-.unknown {
-  color: yellow;
+.card-body-custom {
+  padding: 1.5rem !important;
+  color: #e0e0e0 !important;
+  background: transparent !important;
+}
+
+/* === AVATAR COMPONENTS === */
+.avatar-container {
+  position: relative !important;
+  display: inline-block !important;
+  margin-bottom: 1rem !important;
+}
+
+.avatar-image {
+  width: 180px !important;
+  height: 180px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 4px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+.avatar-image:hover {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  transform: scale(1.02) !important;
+}
+
+/* === CONTENT COMPONENTS === */
+.profile-title {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.5rem !important;
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.section-title {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 1rem !important;
+  color: white !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+  padding-bottom: 0.5rem !important;
+}
+
+.profile-info-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.info-item {
+  display: flex !important;
+  align-items: flex-start !important;
+  padding: 0.75rem 0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+
+.info-item:last-child {
+  border-bottom: none !important;
+}
+
+.info-icon {
+  width: 20px !important;
+  margin-right: 0.75rem !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 0.875rem !important;
+  margin-top: 0.1rem !important;
+  flex-shrink: 0 !important;
+}
+
+.info-label {
+  font-weight: 600 !important;
+  margin-right: 0.5rem !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  min-width: 100px !important;
+  flex-shrink: 0 !important;
+}
+
+.info-value {
+  color: rgba(255, 255, 255, 0.95) !important;
+  flex: 1 !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  word-break: break-all !important;
+  line-height: 1.4 !important;
+}
+
+/* === STATUS COMPONENTS === */
+.status-badge {
+  display: inline-block !important;
+  padding: 0.35rem 0.85rem !important;
+  border-radius: 15px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.status-badge.status-alive {
+  background: rgba(40, 167, 69, 0.2) !important;
+  color: #28a745 !important;
+  border: 1px solid rgba(40, 167, 69, 0.5) !important;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3) !important;
+}
+
+.status-badge.status-dead {
+  background: rgba(220, 53, 69, 0.2) !important;
+  color: #dc3545 !important;
+  border: 1px solid rgba(220, 53, 69, 0.5) !important;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3) !important;
+}
+
+.status-badge.status-unknown {
+  background: rgba(255, 193, 7, 0.2) !important;
+  color: #ffc107 !important;
+  border: 1px solid rgba(255, 193, 7, 0.5) !important;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3) !important;
+}
+
+/* === STATUS TEXT IN INFO === */
+.status-text.status-alive {
+  color: #28a745 !important;
+  font-weight: 600 !important;
+}
+
+.status-text.status-dead {
+  color: #dc3545 !important;
+  font-weight: 600 !important;
+}
+
+.status-text.status-unknown {
+  color: #ffc107 !important;
+  font-weight: 600 !important;
+}
+
+/* === LINK COMPONENTS === */
+.link-primary {
+  color: #74b9ff !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+.link-primary:hover {
+  color: #0984e3 !important;
+  text-decoration: underline !important;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .character-card {
+    margin: 1rem !important;
+    border-radius: 12px !important;
+  }
+  
+  .avatar-image {
+    width: 150px !important;
+    height: 150px !important;
+  }
+  
+  .profile-title {
+    font-size: 1.25rem !important;
+  }
+  
+  .info-label {
+    min-width: 80px !important;
+  }
 }

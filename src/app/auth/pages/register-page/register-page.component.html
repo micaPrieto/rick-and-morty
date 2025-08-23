@@ -219,8 +219,15 @@
           </span>
       }
 
-      <div class="button-container mb-3">
-        <button type="submit" class="btn-sing-up">Registrarse</button>
+      <div class="button-container mb-3" >
+        <button type="submit" class="btn-sing-up" [disabled]="loading()">
+          @if(loading()){
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Cargando...
+          } @else {
+            Registrarse
+          }
+        </button>
       </div>
 
       <div class="sign-in-link">

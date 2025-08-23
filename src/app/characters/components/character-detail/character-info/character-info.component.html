@@ -1,4 +1,73 @@
+<div class="character-card">
+  <!-- Header with Character Image -->
+  <div class="card-header-custom">
+    <div class="avatar-container">
+      <img [src]="characterSelected?.image" class="avatar-image" [alt]="characterSelected?.name" />
+    </div>
 
+    <h2 class="profile-title">{{ characterSelected?.name }}</h2>
+    <span class="status-badge" *ngIf="characterSelected as character"
+      [ngClass]="'status-' + character.status!.toLowerCase()">
+      {{ character.status | translaterCharacterInfo }}
+    </span>
+
+  </div>
+
+  <!-- Body with Character Information -->
+  <div class="card-body-custom">
+    <h5 class="section-title">Información del personaje</h5>
+
+    <ul class="profile-info-list">
+      <li class="info-item">
+        <i class="fas fa-user info-icon"></i>
+        <span class="info-label">Nombre:</span>
+        <div class="info-value">{{ characterSelected?.name }}</div>
+      </li>
+
+      <li class="info-item">
+        <i class="fas fa-dna info-icon"></i>
+        <span class="info-label">Especie:</span>
+        <div class="info-value">{{ characterSelected?.species }}</div>
+      </li>
+
+      <li class="info-item">
+        <i class="fas fa-venus-mars info-icon"></i>
+        <span class="info-label">Género:</span>
+        <div class="info-value">{{ characterSelected?.gender | translaterCharacterInfo }}</div>
+      </li>
+
+      <li class="info-item">
+        <i class="fas fa-heartbeat info-icon"></i>
+        <span class="info-label">Status:</span>
+        <div class="info-value">
+          <span *ngIf="characterSelected as character" class="status-text"
+            [ngClass]="'status-' + character.status.toLowerCase()">
+            {{ character.status | translaterCharacterInfo }}
+          </span>
+        </div>
+      </li>
+
+      <li class="info-item">
+        <i class="fas fa-globe-americas info-icon"></i>
+        <span class="info-label">Origen:</span>
+        <div class="info-value">
+          <a class="link-primary">{{ characterSelected?.origin?.name }}</a>
+        </div>
+      </li>
+
+      <li class="info-item">
+        <i class="fas fa-map-marker-alt info-icon"></i>
+        <span class="info-label">Ubicación:</span>
+        <div class="info-value">
+          <a class="link-primary">{{ characterSelected?.location?.name }}</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- 
 
 <div class="card bg-dark text-white border-secondary">
 
@@ -33,4 +102,4 @@
 
 </div>
 
-</div>
+</div> -->

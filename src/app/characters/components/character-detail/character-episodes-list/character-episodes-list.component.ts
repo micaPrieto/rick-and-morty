@@ -10,7 +10,8 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-character-episodes-list',
   imports: [CommonModule,RouterLink],
-  templateUrl: './character-episodes-list.component.html'
+  templateUrl: './character-episodes-list.component.html',
+    styleUrl: './character-episodes-list.component.css'
 })
 export class CharacterEpisodesListComponent implements OnInit, OnDestroy {
 
@@ -21,7 +22,7 @@ episodes: Episode[] | null = null;
 
 
   showAll: boolean = false;
-  initialDisplayCount: number = 5;
+  initialDisplayCount: number = 9;
 
   constructor(
     private charactersService: CharactersService

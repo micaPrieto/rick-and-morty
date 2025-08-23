@@ -9,20 +9,18 @@
    }
    @else
    {
-    <div class="row mt-4">
+     <div class="row mt-4 equal-height-row">
+      <!-- Información del personaje. Columna izquierda -->
+      <div class="col-md-4 equal-height-col">
+        <app-character-info class="equal-height-card"></app-character-info>
+      </div>
 
-         <!-- Información del peronaje. Comlumna derecha -->
-          <div class="col-md-4">
-              <app-character-info></app-character-info>
-          </div>
-
-          <!-- Lista de episodios. Recuadro izquierdo-->
-          <div class="col-md-8">
-            <app-character-episodes-list></app-character-episodes-list>
-          </div>
-
+      <!-- Lista de episodios. Columna derecha -->
+      <div class="col-md-8 equal-height-col">
+        <app-character-episodes-list class="equal-height-card"></app-character-episodes-list>
+      </div>
     </div>
+
    }
 
 </div>
-

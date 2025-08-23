@@ -159,9 +159,6 @@ app-footer {
 
 
 
-
-
-
 /* -------------------- FLOATING-BAR/BREADCRUMB -------------------- */
 
 .breadcrumb-custom {
@@ -647,7 +644,7 @@ app-footer {
   }
 }
 
-/* Estilo 5: Botón con efecto glassmorphism (tu elección) */
+/*  Botón con efecto glassmorphism  */
 .btn-remove-glass {
   background: rgba(229, 62, 62, 0.1);
   backdrop-filter: blur(10px);
@@ -689,11 +686,83 @@ app-footer {
 }
 
 
-
-
-
 /* ------------------ FOOTER  ---------------------- */
+
+
 footer {
   background: linear-gradient(135deg, #121316 0%, #262f52 100%) !important
 }
+
+
+
+
+
+/*--------- === SOLUCIÓN SIMPLE PARA IGUALAR ALTURA === ------*/
+
+.equal-height-row {
+  align-items: stretch !important;
+}
+
+.equal-height-col {
+  display: flex !important;
+}
+
+.equal-height-card {
+  width: 100% !important;
+}
+
+/* Para character-info - mantener estilos existentes y agregar altura */
+app-character-info .character-card {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+app-character-info .card-body-custom {
+  flex: 1 !important;
+}
+
+/* Para episodes-list - usar la clase .card existente */
+app-character-episodes-list .card {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+app-character-episodes-list .card-body {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+app-character-episodes-list .list-unstyled {
+  flex: 1 !important;
+}
+
+/* === RESPONSIVE FIXES === */
+@media (max-width: 767.98px) {
+  /* Desactivar flexbox en móviles */
+  .equal-height-col {
+    display: block !important;
+  }
+  
+  app-character-info .character-card,
+  app-character-episodes-list .card {
+    height: auto !important;
+    display: block !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  app-character-info .card-body-custom,
+  app-character-episodes-list .card-body {
+    flex: none !important;
+    display: block !important;
+  }
+  
+  app-character-episodes-list .list-unstyled {
+    flex: none !important;
+  }
+}
+
+
 

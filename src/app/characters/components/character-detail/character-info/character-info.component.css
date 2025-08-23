@@ -168,7 +168,8 @@
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .character-card {
-    margin: 1rem !important;
+    margin: 0rem !important;
+    margin-bottom: 1rem !important;
     border-radius: 12px !important;
   }
   

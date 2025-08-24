@@ -52,4 +52,9 @@ ng serve --o
 Abrir en http://localhost:4200/
 
 ### 4. Configurar el backend
+Para que el frontend funcione correctamente, el backend debe estar corriendo en NestJS. Configura la URL base de la API en environment.ts.
+
+
+
+Desarrollado por Micaela Prieto
 

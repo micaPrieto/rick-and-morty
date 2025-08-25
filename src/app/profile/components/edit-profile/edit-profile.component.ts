@@ -264,11 +264,10 @@ export default class ProfileEditComponent  implements OnInit{
     return addressFields.every(field => !address[field] || address[field].trim() === '');
   }
 
-    openSnackBar(message: string, action: string, panelClass: string) {
+  openSnackBar(message: string, action: string, panelClass: string) {
       this.snackBar.open(message, action, {
       duration: 3000,
       panelClass: panelClass
     });
   }
-
 }

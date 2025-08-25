@@ -1,6 +1,11 @@
 <nav aria-label="breadcrumb" class="mb-4 mx-5">
-  <ol class="breadcrumb-custom bg-dark p-3 rounded-3 shadow-sm border" style="background: linear-gradient(135deg, #121316 0%, #262f52 100%) !important; border-color: #303031 !important;">
-
+  <ol
+    class="breadcrumb-custom bg-dark p-3 rounded-3 shadow-sm border"
+    style="
+      background: linear-gradient(135deg, #121316 0%, #262f52 100%) !important;
+      border-color: #303031 !important;
+    "
+  >
     <!-- Home -->
     <li class="breadcrumb-item-custom">
       <a
@@ -24,7 +29,10 @@
       >
         <i class="fas fa-users me-2"></i>Personajes
       </a>
-      <i *ngIf="actualCharacter?.name" class="fas fa-chevron-right breadcrumb-separator ms-2 me-2"></i>
+      <i
+        *ngIf="actualCharacter?.name"
+        class="fas fa-chevron-right breadcrumb-separator ms-2 me-2"
+      ></i>
     </li>
 
     <!-- Episodios (solo si estamos en ruta de episodios) -->
@@ -37,7 +45,10 @@
       >
         <i class="fas fa-tv me-2"></i>Episodios
       </a>
-      <i *ngIf="actualEpisode?.name" class="fas fa-chevron-right breadcrumb-separator ms-2 me-2"></i>
+      <i
+        *ngIf="actualEpisode?.name"
+        class="fas fa-chevron-right breadcrumb-separator ms-2 me-2"
+      ></i>
     </li>
 
     <!-- Personaje específico (solo si existe y estamos en characters) -->
@@ -62,5 +73,15 @@
       </span>
     </li>
 
+    <!-- Perfil (solo si estamos en ruta de perfil) -->
+    <li
+      *ngIf="isProfileRoute"
+      class="breadcrumb-item-custom active"
+      aria-current="page"
+    >
+      <span class="breadcrumb-current">
+        <i class="fas fa-user-circle me-2"></i>Mi Perfil
+      </span>
+    </li>
   </ol>
 </nav>

@@ -20,7 +20,6 @@ export class FloatingBarComponent implements OnInit {
   actualCharacter: Character | null = null;
   actualEpisode: Episode | null = null;
 
-  private subscription!: Subscription;
   private subscriptionCharacter!: Subscription;
   private subscriptionEpisode!: Subscription;
 
@@ -49,6 +48,10 @@ export class FloatingBarComponent implements OnInit {
 
   get isEpisodeRoute(): boolean {
     return this.router.url.includes('/episodes');
+  }
+
+  get isProfileRoute(): boolean {
+    return this.router.url.includes('/profile');
   }
 
   ngOnDestroy(): void {

@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile-info',
@@ -15,7 +16,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     RouterLink,
     MatButtonModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   templateUrl: './profile-info.component.html',
   styleUrl: './profile-info.component.css'
@@ -25,7 +27,8 @@ export class ProfileInfoComponent  {
   showImageInput = false;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+     private snackBar : MatSnackBar,
   ) {}
 
   onFileSelected(event: Event) {
@@ -36,10 +39,11 @@ export class ProfileInfoComponent  {
 
     this.userService.uploadProfileImage(file).subscribe({
       next: () => {
-        alert('Imagen subida con éxito');
+
+        this.openSnackBar('Imagen subida con éxito', 'Cerrar','snackbar-success');
         this.showImageInput = false;
       },
-      error: () => alert('Ha ocurrido un error al subir la imagen'),
+      error: () =>this.openSnackBar('Ha ocurrido un error al subir la imagen', 'Cerrar','snackbar-error'),
     });
   }
 
@@ -95,6 +99,13 @@ export class ProfileInfoComponent  {
     // Usar el pipe de fecha directamente
     const date = new Date(birthday);
     return date.toLocaleDateString('es-ES'); // Formato español: dd/mm/aaaa
+  }
+
+  openSnackBar(message: string, action: string, panelClass: string) {
+      this.snackBar.open(message, action, {
+       duration: 3000,
+       panelClass: panelClass
+      });
   }
 
 

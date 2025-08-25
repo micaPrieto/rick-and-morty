@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Comment } from "../interfaces/commet.interface";
 import { environment } from "../../../environments/environment";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 
 
@@ -17,7 +18,7 @@ export class CommentsService {
   isError = new BehaviorSubject<string | null>(null);
   commentsEnabled = new BehaviorSubject<boolean>(true);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private snackBar : MatSnackBar,) {}
 
   // Cargar comentarios de un episodio
   getComments(episodeId: number): void {
@@ -70,10 +71,12 @@ export class CommentsService {
           this.comments.next(updated);
           localStorage.setItem('comments', JSON.stringify(updated));
           console.log('Comentario agregado correctamente: ', comment);
+           this.openSnackBar('Comentario agregado correctamente', 'Cerrar','snackbar-success');
         },
         error: (err) => {
           console.error('Error al agregar comentario:', err);
           this.isError.next('No se pudo agregar el comentario');
+          this.openSnackBar('Error al agregar comentario', 'Cerrar','snackbar-error');
         }
       });
   }
@@ -193,6 +196,14 @@ export class CommentsService {
         }
       });
   }
+
+    openSnackBar(message: string, action: string, panelClass: string) {
+      this.snackBar.open(message, action, {
+       duration: 3000,
+       panelClass: panelClass
+      });
+  }
+
 
   /*
   editComment(commentId: string, comment: string): void {

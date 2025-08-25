@@ -39,8 +39,8 @@ export class ProfileInfoComponent  {
 
     this.userService.uploadProfileImage(file).subscribe({
       next: () => {
-        alert('Imagen subida con éxito');
-         this.openSnackBar('Imagen subida con éxito', 'Cerrar','snackbar-success');
+
+        this.openSnackBar('Imagen subida con éxito', 'Cerrar','snackbar-success');
         this.showImageInput = false;
       },
       error: () =>this.openSnackBar('Ha ocurrido un error al subir la imagen', 'Cerrar','snackbar-error'),

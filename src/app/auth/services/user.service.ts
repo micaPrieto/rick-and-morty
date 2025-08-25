@@ -110,7 +110,7 @@ export class UserService {
   }
 
 
-  //! NO GUARDAR EN EL LOCAL STORAGE , SOLO SERVICIO
+  //TODO:  NO GUARDAR EN EL LOCAL STORAGE , SOLO SERVICIO
   getFavoriteEpisodesByIds(episodeIds: string[]): void {
     const episodeRequests = episodeIds.map(id =>
       this.episodesService.getEpisodeById$(id)

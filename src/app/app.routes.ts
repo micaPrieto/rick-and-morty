@@ -41,9 +41,8 @@ export const routes: Routes = [
     },
   {
     path: '',
-    loadComponent : () => import ('./shared/pages/home-page/home-page.component'),
-    pathMatch: 'full', // Solo redirige si la URL está completamente vacía
-    canActivate:  [AuthenticatedGuard]
+    redirectTo: 'characters',
+     pathMatch: 'full', // Solo redirige si la URL está completamente vacía
   },
   {
     path: 'not-found',
